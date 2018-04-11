@@ -4,7 +4,8 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        <h1>Embeddit</h1>
+        {/*{this.props.children}*/}
       </div>
     );
   }
