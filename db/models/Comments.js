@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = require('./index');
+const db = require('../index');
 
 var commentSchema = mongoose.Schema({
     parentId: { type: String, required: true },

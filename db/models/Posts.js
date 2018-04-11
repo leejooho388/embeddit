@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = require('./index');
+const db = require('../index');
 
 var postSchema = mongoose.Schema({
   authorId: { type: String, required: true },

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = require('./index');
+const db = require('../index');
 
 // Make sub schemas for postId and commentId
 var postId = mongoose.Schema();
