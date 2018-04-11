@@ -3,7 +3,8 @@ const db = require('./index');
 
 var subredditSchema = mongoose.Schema({
   name: { type: String, required: true },
-  subscriberCount: Number
+  subscriberCount: Number,
+  description: String
 });
 
 var Subreddit = db.model('Subreddit', subredditSchema);
