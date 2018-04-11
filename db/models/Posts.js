@@ -8,12 +8,18 @@ var postSchema = mongoose.Schema({
   type: String, // 'url', 'media', or 'text'
   url: String,
   media: String,
-  text: String
+  text: String,
+  voteHistoryUser: {},
   },
   {
     timestamps: true
   }
 );
+
+// voteHistoryUser
+// { key: UserId
+//   value: Boolean // True if upvote, false if downvote
+// }
 
 var Post = db.model('Post', postSchema);
 

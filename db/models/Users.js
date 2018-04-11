@@ -15,14 +15,8 @@ var userSchema = mongoose.Schema({
   postKarma: Number,
   commentKarma: Number,
   subredditIds: [{ type: String }],
-  voteHistoryPost: {},
   voteHistoryComment: {}
 });
-
-// voteHistoryPost
-// { key: postId
-//   value: Boolean // True if upvote, false if downvote
-// }
 
 // voteCommentPost
 // { key: commentId
