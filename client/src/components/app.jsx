@@ -11,6 +11,8 @@ export default class App extends Component {
         <NavHead />
         <Head2 />
         <Content />
+        {/*{this.props.children}*/}
+        <Subreddits />
       </div>
     );
   }
