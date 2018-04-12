@@ -18,12 +18,12 @@ class Content extends Component {
         return (
           <Grid key={i}>
             <Grid.Row>
-              <Grid.Column width={1} verticalAlign='middle' textAlign='center'>
+              <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
                 {i + 1}
               </Grid.Column>
         
-              <Grid.Column width={1}>
+              <Grid.Column width={1} floated='left'>
                 <Grid celled='internally'>
                   <Grid.Row centered={true}>
                     <Icon name='arrow up' size='large' color='grey'/> 

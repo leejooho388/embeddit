@@ -12,7 +12,7 @@ class NavHead extends Component {
   render () {
     return (
       <div>
-        <Menu fixed='top' inverted>
+        <Menu fixed='top' inverted color='light grey' fitted='vertically'>
           <Container>
             <Dropdown item simple text='MY SUBREDDIT'>
               <Dropdown.Menu>
