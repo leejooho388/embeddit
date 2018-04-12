@@ -1,47 +1,37 @@
-import React from 'react'
-import { Feed, Icon } from 'semantic-ui-react'
+import React from 'react';
+import { Icon, Grid } from 'semantic-ui-react';
 
 const Content = () => (
-  // <Feed>
-  //   <Feed.Event> 1
-  //     <Feed.Label>
-  //       {/* <img src='./../../upvoteArrow.png'/> */}
-  //     </Feed.Label>
-  //     <Feed.Content>
-  //       <Feed.Summary>
-  //         <Feed.Date>submitted 1 Hour Ago by </Feed.Date>
-  //         <Feed.User>Elliot Fu</Feed.User>
-  //       </Feed.Summary>
-  //       <Feed.Meta>
-  //         <Feed.Like>
-  //           4 Likes
-  //         </Feed.Like>
-  //       </Feed.Meta>
-  //     </Feed.Content>
-  //   </Feed.Event>
+  <Grid>
+    <Grid.Row textAlign='center'>
+      <Grid.Column width={1} verticalAlign='middle'>
+      {/* post count */}
+        1
+      </Grid.Column>
 
-  // </Feed>
-  <div class="ui celled grid">
-    <div class="row">
-      <div class="three wide column">
-        <img>
-      </div>
-    <div class="thirteen wide column">
-      <p></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="three wide column">
-      <img>
-    </div>
-    <div class="ten wide column">
-      <p></p>
-    </div>
-    <div class="three wide column">
-      <img>
-    </div>
-  </div>
-</div>
+      <Grid.Column width={1}>
+        <Grid celled='internally'>
+          <Grid.Row>
+            <Icon name='arrow up' size='big'/> 
+          </Grid.Row>
+          {/* Vote count */}
+          <Grid.Row centered='true'>123456</Grid.Row>
+          <Grid.Row>
+            <Icon name='arrow down' size='big'/>
+          </Grid.Row>
+        </Grid>
+      </Grid.Column>
+
+      <Grid.Column width={14}>
+        <Grid>
+          {/* post title */}
+          <Grid.Row>YouTube has officially changed the URL of Rick Atley's "Never Gonna Give You Up" to include "gIveyouUP"</Grid.Row>
+          {/* post info */}
+          <Grid.Row>submitted 'blank hours' ago by 'username'</Grid.Row>
+        </Grid>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 )
 
 export default Content;
