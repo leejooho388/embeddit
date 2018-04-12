@@ -38,15 +38,15 @@ class Content extends Component {
         
               <Grid.Column width={1} verticalAlign='middle'>
                 {post.type === 'video' ?
-                    <Icon name='video' size='big'/>
+                    <a href={post.url}><Icon name='video' size='big'/></a>
                     :
                     post.type === 'image' ?
-                      <Icon name='picture' size='big'/>
+                    <a href={post.url}><Icon name='picture' size='big'/></a>
                       :
                       post.type === 'text' ?
-                        <Icon name='file text outline' size='big'/> 
+                      <a href={post.url}><Icon name='file text outline' size='big'/></a>
                         :
-                        <Icon name='linkify' size='big'/> 
+                        <a href={post.url}><Icon name='linkify' size='big'/></a> 
                         
                 }
               </Grid.Column>
@@ -54,7 +54,7 @@ class Content extends Component {
               <Grid.Column width={13}>
                 <Grid>
                   {/* post title */}
-                  <Grid.Row>{post.title}</Grid.Row>
+                  <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
                   {/* post info */}
                   <Grid.Row>comment(s) submitted 'blank hours' ago by {post.authorName} to {post.subredditName}</Grid.Row>
                 </Grid>
