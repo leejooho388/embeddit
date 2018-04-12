@@ -10,19 +10,29 @@ var commentId = mongoose.Schema({
 });
 
 var userSchema = mongoose.Schema({
-  username: { type: String, required: true },
+  username: { type: String, unique: true, required: true },
   password: { type: String, required: true},
-  postKarma: Number,
-  commentKarma: Number,
-  subredditIds: [{ type: String }],
-  voteHistoryComment: {}
+  postKarma: { type: Number, default: 0 },
+  commentKarma: { type: Number, default: 0 },
+  subredditIds: [{ type: String }]
 });
+
+// voteHistoryComment: {}
 
 // voteCommentPost
 // { key: commentId
 //   value: Boolean // True if upvote, false if downvote
 // }
 
+
 var User = db.model('User', userSchema);
+
+User.createUser = (user) => {
+
+};
+
+User.checkLogin = (user) => {
+
+};
 
 module.exports = User;
