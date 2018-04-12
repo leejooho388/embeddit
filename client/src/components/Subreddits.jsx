@@ -35,7 +35,7 @@ export default class Subreddits extends Component {
   
   render() {
     return (
-      <Grid celled>
+      <Grid>
         Subreddits:
         {this.state.subreddits.map(function(subreddit){
           return (

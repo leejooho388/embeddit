@@ -19,7 +19,6 @@ var getSubreddit = function(req, res){
 };
 
 var postSubreddit = function(req, res){
-  console.log(req.body);
   new Subreddit({
     name: req.body.name,
     subscriberCount: 0,
@@ -34,6 +33,17 @@ var postSubreddit = function(req, res){
   });
 };
 
+// DATA SHOULD INCLUDE: name (name of subreddit), change (increment number)
+var subscribe = function(req, res){
+  Meme.findOneAndUpdate({name: req.body.name}, {$inc : {'subscriberCount' : req.body.change }}).exec(function(err, response){
+    if(err){
+      return res.send(err);
+    }
+    res.end();
+  });
+};
+
 module.exports.getSubreddit = getSubreddit;
 module.exports.getQuerySubreddit = getQuerySubreddit;
 module.exports.postSubreddit = postSubreddit;
+module.exports.subscribe = subscribe;
