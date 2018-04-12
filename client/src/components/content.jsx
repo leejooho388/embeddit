@@ -9,11 +9,12 @@ const Content = () => (
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>Elliot Fu</Feed.User> added you as a friend
-          <Feed.Date>1 Hour Ago</Feed.Date>
+          <Feed.Date>submitted 1 Hour Ago by </Feed.Date>
+          <Feed.User>Elliot Fu</Feed.User>
         </Feed.Summary>
         <Feed.Meta>
           <Feed.Like>
+            
             <Icon name='like' />
             4 Likes
           </Feed.Like>
