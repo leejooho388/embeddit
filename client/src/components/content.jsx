@@ -5,7 +5,7 @@ const Content = () => (
   <Feed>
     <Feed.Event> 1
       <Feed.Label>
-        <img src='./../../upvoteArrow.png'/>
+        {/* <img src='./../../upvoteArrow.png'/> */}
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>

@@ -4,9 +4,10 @@ import Content from "./content.jsx";
 
 class Home extends Component {
   constructor(props) {
-    super(props), (this.state = {
+    super(props),
+    this.state = {
 
-    });
+    };
   }
 
   render() {
