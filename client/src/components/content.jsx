@@ -17,8 +17,8 @@ class Content extends Component {
       {this.state.posts.map((post, i) => {
         return (
           <Grid key={i}>
-            <Grid.Row textAlign='center'>
-              <Grid.Column width={1} verticalAlign='middle'>
+            <Grid.Row>
+              <Grid.Column width={1} verticalAlign='middle' textAlign='center'>
               {/* post count */}
                 {i + 1}
               </Grid.Column>
@@ -36,7 +36,22 @@ class Content extends Component {
                 </Grid>
               </Grid.Column>
         
-              <Grid.Column width={14}>
+              <Grid.Column width={1} verticalAlign='middle'>
+                {post.type === 'video' ?
+                    <Icon name='video' size='big'/>
+                    :
+                    post.type === 'image' ?
+                      <Icon name='picture' size='big'/>
+                      :
+                      post.type === 'text' ?
+                        <Icon name='file text outline' size='big'/> 
+                        :
+                        <Icon name='linkify' size='big'/> 
+                        
+                }
+              </Grid.Column>
+
+              <Grid.Column width={13}>
                 <Grid>
                   {/* post title */}
                   <Grid.Row>{post.title}</Grid.Row>
