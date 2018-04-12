@@ -1,8 +1,7 @@
-
 const examplePosts = [
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'YouTube has officially changed the URL of Rick Atley\'s "Never Gonna Give You Up" to include "gIveyouUP"',
     voteCount: 0,
     type: 'url',
@@ -12,8 +11,8 @@ const examplePosts = [
   },
 
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'Chrome now automatically cleans up messy URLs when you share them',
     voteCount: 0,
     type: 'url',
@@ -23,8 +22,8 @@ const examplePosts = [
   },
   
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'Stairway to Metropolis',
     voteCount: 0,
     type:'image',
@@ -34,8 +33,8 @@ const examplePosts = [
   },
   
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'Everytime the staff at Conan does something fireable',
     voteCount: 0,
     type: 'video',
@@ -45,8 +44,8 @@ const examplePosts = [
   },
   
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'Why does Africa never win the Olympics?',
     voteCount: 0,
     type: 'text',
@@ -56,8 +55,8 @@ const examplePosts = [
   },
   
   {
-    author_id:
-    subreddit_id:
+    authorName:
+    subredditName:
     title: 'Guy : Doctor, my Girlfriend is pregnant but we always use protection and the rubber never broke. How is it possible?',
     voteCount: 0,
     type: 'text',
