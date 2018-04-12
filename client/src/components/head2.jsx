@@ -1,11 +1,20 @@
-import React from 'react'
-import { Header, Image } from 'semantic-ui-react'
-import rIcon from '../../../images/arrows.png'
+import React from "react";
+import { Header, Image, Segment} from "semantic-ui-react";
+import rIcon from "../../../images/reddit_logo.png";
 
 const Head2 = () => (
-  <Header as='h3' block>
-    <Image src={ rIcon } size='tiny' verticalAlign='bottom'/> <span>Bottom Aligned</span>
+  <Header id="head2" as="h3" block>
+    <Image src={rIcon} size="tiny" verticalAlign="bottom" />
+    <span>
+      <div id="head2text" >
+        <Segment.Group horizontal>
+          <Segment>Username</Segment>
+          <Segment>Karma</Segment>
+          <Segment>Logout</Segment>
+        </Segment.Group>
+      </div>
+    </span>
   </Header>
-)
+);
 
-export default Head2
+export default Head2;
