@@ -1,32 +1,27 @@
-import React, { Component } from "react";
+import React from 'react'
+import { Feed, Icon } from 'semantic-ui-react'
 
-class Content extends Component {
-  render() {
-    return (
-      <div className="content">
-        <div id="siteTable" className="sitetable linklisting">
+const Content = () => (
+  <Feed>
+    <Feed.Event> 1
+      <Feed.Label>
+        <img src='./../../upvoteArrow.png'/>
+      </Feed.Label>
+      <Feed.Content>
+        <Feed.Summary>
+          <Feed.User>Elliot Fu</Feed.User> added you as a friend
+          <Feed.Date>1 Hour Ago</Feed.Date>
+        </Feed.Summary>
+        <Feed.Meta>
+          <Feed.Like>
+            <Icon name='like' />
+            4 Likes
+          </Feed.Like>
+        </Feed.Meta>
+      </Feed.Content>
+    </Feed.Event>
 
-
-
-
-
-          <div class="nav-buttons">
-            <span class="nextprev">
-              view more:{" "}
-              <span class="next-button">
-                <a
-                  href="https://www.reddit.com/?count=25&amp;after=t3_8bgucr"
-                  rel="nofollow next"
-                >
-                  next ›
-                </a>
-              </span></span>
-          </div>
-
-        </div>
-      </div>
-    );
-  }
-}
+  </Feed>
+)
 
 export default Content;
