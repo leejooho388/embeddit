@@ -1,3 +1,4 @@
+<<<<<<< fc33684fb08f94202e66396dfe4bab9fea362f44
 <<<<<<< 132a5000b7dd356544e9d322a2e6b2d2886fa4d3
 #head2 {
   background-color: #cce2f7;
@@ -32,3 +33,9 @@
   color: red !important;
 }
 >>>>>>> WIP Semantic displaying properly
+=======
+#postTab .ui.segment.active.tab {
+  width: 37%;
+  background-color: blue;
+}
+>>>>>>> Completed post request to successfully save to mongo and UI now mostly complete
