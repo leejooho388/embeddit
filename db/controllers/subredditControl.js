@@ -19,6 +19,7 @@ var getSubreddit = function(req, res){
 };
 
 var postSubreddit = function(req, res){
+  console.log(req.body);
   new Subreddit({
     name: req.body.name,
     subscriberCount: 0,
@@ -26,7 +27,7 @@ var postSubreddit = function(req, res){
   }).save(function(err){
     if(err){
       console.log(err);
-      return res.end();
+      return res.end('error');
     }
 
     res.end();

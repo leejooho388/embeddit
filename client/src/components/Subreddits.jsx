@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Segment, Grid } from 'semantic-ui-react'
 
 export default class Subreddits extends Component {
   constructor(props){
@@ -34,20 +35,23 @@ export default class Subreddits extends Component {
   
   render() {
     return (
-      <div>
-        <div>
-          Create Subreddit
-        </div>
+      <Grid celled>
+        Subreddits:
         {this.state.subreddits.map(function(subreddit){
           return (
-          <span key={subreddit._id}>
-            <h1>{subreddit.name}</h1>
-            <p>{subreddit.description}</p>
-            <p>Subscriber Count: {subreddit.subscriberCount}</p>
-          </span>
+          <Grid.Row key={subreddit._id}>
+            <Grid.Column width={3}>
+              Subscribe
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <h1>{subreddit.name}</h1>
+              <p>Description: {subreddit.description}</p>
+              <p>Subscriber Count: {subreddit.subscriberCount}</p>
+            </Grid.Column>
+          </Grid.Row>
           );
         })}
-      </div>
+      </Grid>
     );
   }
 }

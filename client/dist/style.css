@@ -6,3 +6,6 @@
 #head2text {
   float: right;
 }
+.subredditInput{
+  width: 300px;
+}
