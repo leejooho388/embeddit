@@ -1,38 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Icon, Grid } from 'semantic-ui-react';
+import data from '../../../exampleData/examplePosts.js';
 
-const Content = () => (
-  <Grid>
-    <Grid.Row textAlign='center'>
-      <Grid.Column width={1} verticalAlign='middle'>
-      {/* post count */}
-        1
-      </Grid.Column>
+class Content extends Component {
+  constructor(props) {
+    super(props),
+    this.state = {
+      //posts will be an array
+      posts: data.examplePosts
+    }
+  }
 
-      <Grid.Column width={1}>
-        <Grid celled='internally'>
-          <Grid.Row>
-            <Icon name='arrow up' size='big'/> 
-          </Grid.Row>
-          {/* Vote count */}
-          <Grid.Row centered='true'>123456</Grid.Row>
-          <Grid.Row>
-            <Icon name='arrow down' size='big'/>
-          </Grid.Row>
-        </Grid>
-      </Grid.Column>
-
-      <Grid.Column width={14}>
-        <Grid>
-          {/* post title */}
-          <Grid.Row>YouTube has officially changed the URL of Rick Atley's "Never Gonna Give You Up" to include "gIveyouUP"</Grid.Row>
-          {/* post info */}
-          <Grid.Row>submitted 'blank hours' ago by 'username'</Grid.Row>
-        </Grid>
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
-)
+  render() {
+    return(
+      <div>
+      {this.state.posts.map((post, i) => {
+        return (
+          <Grid key={i}>
+            <Grid.Row textAlign='center'>
+              <Grid.Column width={1} verticalAlign='middle'>
+              {/* post count */}
+                {i + 1}
+              </Grid.Column>
+        
+              <Grid.Column width={1}>
+                <Grid celled='internally'>
+                  <Grid.Row centered={true}>
+                    <Icon name='arrow up' size='large' color='grey'/> 
+                  </Grid.Row>
+                  {/* Vote count */}
+                  <Grid.Row centered={true}>{post.voteCount}</Grid.Row>
+                  <Grid.Row centered={true}>
+                    <Icon name='arrow down' size='large' color='grey'/>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+        
+              <Grid.Column width={14}>
+                <Grid>
+                  {/* post title */}
+                  <Grid.Row>{post.title}</Grid.Row>
+                  {/* post info */}
+                  <Grid.Row>comment(s) submitted 'blank hours' ago by {post.authorName} to {post.subredditName}</Grid.Row>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        )
+      })}
+      </div>
+    );
+  }
+}
 
 export default Content;
 
