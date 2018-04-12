@@ -3,6 +3,7 @@ import Content from './content.jsx';
 import NavHead from './navHead.jsx';
 import Head2 from './head2.jsx';
 
+import Post from './Post.jsx'
 export default class App extends Component {
   render() {
     return (
@@ -11,6 +12,8 @@ export default class App extends Component {
         <NavHead />
         <Head2 />
         {/* <Content /> */}
+        <Post />
+        {/*{this.props.children}*/}
       </div>
     );
   }

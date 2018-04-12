@@ -1,3 +1,4 @@
+<<<<<<< 132a5000b7dd356544e9d322a2e6b2d2886fa4d3
 #head2 {
   background-color: #cce2f7;
   overflow: auto;
@@ -26,3 +27,8 @@
 .subredditGridSubscribe{
   min-width: 60px;
 }
+=======
+.ui.input input {
+  color: red !important;
+}
+>>>>>>> WIP Semantic displaying properly
