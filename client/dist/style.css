@@ -6,3 +6,23 @@
 #head2text {
   float: right;
 }
+.subredditInput{
+  width: 37%;
+}
+
+.subredditGrid{
+  width: 70%;
+  margin-left: 20px;
+}
+
+.subscriberCount{
+  font-size: 8px;
+}
+
+.subredditHeader{
+  height: 17%;
+}
+
+.subredditGridSubscribe{
+  min-width: 60px;
+}
