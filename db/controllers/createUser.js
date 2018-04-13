@@ -1,10 +1,9 @@
 const Users = require('../models/Users');
 const bcrypt = require('bcrypt');
-const { createSession } = require('../../client/utils/sessionHelper');
 
 const saltRounds = 10;
 
-module.exports = (req, res) => {
+module.exports = (req, res, cb) => {
 
   Users.findOne({ username: req.body.username }, (err, user) => {
     if (user) {
@@ -18,7 +17,6 @@ module.exports = (req, res) => {
 
           // defaultSRs: askreddit, worldnews, videos, funny, todayilearned, pics
 
-
           Users.create({
               username: req.body.username,
               password: hash,
@@ -26,10 +24,11 @@ module.exports = (req, res) => {
             if (err) {
               res.status(500).send(err.message);
             } else {
-              createSession(req, res, newUser);
+              cb(newUser);
             }
           });
       });
     }
   });
 };
+

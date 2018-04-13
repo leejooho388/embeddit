@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const subredditController = require('../../db/controllers/subredditControl.js');
+const jwt = require('jsonwebtoken');
 
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
@@ -12,24 +13,25 @@ const passport = require('passport');
 
 const createUser = require('../../db/controllers/createUser');
 
-// old express-session auth
-// const { checkUser, logOut } = require('../../client/utils/sessionHelper');
-
 router.post('/login', passport.authenticate('local',
-  { successRedirect: '/'
-    // failureFlash: true,
-  }), (req, res) => {
-  console.log('here', req.body.username);
-  console.log('here', req.body.password);
+  { session: false }), (req, res) => {
+
+  const token = jwt.sign({ user: req.user}, 'your_jwt_secret', { expiresIn: '7 days' });
+
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header('auth', JSON.stringify({ token: token }));
   res.status(200).end();
-  // res.header("Access-Control-Allow-Headers","*")
-  // res.header('auth', JSON.stringify({ token: token})
 });
 
-router.post('/signup', createUser);
+router.post('/signup', (req, res) => {
+  createUser(req, res, user => {
+    const token = jwt.sign({ user: user}, 'your_jwt_secret', { expiresIn: '7 days' });
 
-// old logout
-// router.get('/logout', logOut);
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header('auth', JSON.stringify({ token: token }));
+    res.status(200).end();
+  });
+});
 
 // Passport logout
 router.get('/logout', function(req, res){
@@ -46,17 +48,6 @@ module.exports = router;
 // jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
 //   // decoded is json
 // });
-
-
-
-
-// localStorage.setItem('token', token);
-
-// must put jwt in http headers
-// res.header("Access-Control-Allow-Headers","*")
-// res.header('auth', JSON.stringify({ token: token})
-
-
 
 
 

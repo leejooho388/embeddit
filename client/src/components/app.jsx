@@ -13,9 +13,9 @@ export default class App extends Component {
       <div>
         <NavHead />
         <Head2 />
+        <LogIn />
         <Post />
         <Content />
-        <LogIn />
       </div>
     );
   }

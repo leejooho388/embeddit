@@ -24,9 +24,8 @@ app.use(session(
     saveUninitialized: true
   }));
 app.use(passport.initialize());
-// app.use(passport.session());
 
-passport.use(new LocalStrategy({ session: false }, loginUser));
+passport.use(new LocalStrategy(loginUser));
 
 app.use('/api', routes);
 

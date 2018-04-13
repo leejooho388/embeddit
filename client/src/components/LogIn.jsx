@@ -28,6 +28,10 @@ class LogIn extends Component {
 
     axios.post(`http://localhost:8080/api/${endpoint}`, this.state)
       .then(res => {
+
+        const auth = JSON.parse(res.headers.auth);
+        localStorage.setItem('token', auth.token);
+
         self.setState({
           username: '',
           password: ''
