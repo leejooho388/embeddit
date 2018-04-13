@@ -9,7 +9,7 @@ class LogIn extends Component {
     super();
     this.state = {
       username: '',
-      pw: ''
+      password: ''
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,7 @@ class LogIn extends Component {
       .then(res => {
         self.setState({
           username: '',
-          pw: ''
+          password: ''
         });
       });
   }
@@ -49,11 +49,11 @@ class LogIn extends Component {
             />
             <Form.Input placeholder='password'
                         type="password"
-                        name="pw"
+                        name="password"
                         size="mini"
                         id="login-form-pw"
                         onChange={this.handleInput.bind(this)}
-                        value={this.state.pw}
+                        value={this.state.password}
             />
           </Form.Group>
           <Link to="/signup"><button onClick={this.handleSubmit} id="signup-btn">sign up</button></Link>

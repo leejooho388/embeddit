@@ -8,36 +8,63 @@ const newPost = require('../../db/controllers/postController.js');
 // send to /posts
 router.post('/post', newPost.newPost)
 
+const passport = require('passport');
 
-// const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
-
-const loginUser = require('../../db/controllers/loginUser');
 const createUser = require('../../db/controllers/createUser');
 
-const { checkUser, logOut } = require('../../client/utils/sessionHelper');
+// old express-session auth
+// const { checkUser, logOut } = require('../../client/utils/sessionHelper');
 
-router.post('/login', loginUser);
+router.post('/login', passport.authenticate('local',
+  { successRedirect: '/'
+    // failureFlash: true,
+  }), (req, res) => {
+  console.log('here', req.body.username);
+  console.log('here', req.body.password);
+  res.status(200).end();
+  // res.header("Access-Control-Allow-Headers","*")
+  // res.header('auth', JSON.stringify({ token: token})
+});
 
 router.post('/signup', createUser);
 
-router.get('/logout', logOut);
+// old logout
+// router.get('/logout', logOut);
+
+// Passport logout
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 module.exports = router;
 
-//middleware
-// passport.authenticate('local', { successRedirect: '/', failureFlash: true })
 
-// passport.use(new LocalStrategy((username, password, done) => {
-//     User.findOne({ username: username }, function (err, user) {
-//       if (err) { return done(err); }
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect username.' });
-//       }
-//       if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//       }
-//       return done(null, user);
-//     });
-//   }
-// ));
+
+
+// // verify a token symmetric
+// jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
+//   // decoded is json
+// });
+
+
+
+
+// localStorage.setItem('token', token);
+
+// must put jwt in http headers
+// res.header("Access-Control-Allow-Headers","*")
+// res.header('auth', JSON.stringify({ token: token})
+
+
+
+
+
+
+// app.get('/protected', function(req, res, next) {
+//   passport.authenticate('local', function(err, user, info) {
+//    if (err) { return next(err) }
+//    if (!user) { return res.redirect('/signin') }
+//      res.redirect('/account');
+//    })(req, res, next);
+//  });

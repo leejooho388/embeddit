@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     if (user) {
       res.status(409).send('Username already exists');
     } else {
-      bcrypt.hash(req.body.pw, saltRounds)
+      bcrypt.hash(req.body.password, saltRounds)
         .then(hash => {
 
           // Look up default subreddit id's (should be seeded to db)

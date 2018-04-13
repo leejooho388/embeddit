@@ -5,9 +5,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
-// const passport = require('passport');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const routes = require('./routes/router');
+const loginUser = require('../db/controllers/loginUser');
 
 const PORT = 8080;
 
@@ -21,10 +23,14 @@ app.use(session(
     resave: false,
     saveUninitialized: true
   }));
-// app.use(passport.initialize());
+app.use(passport.initialize());
 // app.use(passport.session());
+
+passport.use(new LocalStrategy({ session: false }, loginUser));
+
 app.use('/api', routes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+
