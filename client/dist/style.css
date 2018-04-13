@@ -1,5 +1,4 @@
-<<<<<<< fc33684fb08f94202e66396dfe4bab9fea362f44
-<<<<<<< 132a5000b7dd356544e9d322a2e6b2d2886fa4d3
+
 #head2 {
   background-color: #cce2f7;
   overflow: auto;
@@ -8,7 +7,6 @@
 #head2text {
   float: right;
 }
-<<<<<<< 887a68468f4679929200bf35c2ad02edea8361a3
 .subredditInput{
   width: 37%;
 }
@@ -29,21 +27,8 @@
 .subredditGridSubscribe{
   min-width: 60px;
 }
-=======
-.ui.input input {
-  color: red !important;
-}
->>>>>>> WIP Semantic displaying properly
-=======
-#postTab .ui.segment.active.tab {
-  width: 37%;
-  background-color: blue;
-}
->>>>>>> Completed post request to successfully save to mongo and UI now mostly complete
-=======
 
 #post {
   padding-left: 10px;
   width: 37%;
 }
->>>>>>> Fixed post form css width and saves to mongo properly
