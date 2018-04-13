@@ -1,6 +1,13 @@
 const router = require('express').Router();
+<<<<<<< HEAD
 const subredditController = require('../../db/controllers/subredditControl.js');
 const jwt = require('jsonwebtoken');
+=======
+const postController_get = require('../../db/controllers/postController_get')
+
+router.route('/posts')
+  .get(postController_get.get);
+>>>>>>> set up get request for posts and pushed in fake post data
 
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
