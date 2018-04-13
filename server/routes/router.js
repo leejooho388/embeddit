@@ -1,12 +1,16 @@
 const router = require('express').Router();
 <<<<<<< HEAD
 const subredditController = require('../../db/controllers/subredditControl.js');
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 =======
 const postController_get = require('../../db/controllers/postController_get')
 
 router.route('/posts')
   .get(postController_get.get);
+>>>>>>> set up get request for posts and pushed in fake post data
+=======
+const postController_get = require('../../db/controllers/postController_get')
 >>>>>>> set up get request for posts and pushed in fake post data
 
 router.get('/subreddit', subredditController.getSubreddit);
@@ -16,6 +20,7 @@ const newPost = require('../../db/controllers/postController.js');
 // send to /posts
 router.post('/post', newPost.newPost)
 
+<<<<<<< HEAD
 const passport = require('passport');
 
 const createUser = require('../../db/controllers/createUser');
@@ -66,3 +71,9 @@ module.exports = router;
 //      res.redirect('/account');
 //    })(req, res, next);
 //  });
+=======
+router.route('/posts')
+  .get(postController_get.get);
+
+module.exports = router;
+>>>>>>> set up get request for posts and pushed in fake post data
