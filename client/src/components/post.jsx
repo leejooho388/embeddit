@@ -9,7 +9,7 @@ export default class Post extends Component {
     this.state = {
       panes: [],
       authorName: 'TeamBackbone',
-      sub: '',
+      subredditName: '',
       type: '',
       url: '',
       media: '',
@@ -30,18 +30,17 @@ export default class Post extends Component {
 
   handleSubmit() {
     const _this = this;
-    let newPost = {
-      authorName: this.state.authorName,
-      subredditName: this.state.sub,
-      title: this.state.title,
-      voteCount: 0,
-      type: 'text',
-      text: this.state.text
-    };
+    let newPost = Object.assign({}, this.state);
+    delete newPost.panes;
+    newPost.voteCount = 0;
+    for (let key in newPost) {
+      (newPost[key] === '') && delete newPost[key]
+    }
+    console.log(newPost)
     axios.post('http://localhost:8080/api/post', newPost)
     .then(function(res) {
       _this.setState({
-        sub: '',
+        subredditName: '',
         url: '',
         title: '',
         text: '',
@@ -74,7 +73,7 @@ export default class Post extends Component {
   onUrl() {
     if (this.state.media === '') {
       return (
-        <Form.Field width='5'>
+        <Form.Field>
           <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
         </Form.Field>
       )
@@ -85,7 +84,7 @@ export default class Post extends Component {
   onMedia() {
     if(this.state.url === '') {
       return (
-        <Form.Field width='5'>
+        <Form.Field>
           <Form.Input id='media' label='image/video'placeholder="Have image/video go here" onChange={this.onChange.bind(this)} value={this.state.media}/>
         </Form.Field> 
       )
@@ -98,18 +97,15 @@ export default class Post extends Component {
       {
         menuItem: 'link', 
         render: () => <Tab.Pane attached={false}>
-          <Form>
-            <Form.Field width='5'><Message content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/></Form.Field>
-            {/* <Form.Field width='5'>
-              <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
-            </Form.Field> */}
+          <Form onSubmit={this.handleSubmit.bind(this)}>
+            <Form.Field><Message content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/></Form.Field>
             {this.onUrl()}
             {this.onMedia()}
-            <Form.Field width='5'> 
+            <Form.Field> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field width='5'>
-              <Form.Input id='sub' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
+            <Form.Field>
+              <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
             <Button>Submit</Button>
           </Form>
@@ -124,17 +120,17 @@ export default class Post extends Component {
         menuItem: 'text', 
         render: () => <Tab.Pane attached={false}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <Form.Field width='5'>
+            <Form.Field>
               <Message content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
             </Form.Field>
-            <Form.Field width='5'> 
+            <Form.Field> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field width='5'> 
+            <Form.Field> 
               <Form.TextArea id='text' label='text (optional)' onChange={this.onChange.bind(this)} value={this.state.text}/>
             </Form.Field>
-            <Form.Field width='5'>
-              <Form.Input id='sub' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
+            <Form.Field>
+              <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
             <Button type='submit'>Submit</Button>
           </Form>
@@ -146,7 +142,7 @@ export default class Post extends Component {
   render() {
     
     return (
-      <div id="postTab">
+      <div id="post">
         {/* {this.props.children} */}
         <h3>submit to reddit</h3>
         <Tab menu={{ secondary: true}} defaultActiveIndex={'1'} panes={this.state.panes}/>

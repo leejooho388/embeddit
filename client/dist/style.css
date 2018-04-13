@@ -8,6 +8,7 @@
 #head2text {
   float: right;
 }
+<<<<<<< 887a68468f4679929200bf35c2ad02edea8361a3
 .subredditInput{
   width: 37%;
 }
@@ -39,3 +40,10 @@
   background-color: blue;
 }
 >>>>>>> Completed post request to successfully save to mongo and UI now mostly complete
+=======
+
+#post {
+  padding-left: 10px;
+  width: 37%;
+}
+>>>>>>> Fixed post form css width and saves to mongo properly
