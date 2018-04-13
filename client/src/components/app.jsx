@@ -5,6 +5,8 @@ import Head2 from './head2.jsx';
 import Post from './post.jsx';
 import Subreddits from './Subreddits.jsx';
 import Comments from './comment.jsx';
+import CommentInputBox from './commentInputBox.jsx';
+
 export default class App extends Component {
   render() {
     return (
@@ -13,9 +15,10 @@ export default class App extends Component {
         <NavHead />
         <Head2 />
         {/* <Content /> */}
-        {/* <Post /> */}
+        <Post />
         {/* <Subreddits /> */}
-        <Comments />
+        <CommentInputBox />
+        {/* <Comments /> */}
       </div>
     );
   }

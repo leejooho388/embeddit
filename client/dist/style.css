@@ -36,3 +36,7 @@
 .pointer {
   cursor: pointer;
 }
+
+#commentInputBox {
+  padding-left: 16px;
+}
