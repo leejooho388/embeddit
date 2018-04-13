@@ -9,7 +9,6 @@ const newPost = require('../../db/controllers/postController.js');
 // send to /posts
 router.post('/post', newPost.newPost)
 
-router.route('/posts')
-  .get(postController_get.get);
+router.get('/posts', postController_get.get);
 
 module.exports = router;
