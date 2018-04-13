@@ -7,6 +7,7 @@
 #head2text {
   float: right;
 }
+
 .subredditInput{
   width: 37%;
 }
@@ -31,4 +32,56 @@
 #post {
   padding-left: 10px;
   width: 37%;
+}
+
+.login-box {
+    width: 300px;
+    height: 77px;
+    border: 1px solid gray;
+    display: inline-block;
+    float: right;
+    margin-right: 6px;
+}
+
+#login-btn {
+    margin-right: 5px;
+    margin-bottom: 30px;
+    float: right;
+    height: 18px;
+    font-size: 12px;
+}
+
+#login-btn:hover {
+    cursor: pointer;
+}
+
+#signup-btn {
+    margin-right: 5px;
+    margin-bottom: 30px;
+    float: right;
+    height: 18px;
+    font-size: 12px;
+
+}
+
+#signup-btn:hover {
+    cursor: pointer;
+}
+
+#login-form-uname {
+    max-width: 128px;
+    max-height: 27px;
+    margin-top: 7px;
+    margin-left: 7px;
+    padding-right: 7px;
+    display: inline-block;
+}
+
+#login-form-pw {
+    max-width: 128px;
+    max-height: 27px;
+    margin-top: 7px;
+    margin-left: 7px;
+    padding-right: 7px;
+    display: inline-block;
 }
