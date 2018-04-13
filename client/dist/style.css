@@ -88,3 +88,7 @@
     padding-right: 7px;
     display: inline-block;
 }
+
+#commentInputBox {
+  padding-left: 16px;
+}

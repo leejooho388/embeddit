@@ -15,7 +15,6 @@ class Comments extends Component {
     this.setState({
       shown: !this.state.shown
     })
-    console.log(this.state)
   }
 
   render() {
