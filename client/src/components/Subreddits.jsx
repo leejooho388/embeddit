@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Segment, Grid } from 'semantic-ui-react'
+import { Grid, Message } from 'semantic-ui-react';
+import CreateSubreddits from './CreateSubreddit.jsx';
+
 
 export default class Subreddits extends Component {
   constructor(props){
@@ -35,23 +37,35 @@ export default class Subreddits extends Component {
   
   render() {
     return (
-      <Grid>
-        Subreddits:
-        {this.state.subreddits.map(function(subreddit){
-          return (
-          <Grid.Row key={subreddit._id}>
-            <Grid.Column width={3}>
-              Subscribe
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <h1>{subreddit.name}</h1>
-              <p>Description: {subreddit.description}</p>
-              <p>Subscriber Count: {subreddit.subscriberCount}</p>
-            </Grid.Column>
-          </Grid.Row>
-          );
-        })}
-      </Grid>
+      <div className='subredditGrid'>
+        <Grid>
+          {this.state.subreddits.map(function(subreddit){
+            return (
+              <Grid container key={subreddit._id}>
+                <Grid.Row>
+                  <Grid.Column className='subredditGridSubscribe' width={3}>
+                  </Grid.Column>
+                  <Grid.Column width={13}>
+                    <h3>{subreddit.name}</h3>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column className='subredditGridSubscribe' width={3}>
+                    Subscribe
+                  </Grid.Column>
+                  <Grid.Column width={13}>
+                    <Message>
+                      <p>Description: {subreddit.description}</p>
+                    </Message>
+                    <p className='subscriberCount'>Subscriber Count: {subreddit.subscriberCount}</p>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
+            );
+          })}
+        </Grid>
+      </div>
     );
   }
 }
