@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const subredditController = require('../../db/controllers/subredditControl.js');
 const postController = require('../../db/controllers/postController.js');
-const commentController = require('../../dv/controllers/commentController.js');
+const commentController = require('../../db/controllers/commentController.js');
 
 
 const jwt = require('jsonwebtoken');
@@ -26,7 +26,7 @@ router.post('/post', postController.newPost);
 
 // COMMENTS
 router.get('/comments', commentController.get);
-// router.post('/comments', commentController.post);
+router.post('/comments', commentController.post);
 
 
 const passport = require('passport');
