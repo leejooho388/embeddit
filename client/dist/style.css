@@ -34,6 +34,9 @@
   width: 37%;
 }
 
+.pointer {
+  cursor: pointer;
+}
 .login-box {
     width: 300px;
     height: 77px;
