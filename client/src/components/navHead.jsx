@@ -17,11 +17,13 @@ class NavHead extends Component {
             <Dropdown item simple text='MY SUBREDDIT'>
               <Dropdown.Menu>
                 {this.state.subreddits.map((sr, i) => {
+                  // key will be sr._id with live data
                   return <Dropdown.Item key={i}>{sr}</Dropdown.Item>
                 })}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item as={Link} to='/'>Home</Menu.Item>
+                {/* // key will be sr._id with live data */}
             {this.state.subreddits.map((sr, i) => {
               return <Menu.Item key={i}>{sr}</Menu.Item>
             })}

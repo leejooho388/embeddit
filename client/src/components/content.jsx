@@ -30,9 +30,9 @@ class Content extends Component {
   render() {
     return(
       <div>
-      {this.state.posts.map((post, i) => {
+      {this.state.posts.map( post => {
         return (
-          <Grid key={i}>
+          <Grid key={post._id}>
             <Grid.Row>
               <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
