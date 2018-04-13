@@ -1,3 +1,4 @@
+
 #head2 {
   background-color: #cce2f7;
   overflow: auto;
@@ -25,4 +26,9 @@
 
 .subredditGridSubscribe{
   min-width: 60px;
+}
+
+#post {
+  padding-left: 10px;
+  width: 37%;
 }
