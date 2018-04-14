@@ -30,6 +30,7 @@ class App extends Component {
         <Grid columns={16}>
             <Grid.Column width={13}>
               <main>
+                <CommentInputBox />
                 <Switch>
                   <Route exact path='/' component={Content} />
                   <Route exact path='/subreddits' component={Subreddits} />
