@@ -3,8 +3,6 @@ import { Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import { Link } from 'react-router-dom';
-
 class LogIn extends Component {
 
   constructor() {
@@ -42,7 +40,7 @@ class LogIn extends Component {
                         name="username"
                         size="mini"
                         id="login-form-uname"
-                        onChange={this.handleInput.bind(this)}
+                        onChange={this.handleInput}
                         value={this.state.username}
             />
             <Form.Input placeholder='password'
@@ -50,21 +48,21 @@ class LogIn extends Component {
                         name="password"
                         size="mini"
                         id="login-form-pw"
-                        onChange={this.handleInput.bind(this)}
+                        onChange={this.handleInput}
                         value={this.state.password}
             />
           </Form.Group>
-          <strong>{this.props.error}</strong>
-          <Link to="/signup"><button onClick={this.handleSubmit} id="signup-btn">sign up</button></Link>
+          <strong id="login-error">{this.props.error}</strong>
           <button onClick={this.handleSubmit} id="login-btn">login</button>
         </Form>
+        <button onClick={this.handleSubmit} id="signup-btn">sign up</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return { error: state.error };
+  return { error: state.authReducer.error };
 }
 
 export default connect(mapStateToProps, actions)(LogIn);

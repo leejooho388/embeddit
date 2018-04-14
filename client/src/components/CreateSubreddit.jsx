@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Message, Input, TextArea, Form, Button } from 'semantic-ui-react';
-import NavHead from './navHead.jsx';
-import Head2 from './head2.jsx';
+import NavHead from './NavHead.jsx';
+import Head2 from './Head2.jsx';
 
 
 export default class CreateSubreddits extends Component {

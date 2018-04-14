@@ -8,7 +8,7 @@ import reduxThunk from 'redux-thunk';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger'
 
-import App from './components/app.jsx';
+import App from './components/App.jsx';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxPromise, logger)(createStore);
 
