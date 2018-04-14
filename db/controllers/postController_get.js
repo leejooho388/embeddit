@@ -13,16 +13,6 @@ const postController = {
       .catch( err => {
         res.status(404).send(err)
       })
-  },
-
-  newPost: (req, res) => {
-    new post(req.body).save()
-      .then( response => {
-        res.status(201).send()
-      })
-      .catch( err => {
-        res.status(404).send(err)
-      })
   }
 
 }

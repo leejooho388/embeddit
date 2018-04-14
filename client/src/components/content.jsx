@@ -1,22 +1,38 @@
 import React, { Component } from 'react';
 import { Icon, Grid } from 'semantic-ui-react';
-import data from '../../../exampleData/examplePosts.js';
+import axios from 'axios';
+import Moment from 'moment';
 
 class Content extends Component {
   constructor(props) {
     super(props),
     this.state = {
       //posts will be an array
-      posts: data.examplePosts
+      posts: []
     }
+    this.getPosts = this.getPosts.bind(this);
   }
 
+  getPosts() {
+    axios.get('/api/post')
+      .then( response => {
+        console.log('Success, fetched post data.')
+        this.setState({posts: response.data})
+      })
+      .catch( err => {
+        console.error('Unable to fetch posts data.');
+      });
+  }
+
+  componentWillMount() {
+    this.getPosts();
+  }
   render() {
     return(
       <div>
-      {this.state.posts.map((post, i) => {
+      {this.state.posts.map( post => {
         return (
-          <Grid key={i}>
+          <Grid key={post._id}>
             <Grid.Row>
               <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
@@ -56,7 +72,7 @@ class Content extends Component {
                   {/* post title */}
                   <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted 'blank hours' ago by {post.authorName} to {post.subredditName}</Grid.Row>
+                  <Grid.Row>comment(s) submitted {Moment().startOf('hour').fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
                 </Grid>
               </Grid.Column>
             </Grid.Row>

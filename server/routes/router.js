@@ -1,13 +1,27 @@
 const router = require('express').Router();
 const subredditController = require('../../db/controllers/subredditControl.js');
+const postController = require('../../db/controllers/postController.js')
+
 const jwt = require('jsonwebtoken');
 
+const postController_get = require('../../db/controllers/postController_get')
+
+router.route('/posts')
+  .get(postController_get.get);
+
+const postController_get = require('../../db/controllers/postController_get')
+
+const postController = require('../../db/controllers/postController.js')
+
+// SUBREDDIT
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
 router.post('/subreddit', subredditController.postSubreddit);
-const newPost = require('../../db/controllers/postController.js');
-// send to /posts
-router.post('/post', newPost.newPost)
+
+// POST
+router.get('/post', postController.get);
+router.post('/post', postController.newPost)
+
 
 const passport = require('passport');
 
@@ -59,3 +73,12 @@ module.exports = router;
 //      res.redirect('/account');
 //    })(req, res, next);
 //  });
+=======
+// POST
+router.get('/post', postController.get);
+router.post('/post', postController.newPost)
+
+>>>>>>> refactored post related files
+
+module.exports = router;
+>>>>>>> set up get request for posts and pushed in fake post data
