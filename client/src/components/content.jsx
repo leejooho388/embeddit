@@ -36,7 +36,7 @@ class Content extends Component {
             <Grid.Row>
               <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
-                {i + 1}
+                {/* TODO in future {i + 1} */}
               </Grid.Column>
         
               <Grid.Column width={1} floated='left'>

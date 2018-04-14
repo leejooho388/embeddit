@@ -89,10 +89,6 @@
     display: inline-block;
 }
 
-#commentInputBox {
-  padding-left: 16px;
-}
-
-#commentInputBox {
+.commentInputBox {
   padding-left: 16px;
 }

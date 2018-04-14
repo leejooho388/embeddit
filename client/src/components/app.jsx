@@ -17,18 +17,7 @@ export default class App extends Component {
         <NavHead />
         <Head2 />
         <LogIn />
-        <Post />
         <Content />
-        {/* <Content /> */}
-        <Post />
-        {/* <Post /> */}
-        {/* <Subreddits /> */}
-        <Content />
-        <CommentInputBox />
-        <Comments />
-        {/* <Subreddits /> */}
-        <CommentInputBox />
-        {/* <Comments /> */}
       </div>
     );
   }
