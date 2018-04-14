@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class CommentInputBox extends Component {
   constructor(props) {
@@ -19,15 +20,19 @@ class CommentInputBox extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  
   handleOnChange(e) {
     this.setState({text: e.target.value});
   }
-
+  
   handleSubmit() {
     let newComment = Object.assign({}, this.state);
     axios.post('http://localhost:8080/api/comments', newComment)
     .then( res => {
-        this.setState({text: ''});
+        this.setState({
+          text: '',
+          author: {}
+        });
         console.log('Success on comment posting')
       })
       .catch( err => {
@@ -35,6 +40,17 @@ class CommentInputBox extends Component {
       })
   }
 
+  // componentDidMount() {
+  //   () => {
+  //     let user = this.props.user.authReducer.user;
+  //     this.setState({
+  //       author: {
+  //         authorId: user._id,
+  //         name: user.username
+  //       }
+  //     })
+  //   }
+  // }
   render() {
     return(
       <Form id='commentInputBox'>
@@ -48,4 +64,8 @@ class CommentInputBox extends Component {
   }
 }
 
-export default CommentInputBox;
+const mapStateToProps = (state) => ({
+  user: state
+})
+
+export default connect(mapStateToProps)(CommentInputBox);
