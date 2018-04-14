@@ -3,20 +3,8 @@ const subredditController = require('../../db/controllers/subredditControl.js');
 const postController = require('../../db/controllers/postController.js');
 const commentController = require('../../db/controllers/commentController.js');
 
-<<<<<<< HEAD
 
 const jwt = require('jsonwebtoken');
-
-const postController_get = require('../../db/controllers/postController_get')
-
-router.route('/posts')
-  .get(postController_get.get);
-
-const postController_get = require('../../db/controllers/postController_get')
-
-const postController = require('../../db/controllers/postController.js')
-=======
->>>>>>> 8e1610675dfbccc911791f4d7686a66396020e41
 
 // SUBREDDIT
 router.get('/subreddit', subredditController.getSubreddit);
@@ -30,7 +18,6 @@ router.post('/post', postController.newPost);
 // COMMENTS
 router.get('/comments', commentController.get);
 router.post('/comments', commentController.post);
-<<<<<<< HEAD
 
 
 const passport = require('passport');
@@ -83,14 +70,5 @@ module.exports = router;
 //      res.redirect('/account');
 //    })(req, res, next);
 //  });
-=======
-// POST
-router.get('/post', postController.get);
-router.post('/post', postController.newPost)
-=======
->>>>>>> 8e1610675dfbccc911791f4d7686a66396020e41
-
->>>>>>> refactored post related files
 
 module.exports = router;
->>>>>>> set up get request for posts and pushed in fake post data
