@@ -4,6 +4,10 @@
   overflow: auto;
 }
 
+.title {
+    float: left;
+}
+
 #head2text {
   float: right;
 }
@@ -40,7 +44,7 @@
     border: 1px solid gray;
     display: inline-block;
     float: right;
-    margin-right: 6px;
+    margin-bottom: 16px;
 }
 
 #login-btn {
@@ -84,4 +88,25 @@
     margin-left: 7px;
     padding-right: 7px;
     display: inline-block;
+}
+
+.side {
+    float: right;
+    margin-right: 7px;
+}
+
+.search {
+    margin-bottom: 16px;
+}
+
+#post-link {
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#post-text {
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
