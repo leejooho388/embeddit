@@ -7,6 +7,8 @@ import { Route } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react'
 import Content from './content.jsx';
 import NavHead from './navHead.jsx';
+import { Switch, Route } from 'react-router-dom';
+
 import Head2 from './head2.jsx';
 import Post from './post.jsx';
 import Side from './side.jsx';
