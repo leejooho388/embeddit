@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const routes = require('./routes/router');
 const loginUser = require('../db/controllers/loginUser');
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));

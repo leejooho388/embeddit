@@ -1,5 +1,5 @@
 const express = require('express');
-const post = require('../models/Posts');
+const post = require('../models/Posts.js');
 
 const postController = {
   get: (req, res) => {

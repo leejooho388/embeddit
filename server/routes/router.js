@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const subredditController = require('../../db/controllers/subredditControl.js');
-const postController = require('../../db/controllers/postController.js')
+const postController = require('../../db/controllers/postController.js');
+const commentController = require('../../db/controllers/commentController.js');
+
+<<<<<<< HEAD
 
 const jwt = require('jsonwebtoken');
 
@@ -12,6 +15,8 @@ router.route('/posts')
 const postController_get = require('../../db/controllers/postController_get')
 
 const postController = require('../../db/controllers/postController.js')
+=======
+>>>>>>> 8e1610675dfbccc911791f4d7686a66396020e41
 
 // SUBREDDIT
 router.get('/subreddit', subredditController.getSubreddit);
@@ -20,7 +25,12 @@ router.post('/subreddit', subredditController.postSubreddit);
 
 // POST
 router.get('/post', postController.get);
-router.post('/post', postController.newPost)
+router.post('/post', postController.newPost);
+
+// COMMENTS
+router.get('/comments', commentController.get);
+router.post('/comments', commentController.post);
+<<<<<<< HEAD
 
 
 const passport = require('passport');
@@ -77,6 +87,8 @@ module.exports = router;
 // POST
 router.get('/post', postController.get);
 router.post('/post', postController.newPost)
+=======
+>>>>>>> 8e1610675dfbccc911791f4d7686a66396020e41
 
 >>>>>>> refactored post related files
 
