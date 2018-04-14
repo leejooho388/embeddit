@@ -21,6 +21,7 @@ const newPost = require('../../db/controllers/postController.js');
 router.post('/post', newPost.newPost)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const passport = require('passport');
 
 const createUser = require('../../db/controllers/createUser');
@@ -74,6 +75,9 @@ module.exports = router;
 =======
 router.route('/posts')
   .get(postController_get.get);
+=======
+router.get('/posts', postController_get.get);
+>>>>>>> rebased John additions and matched router syntax
 
 module.exports = router;
 >>>>>>> set up get request for posts and pushed in fake post data
