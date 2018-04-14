@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 class LogIn extends Component {
 
@@ -22,21 +24,13 @@ class LogIn extends Component {
   }
 
   handleSubmit(e) {
-    const self = this;
     e.preventDefault();
     const endpoint = e.target.id === 'login-btn' ? 'login' : 'signup';
-
-    axios.post(`http://localhost:8080/api/${endpoint}`, this.state)
-      .then(res => {
-
-        const auth = JSON.parse(res.headers.auth);
-        localStorage.setItem('token', auth.token);
-
-        self.setState({
-          username: '',
-          password: ''
-        });
-      });
+    this.props.logInUser(this.state, endpoint);
+    this.setState({
+      username: '',
+      password: ''
+    });
   }
 
   render() {
@@ -60,6 +54,7 @@ class LogIn extends Component {
                         value={this.state.password}
             />
           </Form.Group>
+          <strong>{this.props.error}</strong>
           <Link to="/signup"><button onClick={this.handleSubmit} id="signup-btn">sign up</button></Link>
           <button onClick={this.handleSubmit} id="login-btn">login</button>
         </Form>
@@ -68,4 +63,8 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+const mapStateToProps = (state) => {
+  return { error: state.error };
+}
+
+export default connect(mapStateToProps, actions)(LogIn);

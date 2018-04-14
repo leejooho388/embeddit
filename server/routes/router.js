@@ -24,8 +24,7 @@ const passport = require('passport');
 
 const createUser = require('../../db/controllers/createUser');
 
-router.post('/login', passport.authenticate('local',
-  { session: false }), (req, res) => {
+router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
 
   const token = jwt.sign({ user: req.user}, 'your_jwt_secret', { expiresIn: '7 days' });
 
