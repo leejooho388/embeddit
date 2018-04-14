@@ -12,6 +12,7 @@ class Content extends Component {
       posts: []
     }
     this.getPosts = this.getPosts.bind(this);
+    this.voteOnPost = this.voteOnPost.bind(this);
   }
 
   getPosts() {
@@ -24,9 +25,26 @@ class Content extends Component {
       });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getPosts();
   }
+
+  voteOnPost(e) {
+
+    // if post is already upvoted and vote is up, unvote
+    // if post is already upvoted and vote is down, switch vote to down
+
+    // if post is already downvoted and vote is down, unvote
+    // if post is already downvoted and vote is up, switch vote to up
+    
+
+    // if (e.target.getAttribute('data-dir') === 'up') {
+    //   this.voteOnPost('up', e.target.getAttribute('data-id'))
+    // } else if (e.target.getAttribute('data-dir') === 'down') {
+    //   this.voteOnPost('down', e.target.getAttribute('data-id'))
+    // }
+  }
+
   render() {
     return(
       <div>
@@ -42,12 +60,12 @@ class Content extends Component {
               <Grid.Column width={1} floated='left'>
                 <Grid celled='internally'>
                   <Grid.Row centered={true}>
-                    <Icon name='arrow up' size='large' color='grey'/> 
+                    <Icon onClick={this.voteOnPost} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color='grey'/>
                   </Grid.Row>
                   {/* Vote count */}
                   <Grid.Row centered={true}>{post.voteCount}</Grid.Row>
                   <Grid.Row centered={true}>
-                    <Icon name='arrow down' size='large' color='grey'/>
+                    <Icon onClick={this.voteOnPost} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color='grey'/>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
