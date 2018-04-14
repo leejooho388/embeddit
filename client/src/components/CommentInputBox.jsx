@@ -27,7 +27,6 @@ class CommentInputBox extends Component {
   
   handleSubmit() {
     let user = this.props.user.authReducer.user;
-    console.log('This is the user:', user);
     this.setState({
       author: {
         authorId: user._id,
@@ -48,11 +47,6 @@ class CommentInputBox extends Component {
         })
     })
   }
-
-  // componentDidMount() {
-  //   () => {
-  //   }
-  // }
   
   render() {
     return(
