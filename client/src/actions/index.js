@@ -1,3 +1,14 @@
+import axios from "axios/index";
+import jwt from 'jsonwebtoken';
+
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR
+} from './types';
+
+const API_URL = 'http://localhost:8080/api';
+
 // export function actionName() {
 //
 //   return {
@@ -6,11 +17,43 @@
 //   };
 // }
 
-export const TEST_STATE = 'TEST_STATE';
-
-export function changeTestState(text){
-  return {
-    type: TEST_STATE,
-    text,
+exports.checkJWT = () => {
+  return (dispatch) => {
+    if (localStorage['token']) {
+      jwt.verify(localStorage['token'], 'your_jwt_secret', (err, decoded) => {
+        // we can verify user exists in db if we want to but right now we're just checking
+        // that the object contains a property '_id'
+        if (decoded.user.hasOwnProperty('_id')) {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+        }
+      });
+    }
   }
+};
+
+
+
+exports.logInUser = (user, endpoint) => {
+  return (dispatch) => {
+    axios.post(`${API_URL}/${endpoint}`, user)
+      .then(res => {
+        const auth = JSON.parse(res.headers.auth);
+        localStorage.setItem('token', auth.token);
+
+        jwt.verify(auth.token, 'your_jwt_secret', (err, decoded) => {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: AUTH_ERROR,
+          payload: 'Invalid username or password'
+        });
+      });
+  };
+};
+
+exports.logOutUser = () => {
+  localStorage.removeItem('token');
+  return { type: UNAUTH_USER };
 }
