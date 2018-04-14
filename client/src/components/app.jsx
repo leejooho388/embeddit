@@ -21,9 +21,11 @@ export default class App extends Component {
         <Content />
         {/* <Content /> */}
         <Post />
+        {/* <Post /> */}
         {/* <Subreddits /> */}
+        <Content />
         <CommentInputBox />
-        {/* <Comments /> */}
+        <Comments />
       </div>
     );
   }
