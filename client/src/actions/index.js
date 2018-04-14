@@ -1,4 +1,5 @@
 import axios from "axios/index";
+import jwt from 'jsonwebtoken';
 
 import {
   AUTH_USER,
@@ -16,14 +17,32 @@ const API_URL = 'http://localhost:8080/api';
 //   };
 // }
 
+exports.checkJWT = () => {
+  return (dispatch) => {
+    if (localStorage['token']) {
+      jwt.verify(localStorage['token'], 'your_jwt_secret', (err, decoded) => {
+        // we can verify user exists in db if we want to but right now we're just checking
+        // that the object contains a property '_id'
+        if (decoded.user.hasOwnProperty('_id')) {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+        }
+      });
+    }
+  }
+};
+
+
+
 exports.logInUser = (user, endpoint) => {
   return (dispatch) => {
     axios.post(`${API_URL}/${endpoint}`, user)
       .then(res => {
-        dispatch({ type: AUTH_USER });
-
         const auth = JSON.parse(res.headers.auth);
         localStorage.setItem('token', auth.token);
+
+        jwt.verify(auth.token, 'your_jwt_secret', (err, decoded) => {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+        });
       })
       .catch(() => {
         dispatch({

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { checkJWT } from '../actions';
 
 import { Route } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ import Side from './side.jsx';
 class App extends Component {
 
   componentDidMount() {
-    // this.props.checkJWT();
+    this.props.checkJWT();
   }
 
   render() {
@@ -47,4 +47,4 @@ class App extends Component {
   }
 };
 
-export default connect(null, actions)(App);
+export default connect(null, { checkJWT })(App);
