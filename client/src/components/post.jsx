@@ -73,14 +73,14 @@ export default class Post extends Component {
         menuItem: 'link', 
         render: () => <Tab.Pane attached={false}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <Form.Field><Message content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/></Form.Field>
-            <Form.Field>
+            <Message color='yellow' content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/>
+            <Form.Field className='postFields'>
               <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
             </Form.Field>
-            <Form.Field> 
+            <Form.Field className='postFields'> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
             <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
@@ -97,16 +97,14 @@ export default class Post extends Component {
         menuItem: 'text', 
         render: () => <Tab.Pane attached={false}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <Form.Field>
-              <Message content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
-            </Form.Field>
-            <Form.Field> 
+              <Message color='yellow' content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
+            <Form.Field className='postFields'> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field> 
+            <Form.Field className='postFields'> 
               <Form.TextArea id='text' label='text (optional)' onChange={this.onChange.bind(this)} value={this.state.text}/>
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
             <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>

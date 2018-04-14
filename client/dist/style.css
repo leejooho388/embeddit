@@ -41,6 +41,12 @@
 .pointer {
   cursor: pointer;
 }
+.postFields {
+  background-color: rgb(207,228,247);
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .login-box {
     width: 300px;
     height: 77px;
