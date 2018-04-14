@@ -4,12 +4,28 @@
   overflow: auto;
 }
 
-.title {
-    float: left;
+#logo {
+  position: relative;
+  float: left;
 }
 
-#head2text {
+#alien {
+  position: absolute;
+  bottom: 0;
+}
+
+#title {
+  margin-left: 40px;
+}
+
+#userHeader {
   float: right;
+  height: 55px;
+  margin-right: -10px;
+}
+
+#userInfo:hover {
+    cursor: pointer;
 }
 
 .subredditInput{
@@ -57,9 +73,9 @@
 }
 
 #login-btn {
-    margin-right: 5px;
+    margin-left: 190px;
     margin-bottom: 30px;
-    float: right;
+    float: left;
     height: 18px;
     font-size: 12px;
 }
@@ -68,13 +84,19 @@
     cursor: pointer;
 }
 
+#login-error {
+  position: absolute;
+  bottom: -32px;
+  left: 11px;
+  font-size: 11px;
+}
+
 #signup-btn {
     margin-right: 5px;
     margin-bottom: 30px;
     float: right;
     height: 18px;
     font-size: 12px;
-
 }
 
 #signup-btn:hover {

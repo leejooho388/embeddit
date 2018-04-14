@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { checkJWT } from '../actions';
 
 import { Grid } from 'semantic-ui-react'
-import Content from './content.jsx';
-import NavHead from './navHead.jsx';
+import Content from './Content.jsx';
+import NavHead from './NavHead.jsx';
 import { Switch, Route, BrowserRouter, withRouter } from 'react-router-dom';
 
-import Head2 from './head2.jsx';
-import Post from './post.jsx';
-import Side from './side.jsx';
+import Head2 from './Head2.jsx';
+import Post from './Post.jsx';
+import Side from './Side.jsx';
 
 import LogIn from './LogIn.jsx';
 import Subreddits from './Subreddits.jsx';
-import Comments from './comment.jsx';
-import CommentInputBox from './commentInputBox.jsx';
+import Comments from './Comment.jsx';
+import CommentInputBox from './CommentInputBox.jsx';
 
 class App extends Component {
 

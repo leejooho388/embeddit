@@ -1,5 +1,5 @@
 const Users = require('../models/Users');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 
 const passport = require('passport');
 

@@ -3,7 +3,6 @@ const subredditController = require('../../db/controllers/subredditControl.js');
 const postController = require('../../db/controllers/postController.js');
 const commentController = require('../../db/controllers/commentController.js');
 
-
 const jwt = require('jsonwebtoken');
 
 // SUBREDDIT
