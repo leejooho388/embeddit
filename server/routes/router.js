@@ -6,14 +6,6 @@ const commentController = require('../../db/controllers/commentController.js');
 
 const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
-=======
-const postController_get = require('../../db/controllers/postController_get')
-
-router.route('/posts')
-  .get(postController_get.get);
-
->>>>>>> attempting to fix bug with bcrypt
 // SUBREDDIT
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);

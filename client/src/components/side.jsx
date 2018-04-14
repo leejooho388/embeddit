@@ -29,7 +29,7 @@ class Side extends Component {
           {/*</div>*/}
         {/*</div>*/}
         {/* sumbit-textpost */}
-        <Button fluid id="post-text">Submit a text post</Button>
+        <Link to="/post" ><Button fluid id="post-text">Submit a text post</Button></Link>
         {/*<div className="sidebox submit submit-text">*/}
           {/*<div className="morelink">*/}
             {/*<a href="https://www.reddit.com/submit?selftext=true" data-event-action="submit" data-type="subreddit" data-event-detail="self"*/}
