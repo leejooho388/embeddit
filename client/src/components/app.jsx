@@ -19,38 +19,34 @@ import CommentInputBox from './commentInputBox.jsx';
 class App extends Component {
 
   componentDidMount() {
-    this.props.checkJWT();
+    // this.props.checkJWT();
   }
 
   render() {
     return (
       <div>
-        <NavHead />
-        <Head2 />
-        <LogIn />
-        <Content />
-      <Route path="/" render={() =>
-        <div>
-          <NavHead />
-          <Head2 />
-          <Grid columns={16}>
-            <Grid.Column width={13}>
-              <Content />
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Side />
-            </Grid.Column>
-          </Grid>
-
-        </div>
-      } />
-        <Route path="/post" render={() =>
+        <Route path="/" render={() =>
           <div>
             <NavHead />
             <Head2 />
-            <Post />
+            <Grid columns={16}>
+              <Grid.Column width={13}>
+                <Content />
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <Side />
+              </Grid.Column>
+            </Grid>
+
           </div>
-        } />
+          } />
+          <Route path="/post" render={() =>
+            <div>
+              <NavHead />
+              <Head2 />
+              <Post />
+            </div>
+          } />
       </div>
     );
   }
