@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { checkJWT } from '../actions';
 
 import { Route } from 'react-router-dom';
 
@@ -54,4 +56,4 @@ class App extends Component {
   }
 };
 
-export default connect(null, actions)(App);
+export default connect(null, { checkJWT })(App);

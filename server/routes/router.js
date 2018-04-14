@@ -54,13 +54,6 @@ module.exports = router;
 
 
 
-// // verify a token symmetric
-// jwt.verify(token, 'your_jwt_secret', (err, decoded) => {
-//   // decoded is json
-// });
-
-
-
 
 // app.get('/protected', function(req, res, next) {
 //   passport.authenticate('local', function(err, user, info) {
