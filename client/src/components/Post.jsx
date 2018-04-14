@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Tab, Form, Message, Button } from 'semantic-ui-react';
-import Captcha from '../../../config.js';
-export default class Post extends Component {
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({
+  user: state
+})
+
+export default connect (mapStateToProps)( class Post extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
       panes: [],
-      authorName: 'TeamBackbone',
+      authorName: '',
       subredditName: '',
       type: '',
       url: '',
@@ -19,13 +24,14 @@ export default class Post extends Component {
   }
   
   componentDidMount() {
-    console.log(Captcha.SITE_KEY)
+    console.log(this.props)
     let _panes = [];
     let link=this.linkView()
     let textView= this.textView();
     _panes.push(link, textView);
     this.setState({
-      panes: _panes
+      panes: _panes,
+      authorName: this.props.user.authReducer.user.username
     })
   }
 
@@ -127,4 +133,4 @@ export default class Post extends Component {
       </div>
     );
   }
-}
+})
