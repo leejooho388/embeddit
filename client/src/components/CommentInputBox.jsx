@@ -51,6 +51,7 @@ class CommentInputBox extends Component {
   //     })
   //   }
   // }
+  
   render() {
     return(
       <Form id='commentInputBox'>

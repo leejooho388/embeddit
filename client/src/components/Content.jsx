@@ -24,7 +24,7 @@ class Content extends Component {
       });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getPosts();
   }
   render() {
