@@ -14,7 +14,6 @@ export default connect (mapStateToProps)( class Post extends Component {
     super(props);
     this.state = {
       panes: [],
-      authorName: '',
       subredditName: '',
       type: '',
       url: '',
@@ -25,14 +24,12 @@ export default connect (mapStateToProps)( class Post extends Component {
   }
   
   componentDidMount() {
-    console.log(this.props)
     let _panes = [];
     let link=this.linkView()
     let textView= this.textView();
     _panes.push(link, textView);
     this.setState({
       panes: _panes,
-      authorName: this.props.user.authReducer.user.username
     })
   }
 
@@ -40,6 +37,7 @@ export default connect (mapStateToProps)( class Post extends Component {
     const _this = this;
     let newPost = Object.assign({}, this.state);
     delete newPost.panes;
+    newPost.authorName = this.props.user.authReducer.user.username
     newPost.voteCount = 0;
     for (let key in newPost) {
       (newPost[key] === '') && delete newPost[key]
