@@ -141,11 +141,13 @@ export default class Post extends Component {
 
   render() {
     
+    let query = this.props.query === 'link' ? '0' : '1';
+
     return (
       <div id="post">
         {/* {this.props.children} */}
         <h3>submit to reddit</h3>
-        <Tab menu={{ secondary: true}} defaultActiveIndex={'1'} panes={this.state.panes}/>
+        <Tab menu={{ secondary: true}} defaultActiveIndex={query} panes={this.state.panes}/>
       </div>
     );
   }

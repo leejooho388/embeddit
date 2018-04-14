@@ -34,7 +34,7 @@ class App extends Component {
                   <Route exact path='/' component={Content} />
                   <Route exact path='/subreddits' component={Subreddits} />
                   <Route path='/post' component={Post} />
-                  <Route path='/subreddits/:query' component={Content} />
+                  <Route path='/r/:query' component={Content} />
                 </Switch>
               </main>
             </Grid.Column>

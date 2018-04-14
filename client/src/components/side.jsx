@@ -22,14 +22,14 @@ class Side extends Component {
         </form>
         {renderLogIn}
         {/* submit-link media*/}
-        <Link to="/post" ><Button fluid id="post-link">Submit a new link</Button></Link>
+        <Link to="/post" query='link' ><Button fluid id="post-link">Submit a new link</Button></Link>
         {/*<div className="sidebox submit submit-link">*/}
           {/*<div className="morelink">*/}
           {/*<a href="https://www.reddit.com/submit" data-event-action="submit" data-type="subreddit" data-event-detail="link" target="_top">Submit a new link</a>*/}
           {/*</div>*/}
         {/*</div>*/}
         {/* sumbit-textpost */}
-        <Link to="/post" ><Button fluid id="post-text">Submit a text post</Button></Link>
+        <Link to="/post" query='text' ><Button fluid id="post-text">Submit a text post</Button></Link>
         {/*<div className="sidebox submit submit-text">*/}
           {/*<div className="morelink">*/}
             {/*<a href="https://www.reddit.com/submit?selftext=true" data-event-action="submit" data-type="subreddit" data-event-detail="self"*/}
