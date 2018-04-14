@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Tab, Form, Message, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import config from '../../../config.js';
 
 const mapStateToProps = (state) => ({
   user: state
@@ -92,7 +93,7 @@ export default connect (mapStateToProps)( class Post extends Component {
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
             <Button>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -116,7 +117,7 @@ export default connect (mapStateToProps)( class Post extends Component {
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
             <Button type='submit'>Submit</Button>
           </Form>
         </Tab.Pane>
