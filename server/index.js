@@ -21,6 +21,7 @@ app.use(passport.initialize());
 passport.use(new LocalStrategy(loginUser));
 
 app.use('/api', routes);
+app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
