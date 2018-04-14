@@ -22,6 +22,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^2.0.0",
+<<<<<<< 57c6e811aeffb86329f393e63374749da75faa92
+=======
+    "bcrypt-nodejs": "0.0.3",
+>>>>>>> Using redux to grab username
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
