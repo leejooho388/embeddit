@@ -1,0 +1,2 @@
+const SITE_KEY = '6Lc8GFMUAAAAADONKjAshaf14791REDRmoiH8Zl7';
+module.exports.SITE_KEY = SITE_KEY;

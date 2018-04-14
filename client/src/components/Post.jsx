@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Tab, Form, Message, Button } from 'semantic-ui-react';
-import Captcha from '../../../config.js';
-export default class Post extends Component {
+import { connect } from 'react-redux';
+import config from '../../../config.js';
+
+const mapStateToProps = (state) => ({
+  user: state
+})
+
+export default connect (mapStateToProps)( class Post extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
       panes: [],
-      authorName: 'TeamBackbone',
+      authorName: '',
       subredditName: '',
       type: '',
       url: '',
@@ -19,13 +25,14 @@ export default class Post extends Component {
   }
   
   componentDidMount() {
-    console.log(Captcha.SITE_KEY)
+    console.log(this.props)
     let _panes = [];
     let link=this.linkView()
     let textView= this.textView();
     _panes.push(link, textView);
     this.setState({
-      panes: _panes
+      panes: _panes,
+      authorName: this.props.user.authReducer.user.username
     })
   }
 
@@ -53,8 +60,11 @@ export default class Post extends Component {
   }
 
   onChange(e) {
+    console.log('this is attribute', e.target)
+    let stateId = e.target.id;
+    stateId === "postTitle" && (stateId = "title")
     this.setState({
-      [e.target.id]: e.target.value
+      [stateId]: e.target.value
     })
    if (e.target.id === 'text') {
      this.setState({
@@ -78,12 +88,12 @@ export default class Post extends Component {
               <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
             </Form.Field>
             <Form.Field className='postFields'> 
-              <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
+              <Form.TextArea id='postTitle' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
             <Button>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -99,7 +109,7 @@ export default class Post extends Component {
           <Form onSubmit={this.handleSubmit.bind(this)}>
               <Message color='yellow' content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
             <Form.Field className='postFields'> 
-              <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
+              <Form.TextArea id='postTitle' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
             <Form.Field className='postFields'> 
               <Form.TextArea id='text' label='text (optional)' onChange={this.onChange.bind(this)} value={this.state.text}/>
@@ -107,7 +117,7 @@ export default class Post extends Component {
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
             <Button type='submit'>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -127,4 +137,4 @@ export default class Post extends Component {
       </div>
     );
   }
-}
+})
