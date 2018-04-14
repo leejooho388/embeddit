@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Grid, Message } from 'semantic-ui-react';
+import { Grid, Message, Button } from 'semantic-ui-react';
 import CreateSubreddits from './CreateSubreddit.jsx';
+import { Link } from 'react-router-dom';
 
 
 export default class Subreddits extends Component {
@@ -38,6 +39,7 @@ export default class Subreddits extends Component {
   render() {
     return (
       <div className='subredditGrid'>
+        <Link to="/subreddits/create" ><Button fluid>Create Subreddit</Button></Link>
         <Grid>
           {this.state.subreddits.map(function(subreddit){
             return (
