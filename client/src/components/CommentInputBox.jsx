@@ -26,29 +26,31 @@ class CommentInputBox extends Component {
   }
   
   handleSubmit() {
-    let newComment = Object.assign({}, this.state);
-    axios.post('http://localhost:8080/api/comments', newComment)
-    .then( res => {
-        this.setState({
-          text: '',
-          author: {}
-        });
-        console.log('Success on comment posting')
-      })
-      .catch( err => {
-        console.log('Error on comment posting', err);
-      })
+    let user = this.props.user.authReducer.user;
+    console.log('This is the user:', user);
+    this.setState({
+      author: {
+        authorId: user._id,
+        name: user.username
+      }
+    }, () => {
+      let newComment = Object.assign({}, this.state);
+      axios.post('http://localhost:8080/api/comments', newComment)
+      .then( res => {
+          this.setState({
+            text: '',
+            author: {}
+          });
+          console.log('Success on comment posting')
+        })
+        .catch( err => {
+          console.log('Error on comment posting', err);
+        })
+    })
   }
 
   // componentDidMount() {
   //   () => {
-  //     let user = this.props.user.authReducer.user;
-  //     this.setState({
-  //       author: {
-  //         authorId: user._id,
-  //         name: user.username
-  //       }
-  //     })
   //   }
   // }
   
