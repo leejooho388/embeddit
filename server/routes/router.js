@@ -62,5 +62,3 @@ module.exports = router;
 //      res.redirect('/account');
 //    })(req, res, next);
 //  });
-
-module.exports = router;
