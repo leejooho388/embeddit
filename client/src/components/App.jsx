@@ -16,7 +16,10 @@ import Subreddits from './Subreddits.jsx';
 import Comments from './Comment.jsx';
 import CommentInputBox from './CommentInputBox.jsx';
 import CreateSubreddit from './CreateSubreddit.jsx';
+<<<<<<< HEAD
 import PostPage from './PostPage.jsx';
+=======
+>>>>>>> merged after rebase2
 
 class App extends Component {
 
@@ -33,7 +36,7 @@ class App extends Component {
             <Grid.Column width={13}>
               <main>
                 <PostPage />
-                {/* <Switch>
+                 <Switch>
                   <Route exact path='/' component={Content} />
                   <Route exact path='/subreddits' component={Subreddits} />
                   <Route path='/post' component={Post} />
