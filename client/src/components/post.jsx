@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Tab, Form, Message, Button } from 'semantic-ui-react';
-
+import Captcha from '../../../config.js';
 export default class Post extends Component {
   
   constructor(props) {
@@ -19,6 +19,7 @@ export default class Post extends Component {
   }
   
   componentDidMount() {
+    console.log(Captcha.SITE_KEY)
     let _panes = [];
     let link=this.linkView()
     let textView= this.textView();
@@ -63,34 +64,8 @@ export default class Post extends Component {
       this.setState({
         type: 'url'
       }) 
-    } else if (e.target.id === 'media') {
-      this.setState({
-        type: 'media'
-      })
-    }
-  }
-
-  onUrl() {
-    if (this.state.media === '') {
-      return (
-        <Form.Field>
-          <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
-        </Form.Field>
-      )
-    }
-    
-  }
-
-  onMedia() {
-    if(this.state.url === '') {
-      return (
-        <Form.Field>
-          <Form.Input id='media' label='image/video'placeholder="Have image/video go here" onChange={this.onChange.bind(this)} value={this.state.media}/>
-        </Form.Field> 
-      )
     } 
   }
-
 
   linkView() {
     return (
@@ -98,15 +73,17 @@ export default class Post extends Component {
         menuItem: 'link', 
         render: () => <Tab.Pane attached={false}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <Form.Field><Message content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/></Form.Field>
-            {this.onUrl()}
-            {this.onMedia()}
-            <Form.Field> 
+            <Message color='yellow' content='You are submitting a link. The key to a successful submission is interesting content and a descriptive title.'/>
+            <Form.Field className='postFields'>
+              <Form.Input id='url' label='url' placeholder="url here" onChange={this.onChange.bind(this)} value={this.state.url}/>
+            </Form.Field>
+            <Form.Field className='postFields'> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
+            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
             <Button>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -120,18 +97,17 @@ export default class Post extends Component {
         menuItem: 'text', 
         render: () => <Tab.Pane attached={false}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
-            <Form.Field>
-              <Message content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
-            </Form.Field>
-            <Form.Field> 
+              <Message color='yellow' content='You are submitting a text-based post. Speak your mind. A title is required, but expanding further in the text field is not. Beginning your title with "vote up if" is violation of intergalactic law.'/>
+            <Form.Field className='postFields'> 
               <Form.TextArea id='title' label='title' onChange={this.onChange.bind(this)} value={this.state.title}/>
             </Form.Field>
-            <Form.Field> 
+            <Form.Field className='postFields'> 
               <Form.TextArea id='text' label='text (optional)' onChange={this.onChange.bind(this)} value={this.state.text}/>
             </Form.Field>
-            <Form.Field>
+            <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
+            <div className="g-recaptcha" data-siteKey={Captcha.SITE_KEY}></div> <br/>
             <Button type='submit'>Submit</Button>
           </Form>
         </Tab.Pane>
