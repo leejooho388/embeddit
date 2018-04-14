@@ -1,27 +1,22 @@
 const router = require('express').Router();
-<<<<<<< HEAD
 const subredditController = require('../../db/controllers/subredditControl.js');
-<<<<<<< HEAD
+
 const jwt = require('jsonwebtoken');
-=======
+
 const postController_get = require('../../db/controllers/postController_get')
 
 router.route('/posts')
   .get(postController_get.get);
->>>>>>> set up get request for posts and pushed in fake post data
-=======
-const postController_get = require('../../db/controllers/postController_get')
->>>>>>> set up get request for posts and pushed in fake post data
 
+const postController_get = require('../../db/controllers/postController_get')
+
+const postController = require('../../db/controllers/postController.js')
+
+// SUBREDDIT
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
 router.post('/subreddit', subredditController.postSubreddit);
-const newPost = require('../../db/controllers/postController.js');
-// send to /posts
-router.post('/post', newPost.newPost)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 const passport = require('passport');
 
 const createUser = require('../../db/controllers/createUser');
@@ -73,11 +68,11 @@ module.exports = router;
 //    })(req, res, next);
 //  });
 =======
-router.route('/posts')
-  .get(postController_get.get);
-=======
-router.get('/posts', postController_get.get);
->>>>>>> rebased John additions and matched router syntax
+// POST
+router.get('/post', postController.get);
+router.post('/post', postController.newPost)
+
+>>>>>>> refactored post related files
 
 module.exports = router;
 >>>>>>> set up get request for posts and pushed in fake post data

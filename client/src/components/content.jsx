@@ -14,7 +14,7 @@ class Content extends Component {
   }
 
   getPosts() {
-    axios.get('/api/posts')
+    axios.get('/api/post')
       .then( response => {
         console.log('Success, fetched post data.')
         this.setState({posts: response.data})

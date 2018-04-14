@@ -1,5 +1,3 @@
-import { disconnect } from 'cluster';
-
 const express = require('express');
 const Post = require('./../db/models/Posts')
 
