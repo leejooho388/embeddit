@@ -1,3 +1,5 @@
+const Post = require('../models/Posts.js');
+
 const voteController = {
   post: (req, res) => {
     console.log('POST req.body', req.body);

@@ -31,47 +31,46 @@ class Content extends Component {
   handleVoteClick(e) {
     const id = e.target.getAttribute('data-id');
     const vote = e.target.getAttribute('data-dir');
-    let post;
+    let post_i;
     let i;
 
     for (i = 0; i < this.state.posts.length; i++) {
-      const post_i = this.state.posts[i];
+      post_i = this.state.posts[i];
       if (post_i._id === id) {
-        post = this.state.posts[i];
         break;
       }
     }
 
-    const hasVoteHistory = post.hasOwnProperty('voteHistoryUser');
+    const hasVoteHistory = post_i.hasOwnProperty('voteHistoryUser');
 
-    post.voteHistoryUser = post.voteHistoryUser || {};
+    post_i.voteHistoryUser = post_i.voteHistoryUser || {};
 
-    if (hasVoteHistory && this.props.user._id in post.voteHistoryUser) {
-      if (post.voteHistoryUser[this.props.user._id] > 0) {
+    if (hasVoteHistory && this.props.user._id in post_i.voteHistoryUser) {
+      if (post_i.voteHistoryUser[this.props.user._id] > 0) {
         // Post was previously upvoted
         if (vote === 'up') {
           // if post is already upvoted and vote is up, unvote
-          this.removeVote(post, i, this.props.user._id);
+          this.removeVote(post_i, i, this.props.user._id);
         } else if (vote === 'down') {
           // if post is already upvoted and vote is down, switch vote to down
-          this.voteOnPost(post, i,  this.props.user._id, -1);
+          this.voteOnPost(post_i, i,  this.props.user._id, -1);
         }
       } else {
         // Post was previously downvoted
-        if (vote === 'up') {
+        if (vote === 'down') {
           // if post is already downvoted and vote is down, unvote
-          this.removeVote(post, i, this.props.user._id);
-        } else if (vote === 'down') {
+          this.removeVote(post_i, i, this.props.user._id);
+        } else if (vote === 'up') {
           // if post is already downvoted and vote is up, switch vote to up
-          this.voteOnPost(post, i, this.props.user._id, 1);
+          this.voteOnPost(post_i, i, this.props.user._id, 1);
         }
       }
     } else {
       // No previous vote history
       if (vote === 'up') {
-        this.voteOnPost(post, i, this.props.user._id, 1);
+        this.voteOnPost(post_i, i, this.props.user._id, 1);
       } else {
-        this.voteOnPost(post, i, this.props.user._id, -1);
+        this.voteOnPost(post_i, i, this.props.user._id, -1);
       }
     }
 
@@ -113,13 +112,11 @@ class Content extends Component {
     changedPost.voteHistoryUser = changedVoteHistory;
     newStatePosts[index] = changedPost;
     this.setState({
-      posts: [newStatePosts]
+      posts: newStatePosts
     });
   }
 
   render() {
-
-    console.log('this.state.posts', this.state.posts)
 
     return(
       <div>
@@ -127,16 +124,26 @@ class Content extends Component {
 
         let upColor = 'grey';
         let downColor = 'grey';
+        let numColor = 'grey';
 
         if (post.voteHistoryUser) {
           if (this.props.user._id in post.voteHistoryUser) {
             if (post.voteHistoryUser[this.props.user._id] > 0) {
               upColor = 'orange';
+              numColor = '#E37737';
             } else {
               downColor = 'violet';
+              numColor = '#5B3FC2';
             }
           }
         }
+
+        const numStyle = {
+          'color': numColor,
+          'fontWeight': 'bold',
+          'fontFamily': 'wide block',
+          'fontSize': '20px'
+        };
 
         return (
           <Grid key={post._id}>
@@ -152,7 +159,7 @@ class Content extends Component {
                     <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color={upColor}/>
                   </Grid.Row>
                   {/* Vote count */}
-                  <Grid.Row centered={true}>{post.voteCount}</Grid.Row>
+                  <Grid.Row centered={true}><p style={numStyle}>{post.voteCount}</p></Grid.Row>
                   <Grid.Row centered={true}>
                     <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color={downColor}/>
                   </Grid.Row>
