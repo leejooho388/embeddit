@@ -29,6 +29,12 @@ class Content extends Component {
   }
 
   handleVoteClick(e) {
+
+    if (!this.props.authenticated) {
+      alert('You must be logged in to vote');
+      return;
+    }
+
     const id = e.target.getAttribute('data-id');
     const vote = e.target.getAttribute('data-dir');
     let post_i;
@@ -83,8 +89,8 @@ class Content extends Component {
       vote
     }
 
-    // axios.post('/r/:subreddit/:id/vote')
-    axios.post(`/r/${post.subredditName}/${post._id}/vote`, voteInfo);
+    // axios.post('/api/r/:subreddit/:id/vote')
+    axios.post(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
 
     let newStatePosts = this.state.posts;
     let changedPost = newStatePosts[index];
@@ -102,8 +108,8 @@ class Content extends Component {
       userId: userId,
     }
 
-    // axios.delete('/r/:subreddit/:id/vote')
-    axios.delete(`/r/${post.subredditName}/${post._id}/vote`, voteInfo);
+    // axios.delete('/api/r/:subreddit/:id/vote')
+    axios.put(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
 
     let newStatePosts = this.state.posts;
     let changedPost = newStatePosts[index];
@@ -120,13 +126,13 @@ class Content extends Component {
 
     return(
       <div>
-      {this.state.posts.map( post => {
+      {this.state.posts.map( (post, i) => {
 
         let upColor = 'grey';
         let downColor = 'grey';
         let numColor = 'grey';
 
-        if (post.voteHistoryUser) {
+        if (post.voteHistoryUser && this.props.authenticated) {
           if (this.props.user._id in post.voteHistoryUser) {
             if (post.voteHistoryUser[this.props.user._id] > 0) {
               upColor = 'orange';
@@ -142,7 +148,8 @@ class Content extends Component {
           'color': numColor,
           'fontWeight': 'bold',
           'fontFamily': 'wide block',
-          'fontSize': '20px'
+          'fontSize': '20px',
+          'marginRight': '3px'
         };
 
         return (
@@ -150,6 +157,7 @@ class Content extends Component {
             <Grid.Row>
               <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
+                <Grid.Row centered={true}><p id="postNum">{i}</p></Grid.Row>
                 {/* TODO in future {i + 1} */}
               </Grid.Column>
         
@@ -199,7 +207,7 @@ class Content extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.authReducer.user };
+  return { authenticated: state.authReducer.authenticated, user: state.authReducer.user };
 };
 
 export default connect(mapStateToProps, null)(Content);

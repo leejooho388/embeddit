@@ -125,6 +125,14 @@
     padding-left: 16px;
 }
 
+#postNum {
+    color: darkgray;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 16px;
+    margin-left: 25px;
+}
+
 .side {
     float: right;
     margin-right: 7px;

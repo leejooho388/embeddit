@@ -21,7 +21,7 @@ router.post('/comments', commentController.post);
 
 // VOTES
 router.post('/r/:subreddit/:id/vote', voteController.post);
-router.delete('/r/:subreddit/:id/vote', voteController.delete);
+router.put('/r/:subreddit/:id/vote', voteController.put);
 
 const passport = require('passport');
 
