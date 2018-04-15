@@ -19,7 +19,7 @@ import CommentInputBox from './CommentInputBox.jsx';
 class App extends Component {
 
   componentDidMount() {
-    // this.props.checkJWT();
+    this.props.checkJWT();
   }
 
   render() {

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import Moment from 'moment';
-
 
 class Content extends Component {
   constructor(props) {
     super(props),
     this.state = {
-      //posts will be an array
       posts: []
     }
     this.getPosts = this.getPosts.bind(this);
-    this.voteOnPost = this.voteOnPost.bind(this);
+    this.handleVoteClick = this.handleVoteClick.bind(this);
   }
 
   getPosts() {
@@ -29,26 +28,116 @@ class Content extends Component {
     this.getPosts();
   }
 
-  voteOnPost(e) {
+  handleVoteClick(e) {
+    const id = e.target.getAttribute('data-id');
+    const vote = e.target.getAttribute('data-dir');
+    let post;
+    let i;
 
-    // if post is already upvoted and vote is up, unvote
-    // if post is already upvoted and vote is down, switch vote to down
+    for (i = 0; i < this.state.posts.length; i++) {
+      const post_i = this.state.posts[i];
+      if (post_i._id === id) {
+        post = this.state.posts[i];
+        break;
+      }
+    }
 
-    // if post is already downvoted and vote is down, unvote
-    // if post is already downvoted and vote is up, switch vote to up
-    
+    const hasVoteHistory = post.hasOwnProperty('voteHistoryUser');
 
-    // if (e.target.getAttribute('data-dir') === 'up') {
-    //   this.voteOnPost('up', e.target.getAttribute('data-id'))
-    // } else if (e.target.getAttribute('data-dir') === 'down') {
-    //   this.voteOnPost('down', e.target.getAttribute('data-id'))
-    // }
+    post.voteHistoryUser = post.voteHistoryUser || {};
+
+    if (hasVoteHistory && this.props.user._id in post.voteHistoryUser) {
+      if (post.voteHistoryUser[this.props.user._id] > 0) {
+        // Post was previously upvoted
+        if (vote === 'up') {
+          // if post is already upvoted and vote is up, unvote
+          this.removeVote(post, i, this.props.user._id);
+        } else if (vote === 'down') {
+          // if post is already upvoted and vote is down, switch vote to down
+          this.voteOnPost(post, i,  this.props.user._id, -1);
+        }
+      } else {
+        // Post was previously downvoted
+        if (vote === 'up') {
+          // if post is already downvoted and vote is down, unvote
+          this.removeVote(post, i, this.props.user._id);
+        } else if (vote === 'down') {
+          // if post is already downvoted and vote is up, switch vote to up
+          this.voteOnPost(post, i, this.props.user._id, 1);
+        }
+      }
+    } else {
+      // No previous vote history
+      if (vote === 'up') {
+        this.voteOnPost(post, i, this.props.user._id, 1);
+      } else {
+        this.voteOnPost(post, i, this.props.user._id, -1);
+      }
+    }
+
+  }
+
+  voteOnPost(post, index, userId, vote) {
+    const voteInfo = {
+      postId: post._id,
+      userId,
+      vote
+    }
+
+    // axios.post('/r/:subreddit/:id/vote')
+    axios.post(`/r/${post.subredditName}/${post._id}/vote`, voteInfo);
+
+    let newStatePosts = this.state.posts;
+    let changedPost = newStatePosts[index];
+    changedPost.voteHistoryUser[userId] = vote;
+    this.setState({
+      posts: newStatePosts
+    });
+  }
+
+
+  removeVote(post, index, userId) {
+
+    const voteInfo = {
+      postId: post._id,
+      userId: userId,
+    }
+
+    // axios.delete('/r/:subreddit/:id/vote')
+    axios.delete(`/r/${post.subredditName}/${post._id}/vote`, voteInfo);
+
+    let newStatePosts = this.state.posts;
+    let changedPost = newStatePosts[index];
+    let changedVoteHistory = changedPost.voteHistoryUser;
+    delete changedVoteHistory[userId];
+    changedPost.voteHistoryUser = changedVoteHistory;
+    newStatePosts[index] = changedPost;
+    this.setState({
+      posts: [newStatePosts]
+    });
   }
 
   render() {
+
+    console.log('this.state.posts', this.state.posts)
+
     return(
       <div>
       {this.state.posts.map( post => {
+
+        let upColor = 'grey';
+        let downColor = 'grey';
+
+        if (post.voteHistoryUser) {
+          if (this.props.user._id in post.voteHistoryUser) {
+            if (post.voteHistoryUser[this.props.user._id] > 0) {
+              upColor = 'orange';
+            } else {
+              downColor = 'violet';
+            }
+          }
+        }
+
         return (
           <Grid key={post._id}>
             <Grid.Row>
@@ -60,12 +149,12 @@ class Content extends Component {
               <Grid.Column width={1} floated='left'>
                 <Grid celled='internally'>
                   <Grid.Row centered={true}>
-                    <Icon onClick={this.voteOnPost} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color='grey'/>
+                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color={upColor}/>
                   </Grid.Row>
                   {/* Vote count */}
                   <Grid.Row centered={true}>{post.voteCount}</Grid.Row>
                   <Grid.Row centered={true}>
-                    <Icon onClick={this.voteOnPost} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color='grey'/>
+                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color={downColor}/>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -102,7 +191,11 @@ class Content extends Component {
   }
 }
 
-export default Content;
+const mapStateToProps = (state) => {
+  return { user: state.authReducer.user };
+};
+
+export default connect(mapStateToProps, null)(Content);
 
 /*
 post order number,

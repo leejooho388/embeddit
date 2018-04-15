@@ -31,8 +31,6 @@ exports.checkJWT = () => {
   }
 };
 
-
-
 exports.logInUser = (user, endpoint) => {
   return (dispatch) => {
     axios.post(`${API_URL}/${endpoint}`, user)
@@ -57,3 +55,22 @@ exports.logOutUser = () => {
   localStorage.removeItem('token');
   return { type: UNAUTH_USER };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
