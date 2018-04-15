@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
 router.post('/subreddit', subredditController.postSubreddit);
+router.post('/subscribe', subredditController.subscribe);
 
 // POST
 router.get('/post', postController.get);

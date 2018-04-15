@@ -1,3 +1,4 @@
+const User = require('../models/Users.js');
 const Subreddit = require('../models/Subreddits.js');
 
 var getQuerySubreddit = function(req, res){
@@ -35,10 +36,30 @@ var postSubreddit = function(req, res){
 
 // DATA SHOULD INCLUDE: name (name of subreddit), change (increment number)
 var subscribe = function(req, res){
-  Meme.findOneAndUpdate({name: req.body.name}, {$inc : {'subscriberCount' : req.body.change }}).exec(function(err, response){
+  Subreddit.findOneAndUpdate({name: req.body.subredditName}, {$inc : {'subscriberCount' : req.body.change }}).exec(function(err, response){
     if(err){
       return res.send(err);
     }
+    console.log('subreddit: ',req.body);
+    User.find({'username': req.body.username}, function(err, response) {
+      if (err) {
+        return res.send(err);
+      }
+      let subredditIds = response[0].subredditIds;
+      let index = subredditIds.indexOf(req.body.subredditName)
+      if (index !== -1) {
+        subredditIds.splice(index, 1);
+      } else {
+        subredditIds.push(req.body.subredditName);
+      }
+
+      User.findOneAndUpdate({name: req.body.user}, {'subredditIds': subredditIds}).exec(function(err, response) {
+        if(err) {
+          response.send(err);
+        }
+        res.send();
+      })
+    })
     res.end();
   });
 };

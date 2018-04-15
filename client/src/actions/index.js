@@ -56,21 +56,17 @@ exports.logOutUser = () => {
   return { type: UNAUTH_USER };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exports.updateSubscription = (user) => {
+  return (dispatch) => {
+    axios.post(`${API_URL}/subscribe`, user)
+      .then(res => {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+      })
+      .catch(() => {
+        dispatch({
+          // type: AUTH_ERROR,
+          // payload: 'Invalid username or password'
+        });
+      });
+  };
+};

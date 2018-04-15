@@ -3,9 +3,20 @@ import axios from 'axios';
 import { Grid, Message, Button } from 'semantic-ui-react';
 import CreateSubreddits from './CreateSubreddit.jsx';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateSubscription } from '../actions';
 
+const mapStateToProps = (state) => ({
+  user: state
+})
 
-export default class Subreddits extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  'updateSubscription': (user) => {
+    dispatch(updateSubscription(user));
+  }
+})
+
+export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits extends Component {
   constructor(props){
     super(props);
 
@@ -15,6 +26,7 @@ export default class Subreddits extends Component {
 
     this.setSubreddits = this.setSubreddits.bind(this);
     this.getSubreddits = this.getSubreddits.bind(this);
+    this.subscribeButtonTapped = this.subscribeButtonTapped.bind(this);
   }
 
   setSubreddits(subreddits){
@@ -34,8 +46,17 @@ export default class Subreddits extends Component {
   componentWillMount(){
     this.getSubreddits();
   }
+
+  subscribeButtonTapped(e) {
+    this.props.updateSubscription({
+      username: this.props.user.authReducer.user.username,
+      change: 1,
+      subredditName: e.target.id
+    });
+  }
   
   render() {
+    let _this = this;
     return (
       <div className='subredditGrid'>
         <Link to="/subreddits/create" ><Button fluid>Create Subreddit</Button></Link>
@@ -52,7 +73,7 @@ export default class Subreddits extends Component {
                 </Grid.Row>
                 <Grid.Row>
                   <Grid.Column className='subredditGridSubscribe' width={3}>
-                    Subscribe
+                    <Button id={subreddit.name} onClick={_this.subscribeButtonTapped}>Subscribe</Button>
                   </Grid.Column>
                   <Grid.Column width={13}>
                     <Message>
@@ -69,4 +90,4 @@ export default class Subreddits extends Component {
       </div>
     );
   }
-}
+})
