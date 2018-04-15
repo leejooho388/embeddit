@@ -22,6 +22,19 @@ const postController = {
       .catch( err => {
         res.status(404).send(err)
       })
+  },
+
+  getNewestByUser: (req, res) => {
+    post
+      .find()
+      .sort({ createdAt: -1})
+      .limit(1)
+      .then( data => {
+        res.status(200).send(data);
+      })
+      .catch( err => {
+        res.status(404).send(err)
+      })
   }
 
 }

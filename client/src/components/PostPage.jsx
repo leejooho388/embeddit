@@ -85,6 +85,7 @@ class PostPage extends Component {
 }
 
 const mapStateToProps = (state) => {
+  // need to also map the newest post here
   return { authenticated: state.authReducer.authenticated };
 }
 
