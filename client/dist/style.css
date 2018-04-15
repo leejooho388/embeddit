@@ -24,6 +24,10 @@
   margin-right: -10px;
 }
 
+.userHeaderItem:hover {
+    background-color: oldlace !important;
+}
+
 #userInfo:hover {
     cursor: pointer;
 }

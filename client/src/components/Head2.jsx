@@ -15,9 +15,9 @@ class Head2 extends Component {
     const renderUserHeader = this.props.authenticated ? (
       <div id="userHeader">
         <Segment.Group className="pointer" size="mini" horizontal>
-          <Segment tertiary size="mini" compact>{this.props.user.username}</Segment>
-          <Segment tertiary size="mini" compact>({this.props.user.postKarma} | {this.props.user.commentKarma})</Segment>
-          <Segment tertiary onClick={this.props.logOutUser} size="mini" compact>log out</Segment>
+          <Segment className="userHeaderItem" tertiary size="mini" compact>{this.props.user.username}</Segment>
+          <Segment className="userHeaderItem" tertiary size="mini" compact>({this.props.user.postKarma} | {this.props.user.commentKarma})</Segment>
+          <Segment className="userHeaderItem" tertiary onClick={this.props.logOutUser} size="mini" compact>log out</Segment>
         </Segment.Group>
       </div>
     ) : (
