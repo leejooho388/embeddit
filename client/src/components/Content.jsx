@@ -56,7 +56,7 @@ class Content extends Component {
         // Post was previously upvoted
         if (vote === 'up') {
           // if post is already upvoted and vote is up, unvote
-          this.removeVote(post_i, i, this.props.user._id);
+          this.removeVote(post_i, i, this.props.user._id, -1);
         } else if (vote === 'down') {
           // if post is already upvoted and vote is down, switch vote to down
           this.voteOnPost(post_i, i,  this.props.user._id, -1);
@@ -65,7 +65,7 @@ class Content extends Component {
         // Post was previously downvoted
         if (vote === 'down') {
           // if post is already downvoted and vote is down, unvote
-          this.removeVote(post_i, i, this.props.user._id);
+          this.removeVote(post_i, i, this.props.user._id, 1);
         } else if (vote === 'up') {
           // if post is already downvoted and vote is up, switch vote to up
           this.voteOnPost(post_i, i, this.props.user._id, 1);
@@ -87,7 +87,7 @@ class Content extends Component {
       postId: post._id,
       userId,
       vote
-    }
+    };
 
     // axios.post('/api/r/:subreddit/:id/vote')
     axios.post(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
@@ -95,13 +95,14 @@ class Content extends Component {
     let newStatePosts = this.state.posts;
     let changedPost = newStatePosts[index];
     changedPost.voteHistoryUser[userId] = vote;
+    changedPost.voteCount += vote;
     this.setState({
       posts: newStatePosts
     });
   }
 
 
-  removeVote(post, index, userId) {
+  removeVote(post, index, userId, voteChange) {
 
     const voteInfo = {
       postId: post._id,
@@ -116,6 +117,7 @@ class Content extends Component {
     let changedVoteHistory = changedPost.voteHistoryUser;
     delete changedVoteHistory[userId];
     changedPost.voteHistoryUser = changedVoteHistory;
+    changedPost.voteCount += voteChange;
     newStatePosts[index] = changedPost;
     this.setState({
       posts: newStatePosts
