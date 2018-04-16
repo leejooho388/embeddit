@@ -4,10 +4,7 @@ import { Header, Image, Segment} from "semantic-ui-react";
 import rIcon from "../../../images/reddit_logo.png";
 import { logOutUser } from '../actions';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import axios from 'axios';
->>>>>>> 808ae1745cfa5b829b77ee8967631bd3f5bb790b
 
 class Head2 extends Component {
 

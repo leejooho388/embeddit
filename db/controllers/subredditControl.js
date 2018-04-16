@@ -15,7 +15,7 @@ var getQuerySubreddit = function(req, res){
 };
 
 var getSubreddit = function(req, res){
-  Subreddit.find({}).exec(function(err, subreddits){
+  Subreddit.find({}).sort({subscriberCount: -1}).exec(function(err, subreddits){
     res.send(subreddits);
   });
 };

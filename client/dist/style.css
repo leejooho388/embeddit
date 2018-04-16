@@ -49,6 +49,16 @@
   height: 17%;
 }
 
+.subredditButton{
+  padding-bottom: 30px;
+  width: 96%;
+  margin:auto;
+}
+
+.subredditListTop{
+  margin-bottom: -30px;
+}
+
 .subredditGridSubscribe{
   min-width: 60px;
 }
