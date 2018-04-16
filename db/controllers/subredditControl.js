@@ -40,7 +40,6 @@ var subscribe = function(req, res){
     if(err){
       return res.send(err);
     }
-    console.log('subreddit: ',req.body);
     User.find({'username': req.body.username}, function(err, response) {
       if (err) {
         return res.send(err);

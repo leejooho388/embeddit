@@ -60,13 +60,13 @@ exports.updateSubscription = (user) => {
   return (dispatch) => {
     axios.post(`${API_URL}/subscribe`, user)
       .then(res => {
-          dispatch({ type: AUTH_USER, payload: decoded.user });
+        // dispatch({ type: AUTH_USER, payload: decoded.user });
       })
       .catch(() => {
-        dispatch({
+        //dispatch({
           // type: AUTH_ERROR,
           // payload: 'Invalid username or password'
-        });
+        //});
       });
   };
 };

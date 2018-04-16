@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
+const SUBSCRIBE = 'Subscribe';
+const UNSUBSCRIBE = 'Unsubscribe';
+
 export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits extends Component {
   constructor(props){
     super(props);
@@ -27,6 +30,7 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
     this.setSubreddits = this.setSubreddits.bind(this);
     this.getSubreddits = this.getSubreddits.bind(this);
     this.subscribeButtonTapped = this.subscribeButtonTapped.bind(this);
+    this.isSubscribed = this.isSubscribed.bind(this);
   }
 
   setSubreddits(subreddits){
@@ -48,13 +52,27 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
   }
 
   subscribeButtonTapped(e) {
+    if (!this.props.user.authReducer.user) { 
+      return console.log('Please Sign in to post'); 
+    }
+    let change = e.target.getAttribute('data') === SUBSCRIBE ? 1 : -1;
     this.props.updateSubscription({
       username: this.props.user.authReducer.user.username,
-      change: 1,
+      change: change,
       subredditName: e.target.id
     });
   }
-  
+
+  // grab list of subscribed subreddits in order to determine
+  // whether to display subscribe or unsubscribe
+  isSubscribed(subName) {
+    if (!this.props.user.authReducer.user) {
+      return SUBSCRIBE;
+    } 
+    let userSubs = this.props.user.authReducer.user.subredditIds;
+    return userSubs.includes(subName) ? UNSUBSCRIBE : SUBSCRIBE;
+  }
+
   render() {
     let _this = this;
     return (
@@ -73,7 +91,7 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
                 </Grid.Row>
                 <Grid.Row>
                   <Grid.Column className='subredditGridSubscribe' width={3}>
-                    <Button id={subreddit.name} onClick={_this.subscribeButtonTapped}>Subscribe</Button>
+                    <Button id={subreddit.name} data={_this.isSubscribed(subreddit.name)} onClick={_this.subscribeButtonTapped}>{_this.isSubscribed(subreddit.name)}</Button>
                   </Grid.Column>
                   <Grid.Column width={13}>
                     <Message>
