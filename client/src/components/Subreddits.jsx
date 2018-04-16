@@ -27,7 +27,6 @@ export default class Subreddits extends Component {
     var that = this;
     axios.get('http://localhost:8080/api/subreddit')
     .then(function(response){
-      console.log(response.data);
       that.setSubreddits(response.data);
     }); 
   }
