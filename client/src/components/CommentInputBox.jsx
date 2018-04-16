@@ -34,7 +34,6 @@ class CommentInputBox extends Component {
       }
     }, () => {
       let newComment = Object.assign({}, this.state);
-      console.log('NEW COMMENT', newComment);
       axios.post('http://localhost:8080/api/comments', newComment)
       .then( res => {
           this.setState({
