@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  'updateSubscription': (user, currentUser) => {
-    dispatch(updateSubscription(user, currentUser));
+  'updateSubscription': (subInfo, currentUser) => {
+    dispatch(updateSubscription(subInfo, currentUser));
   }
 })
 
@@ -63,8 +63,6 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
     }, this.props.user.authReducer.user);
   }
 
-  // grab list of subscribed subreddits in order to determine
-  // whether to display subscribe or unsubscribe
   isSubscribed(subName) {
     if (!this.props.user.authReducer.user) {
       return SUBSCRIBE;

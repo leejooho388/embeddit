@@ -42,7 +42,6 @@ export default connect (mapStateToProps)( class Post extends Component {
     for (let key in newPost) {
       (newPost[key] === '') && delete newPost[key]
     }
-    console.log(newPost)
     axios.post('http://localhost:8080/api/post', newPost)
     .then(function(res) {
       _this.setState({
@@ -58,7 +57,6 @@ export default connect (mapStateToProps)( class Post extends Component {
   }
 
   onChange(e) {
-    console.log('this is attribute', e.target)
     let stateId = e.target.id;
     stateId === "postTitle" && (stateId = "title")
     this.setState({

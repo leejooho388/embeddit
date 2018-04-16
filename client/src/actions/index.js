@@ -57,15 +57,15 @@ exports.logOutUser = () => {
   return { type: UNAUTH_USER };
 }
 
-exports.updateSubscription = (user, currentUser) => {
+exports.updateSubscription = (subInfo, currentUser) => {
   let updatedUser = Object.assign({}, currentUser);
   return (dispatch) => {
-    axios.post(`${API_URL}/subscribe`, user)
+    axios.post(`${API_URL}/subscribe`, subInfo)
       .then(res => {
-        if (user.change === 1) {
-          updatedUser.subredditIds.push(user.subredditName);
+        if (subInfo.change === 1) {
+          updatedUser.subredditIds.push(subInfo.subredditName);
         } else {
-          let index = updatedUser.subredditIds.indexOf(user.subredditName);
+          let index = updatedUser.subredditIds.indexOf(subInfo.subredditName);
           updatedUser.subredditIds.splice(index, 1);
         }
         const auth = JSON.parse(res.headers.auth);
@@ -76,10 +76,6 @@ exports.updateSubscription = (user, currentUser) => {
         });
       })
       .catch(() => {
-        //dispatch({
-          // type: AUTH_ERROR,
-          // payload: 'Invalid username or password'
-        //});
       });
   };
 };
