@@ -10,6 +10,16 @@ const jwt = require('jsonwebtoken');
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
 router.post('/subreddit', subredditController.postSubreddit);
+router.post('/subscribe', (req, res) => {
+  subredditController.subscribe(req, res, newUser => {
+    const token = jwt.sign({ user: newUser}, 'your_jwt_secret', { expiresIn: '7 days' });    
+    
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header('auth', JSON.stringify({ token: token }));
+
+    res.end();
+  })
+});
 
 // POST
 router.get('/post', postController.get);
