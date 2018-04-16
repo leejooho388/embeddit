@@ -3,10 +3,12 @@ import { Grid, Icon } from 'semantic-ui-react';
 import Moment from 'moment';
 import CommentInputBox from './CommentInputBox.jsx';
 import { connect } from 'react-redux';
+import Comment from './Comment.jsx';
+import axios from 'axios';
 
 class PostPage extends Component {
   constructor(props) {
-    super(props),
+    super(props);
     this.state = {
       //posts will be an array
       post: {
@@ -18,7 +20,54 @@ class PostPage extends Component {
         url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         voteHistoryUser: {},
       }
-    }
+    };
+    this.getPostById = this.getPostById.bind(this);
+  }
+
+  getPostById() {
+    let url = window.location.pathname.split('/');
+    let id = url[url.length - 2];
+    let params = {id: id};
+    console.log('PARAMS:', params);
+    axios.post('/api/post/postById', params)
+      .then( res => {
+        // console.log('Post Page Response: ', res.data[0]);
+        let currPost = res.data[0];
+        currPost.type === 'text' ?
+        this.setState({
+          post: {
+            _id: currPost._id,
+            authorName: currPost.authorName,
+            subredditName: currPost.subredditName,
+            title: currPost.title,
+            voteCount: currPost.voteCount,
+            type: currPost.type,
+            text: currPost.text,
+            updatedAt: currPost.updatedAt
+          }
+        })
+        :
+        this.setState({
+          post: {
+            _id: currPost._id,
+            authorName: currPost.authorName,
+            subredditName: currPost.subredditName,
+            title: currPost.title,
+            voteCount: currPost.voteCount,
+            type: currPost.type,
+            url: currPost.url,
+            updatedAt: currPost.updatedAt
+          }
+        })
+        console.log('New State? ', this.state);
+      })
+      .catch( err => {
+        console.log('could not get current post', err);
+      })
+  }
+
+  componentDidMount() {
+    this.getPostById()
   }
 
   render() {
@@ -65,6 +114,7 @@ class PostPage extends Component {
                 <Grid>
                   {/* post title */}
                   <Grid.Row><a href={this.state.post.url}>{this.state.post.title}</a></Grid.Row>
+                  <Grid.Row>{this.state.post.type === 'text' ? this.state.post.text : this.state.url}</Grid.Row>
                   {/* post info */}
                   <Grid.Row>comment(s) submitted {Moment().startOf('hour').fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
                 </Grid>
@@ -79,6 +129,7 @@ class PostPage extends Component {
           <br></br>
           <br></br>
           {/* Comments will go here */}
+          <Comment />
       </div>
     )
   }

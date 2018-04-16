@@ -35,6 +35,17 @@ const postController = {
       .catch( err => {
         res.status(404).send(err)
       })
+  },
+
+  getPostById: (req, res) => {;
+    post
+      .find({_id: req.body.id})
+      .then( data => {
+        res.status(200).send(data);
+      })
+      .catch( err => {
+        res.status(404).send(err);
+      })
   }
 
 }
