@@ -1,5 +1,6 @@
 const User = require('../models/Users.js');
 const Subreddit = require('../models/Subreddits.js');
+const jwt = require('jsonwebtoken');
 
 var getQuerySubreddit = function(req, res){
   Subreddit.find({'_id': req.params.query}).exec(function(err, subreddits){
@@ -35,7 +36,7 @@ var postSubreddit = function(req, res){
 };
 
 // DATA SHOULD INCLUDE: name (name of subreddit), change (increment number)
-var subscribe = function(req, res){
+var subscribe = function(req, res, callback){
   Subreddit.findOneAndUpdate({name: req.body.subredditName}, {$inc : {'subscriberCount' : req.body.change }}).exec(function(err, response){
     if(err){
       return res.send(err);
@@ -52,14 +53,15 @@ var subscribe = function(req, res){
         subredditIds.push(req.body.subredditName);
       }
 
-      User.findOneAndUpdate({name: req.body.user}, {'subredditIds': subredditIds}).exec(function(err, response) {
+      User.findOneAndUpdate({name: req.body.user}, {'subredditIds': subredditIds}, { new: true }).exec(function(err, newUser) {
         if(err) {
           response.send(err);
         }
-        res.send();
+        
+        callback(newUser);
+
       })
     })
-    res.end();
   });
 };
 
