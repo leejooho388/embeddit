@@ -1,4 +1,5 @@
 const Post = require('../models/Posts.js');
+const db = require('mongoose');
 
 const postController = {
   get: (req, res) => {
@@ -25,7 +26,7 @@ const postController = {
   },
 
   getNewestByUser: (req, res) => {
-    post
+    Post
       .find()
       .sort({ createdAt: -1})
       .limit(1)
@@ -37,10 +38,12 @@ const postController = {
       })
   },
 
-  getPostById: (req, res) => {;
-    post
-      .find({_id: req.body.id})
+  getPostById: (req, res) => {
+    console.log('POST ID', req.params.postId);
+    Post
+      .find({_id: db.Types.ObjectId(req.params.postId)})
       .then( data => {
+        console.log('DATA', data);
         res.status(200).send(data);
       })
       .catch( err => {

@@ -25,7 +25,7 @@ router.post('/subscribe', (req, res) => {
 router.get('/post', postController.get);
 router.post('/post', postController.newPost);
 router.get('/post/user/newest', postController.getNewestByUser);
-router.post('/post/postById', postController.getPostById);
+router.get('/post/:postId', postController.getPostById);
 
 // COMMENTS
 router.get('/comments', commentController.get);

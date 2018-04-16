@@ -25,11 +25,8 @@ class PostPage extends Component {
   }
 
   getPostById() {
-    let url = window.location.pathname.split('/');
-    let id = url[url.length - 2];
-    let params = {id: id};
-    console.log('PARAMS:', params);
-    axios.post('/api/post/postById', params)
+    // let params = {id: this.props.match.params.postId};
+    axios.get(`/api/post/${this.props.match.params.postId}`)
       .then( res => {
         // console.log('Post Page Response: ', res.data[0]);
         let currPost = res.data[0];
@@ -59,7 +56,6 @@ class PostPage extends Component {
             updatedAt: currPost.updatedAt
           }
         })
-        console.log('New State? ', this.state);
       })
       .catch( err => {
         console.log('could not get current post', err);
@@ -69,10 +65,10 @@ class PostPage extends Component {
   componentDidMount() {
     this.getPostById()
   }
-
+  
   render() {
     const renderCommentInputBox = this.props.authenticated ? 
-      <CommentInputBox />
+      <CommentInputBox parentType='100' parentId={this.state.post._id}/>
       :
       (<div className='unAuthCommentInputBox'>
           <h3>Want to add to the discussion?</h3>

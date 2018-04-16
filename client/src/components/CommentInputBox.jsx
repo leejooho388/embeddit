@@ -7,8 +7,8 @@ class CommentInputBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      parentType: 0,// post = 0, comment = 1
-      parentId: 'testing',//post or comment _id
+      parentType: props.parentType,// post = 0, comment = 1
+      parentId: props.parentId,//post or comment _id
       text: '',
       voteCount: 0,
       author: {
