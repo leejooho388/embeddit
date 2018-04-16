@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Header, Image, Segment} from "semantic-ui-react";
 import rIcon from "../../../images/reddit_logo.png";
 import { logOutUser } from '../actions';
+import { Link } from 'react-router-dom';
 
 class Head2 extends Component {
 
@@ -26,10 +27,12 @@ class Head2 extends Component {
 
     return (
       <Header id="head2" as="h3" block>
-        <div id="logo">
-          <Image id="alien" src={rIcon} size="mini" verticalAlign="bottom" />
-          <h2 id="title">&lt;Embeddit /&gt;</h2>
-        </div>
+        <Link to="/">
+          <div id="logo">
+            <Image id="alien" src={rIcon} size="mini" verticalAlign="bottom" />
+            <h2 id="title">&lt;Embeddit /&gt;</h2>
+          </div>
+        </Link>
         {renderUserHeader}
       </Header>
     )
