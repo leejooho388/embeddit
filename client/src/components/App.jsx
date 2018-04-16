@@ -19,9 +19,9 @@ import CreateSubreddit from './CreateSubreddit.jsx';
 
 class App extends Component {
 
-  // componentDidMount() {
-  //   this.props.checkJWT();
-  // }
+  componentDidMount() {
+    this.props.checkJWT();
+  }
 
   render() {
     return (
