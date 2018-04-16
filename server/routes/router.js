@@ -28,7 +28,7 @@ router.get('/post/user/newest', postController.getNewestByUser);
 router.get('/post/:postId', postController.getPostById);
 
 // COMMENTS
-router.get('/comments', commentController.get);
+router.get('/comments/:parentType/:parentId', commentController.get);
 router.post('/comments', commentController.post);
 
 // VOTES

@@ -39,7 +39,6 @@ const postController = {
   },
 
   getPostById: (req, res) => {
-    console.log('POST ID', req.params.postId);
     Post
       .find({_id: db.Types.ObjectId(req.params.postId)})
       .then( data => {

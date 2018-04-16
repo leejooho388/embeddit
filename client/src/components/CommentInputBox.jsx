@@ -34,12 +34,20 @@ class CommentInputBox extends Component {
       }
     }, () => {
       let newComment = Object.assign({}, this.state);
+      console.log('NEW COMMENT', newComment);
       axios.post('http://localhost:8080/api/comments', newComment)
       .then( res => {
           this.setState({
             text: '',
             author: {}
-          });
+          }),
+          axios.get(`/api/comments/${this.props.parentType}/${this.props.parentId}`)
+            .then( res => {
+              this.props.getCommentsAfterPosting(res.data);
+            })
+            .catch( err => {
+              console.log('Error on fetching comments')
+            })
           console.log('Success on comment posting')
         })
         .catch( err => {

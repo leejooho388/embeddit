@@ -22,6 +22,7 @@ class PostPage extends Component {
       }
     };
     this.getPostById = this.getPostById.bind(this);
+    this.getCommentsAfterPosting = this.getCommentsAfterPosting.bind(this);
   }
 
   getPostById() {
@@ -62,18 +63,36 @@ class PostPage extends Component {
       })
   }
 
+  getCommentsAfterPosting(currComments) {
+    this.setState({comments: currComments})
+  }
+
   componentDidMount() {
-    this.getPostById()
+    this.getPostById();
+    // axios.get(`/api/comments/0/${this.props.match.params.postId}`)
+    //   .then( res => {
+    //     this.setState({comments: currComments})
+    //   })
+    //   .catch( err => {
+    //     console.log('Error on fetching comments')
+    //   })
   }
   
   render() {
     const renderCommentInputBox = this.props.authenticated ? 
-      <CommentInputBox parentType='100' parentId={this.state.post._id}/>
+      <CommentInputBox parentType={0} parentId={this.props.match.params.postId} getCommentsAfterPosting={this.getCommentsAfterPosting}/>
       :
       (<div className='unAuthCommentInputBox'>
           <h3>Want to add to the discussion?</h3>
           <h3>CREATE AN ACCOUNT!</h3>
       </div>);
+
+    const renderComments = this.state.comments ?
+    (this.state.comments.map( individualComment => {
+      return <Comment key={individualComment._id} commentObj={individualComment} />
+    }))
+    :
+    <div><h2>No Comments</h2></div>
 
     return (
       <div>
@@ -125,7 +144,7 @@ class PostPage extends Component {
           <br></br>
           <br></br>
           {/* Comments will go here */}
-          <Comment />
+          {renderComments}
       </div>
     )
   }

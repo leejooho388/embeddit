@@ -6,7 +6,8 @@ class Comments extends Component {
   constructor(props) {
     super(props),
     this.state = {
-      shown: true
+      shown: true,
+      comment: props.commentObj
     }
     this.toggleComment = this.toggleComment.bind(this);
   }
@@ -36,23 +37,14 @@ class Comments extends Component {
           <Grid.Column width={15}>
             <Grid.Row>
               <Icon className='pointer' name="minus square outline" color="grey" onClick={this.toggleComment} onMouseOver={this.handleMouseOver} />
-              Username goes here
+              {this.state.comment.author.name}
               {/* apply moment here */}
-              3 hours ago
+              {this.state.comment.createdAt}
             </Grid.Row>
 
             {/* comment */}
             <Grid.Row>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum
+              {this.state.comment.text}
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>
@@ -64,9 +56,9 @@ class Comments extends Component {
           <Grid.Column width={15}>
             <Grid.Row>
               <Icon className='pointer' name="plus square outline" color="grey" onClick={this.toggleComment} />
-              Username goes here
+              {this.state.comment.author.name}
               {/* apply moment here */}
-              3 hours ago
+              {this.state.comment.createdAt}
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>
