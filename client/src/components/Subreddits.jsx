@@ -75,12 +75,12 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
     let _this = this;
     return (
       <div className='subredditGrid'>
-        <Link to="/subreddits/create" ><Button fluid>Create Subreddit</Button></Link>
+        {this.props.user.authReducer.user ? (<div className='subredditButton'><Link to="/subreddits/create"><Button fluid  >Create Subreddit</Button></Link></div>) : (<Message className='subredditButton' ><p>Please Log-in in order to Create a Subreddit</p></Message>)}
         <Grid>
           {this.state.subreddits.map(function(subreddit){
             return (
               <Grid container key={subreddit._id}>
-                <Grid.Row>
+                <Grid.Row className='subredditListTop'>
                   <Grid.Column className='subredditGridSubscribe' width={3}>
                   </Grid.Column>
                   <Grid.Column width={13}>
