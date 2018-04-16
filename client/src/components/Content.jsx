@@ -59,7 +59,7 @@ class Content extends Component {
           this.removeVote(post_i, i, this.props.user._id, -1);
         } else if (vote === 'down') {
           // if post is already upvoted and vote is down, switch vote to down
-          this.voteOnPost(post_i, i,  this.props.user._id, -1);
+          this.voteOnPost(post_i, i,  this.props.user._id, -2);
         }
       } else {
         // Post was previously downvoted
@@ -68,7 +68,7 @@ class Content extends Component {
           this.removeVote(post_i, i, this.props.user._id, 1);
         } else if (vote === 'up') {
           // if post is already downvoted and vote is up, switch vote to up
-          this.voteOnPost(post_i, i, this.props.user._id, 1);
+          this.voteOnPost(post_i, i, this.props.user._id, 2);
         }
       }
     } else {
@@ -102,11 +102,12 @@ class Content extends Component {
   }
 
 
-  removeVote(post, index, userId, voteChange) {
+  removeVote(post, index, userId, vote) {
 
     const voteInfo = {
       postId: post._id,
       userId: userId,
+      vote: vote
     }
 
     // axios.delete('/api/r/:subreddit/:id/vote')
@@ -117,7 +118,7 @@ class Content extends Component {
     let changedVoteHistory = changedPost.voteHistoryUser;
     delete changedVoteHistory[userId];
     changedPost.voteHistoryUser = changedVoteHistory;
-    changedPost.voteCount += voteChange;
+    changedPost.voteCount += vote;
     newStatePosts[index] = changedPost;
     this.setState({
       posts: newStatePosts
