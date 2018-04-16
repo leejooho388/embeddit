@@ -47,10 +47,10 @@ router.post('/signup', (req, res) => {
 });
 
 // Passport logout
-router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+// router.get('/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
 
 module.exports = router;
 
