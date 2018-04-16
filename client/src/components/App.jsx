@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div>
         <NavHead />
-        <Head2 />
+        <Route component={Head2}/>
         <Grid columns={16}>
             <Grid.Column width={13}>
               <main>

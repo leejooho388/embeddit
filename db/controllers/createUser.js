@@ -1,5 +1,5 @@
 const Users = require('../models/Users');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 const saltRounds = 10;
 
@@ -9,9 +9,8 @@ module.exports = (req, res, cb) => {
     if (user) {
       res.status(409).send('Username already exists');
     } else {
-      bcrypt.hash(req.body.password, saltRounds)
-        .then(hash => {
-
+      let salt = bcrypt.genSaltSync(saltRounds);
+      bcrypt.hash(req.body.password, salt, null, (err, hash) => {
           // Look up default subreddit id's (should be seeded to db)
           // Add to User in future commit
 
