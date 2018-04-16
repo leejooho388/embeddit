@@ -31,9 +31,8 @@ exports.checkJWT = () => {
   }
 };
 
-
-
 exports.logInUser = (user, endpoint) => {
+  console.log('here is our decoded user: ', user);
   return (dispatch) => {
     axios.post(`${API_URL}/${endpoint}`, user)
       .then(res => {
@@ -57,3 +56,26 @@ exports.logOutUser = () => {
   localStorage.removeItem('token');
   return { type: UNAUTH_USER };
 }
+
+exports.updateSubscription = (subInfo, currentUser) => {
+  let updatedUser = Object.assign({}, currentUser);
+  return (dispatch) => {
+    axios.post(`${API_URL}/subscribe`, subInfo)
+      .then(res => {
+        if (subInfo.change === 1) {
+          updatedUser.subredditIds.push(subInfo.subredditName);
+        } else {
+          let index = updatedUser.subredditIds.indexOf(subInfo.subredditName);
+          updatedUser.subredditIds.splice(index, 1);
+        }
+        const auth = JSON.parse(res.headers.auth);
+        localStorage.setItem('token', auth.token);
+
+        jwt.verify(auth.token, 'your_jwt_secret', (err, decoded) => {
+          dispatch({ type: AUTH_USER, payload: decoded.user });
+        });
+      })
+      .catch(() => {
+      });
+  };
+};

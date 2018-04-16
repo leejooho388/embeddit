@@ -1,9 +1,8 @@
-const express = require('express');
-const post = require('../models/Posts.js');
+const Post = require('../models/Posts.js');
 
 const postController = {
   get: (req, res) => {
-    post
+    Post
       .find()
       .sort({ createdAt: -1})
       .limit(25)
@@ -16,7 +15,7 @@ const postController = {
   },
 
   newPost: (req, res) => {
-    new post(req.body).save()
+    new Post(req.body).save()
       .then( response => {
         res.status(201).send()
       })

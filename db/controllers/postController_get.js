@@ -1,4 +1,3 @@
-const express = require('express');
 const post = require('../models/Posts');
 
 const postController = {

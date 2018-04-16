@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const subredditController = require('../../db/controllers/subredditControl.js');
-const postController = require('../../db/controllers/postController.js');
-const commentController = require('../../db/controllers/commentController.js');
+const subredditController = require('../../db/controllers/subredditControl');
+const postController = require('../../db/controllers/postController');
+const commentController = require('../../db/controllers/commentController');
+const voteController = require('../../db/controllers/voteController');
 
 const jwt = require('jsonwebtoken');
 
@@ -9,6 +10,16 @@ const jwt = require('jsonwebtoken');
 router.get('/subreddit', subredditController.getSubreddit);
 router.get('/subreddit/:query', subredditController.getQuerySubreddit);
 router.post('/subreddit', subredditController.postSubreddit);
+router.post('/subscribe', (req, res) => {
+  subredditController.subscribe(req, res, newUser => {
+    const token = jwt.sign({ user: newUser}, 'your_jwt_secret', { expiresIn: '7 days' });    
+    
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header('auth', JSON.stringify({ token: token }));
+
+    res.end();
+  })
+});
 
 // POST
 router.get('/post', postController.get);
@@ -18,6 +29,9 @@ router.post('/post', postController.newPost);
 router.get('/comments', commentController.get);
 router.post('/comments', commentController.post);
 
+// VOTES
+router.post('/r/:subreddit/:id/vote', voteController.post);
+router.put('/r/:subreddit/:id/vote', voteController.put);
 
 const passport = require('passport');
 
@@ -43,10 +57,10 @@ router.post('/signup', (req, res) => {
 });
 
 // Passport logout
-router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+// router.get('/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
 
 module.exports = router;
 

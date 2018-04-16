@@ -24,6 +24,10 @@
   margin-right: -10px;
 }
 
+.userHeaderItem:hover {
+    background-color: oldlace !important;
+}
+
 #userInfo:hover {
     cursor: pointer;
 }
@@ -123,6 +127,14 @@
 
 .commentInputBox {
     padding-left: 16px;
+}
+
+#postNum {
+    color: darkgray;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 16px;
+    margin-left: 25px;
 }
 
 .side {

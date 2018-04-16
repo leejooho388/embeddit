@@ -1,11 +1,8 @@
 const Users = require('../models/Users');
-const bcrypt = require('bcrypt');
-
-const passport = require('passport');
+const bcrypt = require('bcrypt-nodejs');
 
 const checkValidPassword = async (password, user, cb) => {
-  bcrypt.compare(password, user.password)
-    .then(match => {
+  bcrypt.compare(password, user.password, (match) => {
       cb(match);
     });
 };

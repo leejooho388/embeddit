@@ -3,9 +3,23 @@ import axios from 'axios';
 import { Grid, Message, Button } from 'semantic-ui-react';
 import CreateSubreddits from './CreateSubreddit.jsx';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateSubscription } from '../actions';
 
+const mapStateToProps = (state) => ({
+  user: state
+})
 
-export default class Subreddits extends Component {
+const mapDispatchToProps = (dispatch) => ({
+  'updateSubscription': (subInfo, currentUser) => {
+    dispatch(updateSubscription(subInfo, currentUser));
+  }
+})
+
+const SUBSCRIBE = 'Subscribe';
+const UNSUBSCRIBE = 'Unsubscribe';
+
+export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits extends Component {
   constructor(props){
     super(props);
 
@@ -15,6 +29,8 @@ export default class Subreddits extends Component {
 
     this.setSubreddits = this.setSubreddits.bind(this);
     this.getSubreddits = this.getSubreddits.bind(this);
+    this.subscribeButtonTapped = this.subscribeButtonTapped.bind(this);
+    this.isSubscribed = this.isSubscribed.bind(this);
   }
 
   setSubreddits(subreddits){
@@ -27,7 +43,6 @@ export default class Subreddits extends Component {
     var that = this;
     axios.get('http://localhost:8080/api/subreddit')
     .then(function(response){
-      console.log(response.data);
       that.setSubreddits(response.data);
     }); 
   }
@@ -35,8 +50,29 @@ export default class Subreddits extends Component {
   componentWillMount(){
     this.getSubreddits();
   }
-  
+
+  subscribeButtonTapped(e) {
+    if (!this.props.user.authReducer.user) { 
+      return console.log('Please Sign in to post'); 
+    }
+    let change = e.target.getAttribute('data') === SUBSCRIBE ? 1 : -1;
+    this.props.updateSubscription({
+      username: this.props.user.authReducer.user.username,
+      change: change,
+      subredditName: e.target.id
+    }, this.props.user.authReducer.user);
+  }
+
+  isSubscribed(subName) {
+    if (!this.props.user.authReducer.user) {
+      return SUBSCRIBE;
+    } 
+    let userSubs = this.props.user.authReducer.user.subredditIds;
+    return userSubs.includes(subName) ? UNSUBSCRIBE : SUBSCRIBE;
+  }
+
   render() {
+    let _this = this;
     return (
       <div className='subredditGrid'>
         <Link to="/subreddits/create" ><Button fluid>Create Subreddit</Button></Link>
@@ -53,7 +89,7 @@ export default class Subreddits extends Component {
                 </Grid.Row>
                 <Grid.Row>
                   <Grid.Column className='subredditGridSubscribe' width={3}>
-                    Subscribe
+                    <Button id={subreddit.name} data={_this.isSubscribed(subreddit.name)} onClick={_this.subscribeButtonTapped}>{_this.isSubscribed(subreddit.name)}</Button>
                   </Grid.Column>
                   <Grid.Column width={13}>
                     <Message>
@@ -70,4 +106,4 @@ export default class Subreddits extends Component {
       </div>
     );
   }
-}
+})

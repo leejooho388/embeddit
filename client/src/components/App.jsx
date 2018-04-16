@@ -19,15 +19,15 @@ import CreateSubreddit from './CreateSubreddit.jsx';
 
 class App extends Component {
 
-  // componentDidMount() {
-  //   this.props.checkJWT();
-  // }
+  componentDidMount() {
+    this.props.checkJWT();
+  }
 
   render() {
     return (
       <div>
         <NavHead />
-        <Head2 />
+        <Route component={Head2}/>
         <Grid columns={16}>
             <Grid.Column width={13}>
               <main>
