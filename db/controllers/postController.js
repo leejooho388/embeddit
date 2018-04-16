@@ -3,6 +3,9 @@ const db = require('mongoose');
 
 const postController = {
   get: (req, res) => {
+
+    console.log(req.params);
+
     Post
       .find()
       .sort({ createdAt: -1})

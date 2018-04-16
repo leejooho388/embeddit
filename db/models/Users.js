@@ -27,12 +27,4 @@ var userSchema = mongoose.Schema({
 
 var User = db.model('User', userSchema);
 
-User.createUser = (user) => {
-
-};
-
-User.checkLogin = (user) => {
-
-};
-
 module.exports = User;
