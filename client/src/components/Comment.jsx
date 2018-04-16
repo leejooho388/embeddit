@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Icon } from "semantic-ui-react";
-import Moment from "moment";
+import moment from "moment";
+import CommentInputBox from './CommentInputBox.jsx';
 
 class Comments extends Component {
   constructor(props) {
@@ -37,9 +38,7 @@ class Comments extends Component {
           <Grid.Column width={15}>
             <Grid.Row>
               <Icon className='pointer' name="minus square outline" color="grey" onClick={this.toggleComment} onMouseOver={this.handleMouseOver} />
-              {this.state.comment.author.name}
-              {/* apply moment here */}
-              {this.state.comment.createdAt}
+              <span className='bold'>{this.state.comment.author.name}</span> <span>{moment(this.state.comment.createdAt).fromNow()}</span>
             </Grid.Row>
 
             {/* comment */}
@@ -55,10 +54,8 @@ class Comments extends Component {
 
           <Grid.Column width={15}>
             <Grid.Row>
-              <Icon className='pointer' name="plus square outline" color="grey" onClick={this.toggleComment} />
-              {this.state.comment.author.name}
-              {/* apply moment here */}
-              {this.state.comment.createdAt}
+            <Icon className='pointer' name="plus square outline" color="grey" onClick={this.toggleComment} />
+              <span className='bold'>{this.state.comment.author.name}</span> <span>{moment(this.state.comment.createdAt).fromNow()}</span>
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>

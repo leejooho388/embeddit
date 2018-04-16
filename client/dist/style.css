@@ -175,7 +175,10 @@
   border: 1px solid gray; 
   text-align: center;
 }
-#post-text {
+
+.bold {
+  font-weight: bold;
+}#post-text {
     float: right;
     margin-top: 8px;
     margin-bottom: 8px;

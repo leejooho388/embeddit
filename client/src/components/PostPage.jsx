@@ -69,13 +69,16 @@ class PostPage extends Component {
 
   componentDidMount() {
     this.getPostById();
-    // axios.get(`/api/comments/0/${this.props.match.params.postId}`)
-    //   .then( res => {
-    //     this.setState({comments: currComments})
-    //   })
-    //   .catch( err => {
-    //     console.log('Error on fetching comments')
-    //   })
+    axios.get(`/api/comments/0/${this.props.match.params.postId}`)
+      .then( res => {
+        console.log('here', res);
+        this.setState({
+          comments: res.data
+        })
+      })
+      .catch( err => {
+        console.log('Error on fetching comments')
+      })
   }
   
   render() {
