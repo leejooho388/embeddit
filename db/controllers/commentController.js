@@ -1,9 +1,12 @@
 const comment = require("../models/Comments.js");
+const db = require('mongoose');
 
 commentController = {
   get: (req, res) => {
+    console.log('parentType', req.params.parentType)
+    console.log('parentId', req.params.parentId)
     comment
-      .find(req.body)
+      .find({parentType: req.params.parentType, parentId: req.params.parentId})
       .then(comments => {
         res.status(200).send(comments);
       })

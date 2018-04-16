@@ -160,8 +160,7 @@ class Content extends Component {
             <Grid.Row>
               <Grid.Column width={1} verticalAlign='middle' textAlign='center' floated='left'>
               {/* post count */}
-                <Grid.Row centered={true}><p id="postNum">{i}</p></Grid.Row>
-                {/* TODO in future {i + 1} */}
+                <Grid.Row centered={true}><p id="postNum">{i + 1}</p></Grid.Row>
               </Grid.Column>
         
               <Grid.Column width={1} floated='left'>

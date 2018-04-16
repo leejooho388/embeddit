@@ -162,7 +162,23 @@
     margin-bottom: 8px;
 }
 
-#post-text {
+#post-page-block {
+  background-color: rgb(248, 248, 248);
+  max-width: 980px;
+}
+
+.unAuthCommentInputBox {
+  max-width: 500px;
+  max-height: 115px;
+  margin-left: 20px;
+  padding: 20px;
+  border: 1px solid gray; 
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}#post-text {
     float: right;
     margin-top: 8px;
     margin-bottom: 8px;

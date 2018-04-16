@@ -24,9 +24,11 @@ router.post('/subscribe', (req, res) => {
 // POST
 router.get('/post', postController.get);
 router.post('/post', postController.newPost);
+router.get('/post/user/newest', postController.getNewestByUser);
+router.get('/post/:postId', postController.getPostById);
 
 // COMMENTS
-router.get('/comments', commentController.get);
+router.get('/comments/:parentType/:parentId', commentController.get);
 router.post('/comments', commentController.post);
 
 // VOTES

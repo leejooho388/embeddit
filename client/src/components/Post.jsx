@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Tab, Form, Message, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import config from '../../../config.js';
 
 const mapStateToProps = (state) => ({
@@ -20,9 +21,11 @@ export default connect (mapStateToProps)( class Post extends Component {
       media: '',
       title: '',
       text: '',
+      redirect: (<div />)
     }
   }
   
+
   componentDidMount() {
     let _panes = [];
     let link=this.linkView()
@@ -37,21 +40,32 @@ export default connect (mapStateToProps)( class Post extends Component {
     const _this = this;
     let newPost = Object.assign({}, this.state);
     delete newPost.panes;
-    newPost.authorName = this.props.user.authReducer.user.username
+    delete newPost.redirect;
+    let username = this.props.user.authReducer.user.username;
+    newPost.authorName = username;
     newPost.voteCount = 0;
     for (let key in newPost) {
       (newPost[key] === '') && delete newPost[key]
     }
     axios.post('http://localhost:8080/api/post', newPost)
-    .then(function(res) {
+    .then( res => {
       _this.setState({
         subredditName: '',
         url: '',
         title: '',
         text: '',
-      })
+      });
+      axios.get('http://localhost:8080/api/post/user/newest', username)
+        .then( res => {
+          let postId = res.data[0]._id;
+          let srName = res.data[0].subredditName;
+          this.setState({ redirect: (<Redirect to={`/r/${srName}/${postId}`}/>)});
+        })
+        .catch( err => {
+          console.log('error in fetching post', err);
+        });
     })
-    .catch(function(err) {
+    .catch( err => {
       console.log('error in post', err);
     });
   }
@@ -130,6 +144,7 @@ export default connect (mapStateToProps)( class Post extends Component {
         {/* {this.props.children} */}
         <h3>submit to reddit</h3>
         <Tab menu={{ secondary: true}} defaultActiveIndex={query} panes={this.state.panes}/>
+        {this.state.redirect}
       </div>
     );
   }
