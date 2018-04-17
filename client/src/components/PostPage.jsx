@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-import Moment from 'moment';
+import moment from 'moment';
 import CommentInputBox from './CommentInputBox.jsx';
 import { connect } from 'react-redux';
 import Comment from './Comment.jsx';
 import axios from 'axios';
+
+import handlePostVote from '../../utils/postVoteUtils';
 
 class PostPage extends Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class PostPage extends Component {
     };
     this.getPostById = this.getPostById.bind(this);
     this.getCommentsAfterPosting = this.getCommentsAfterPosting.bind(this);
+    this.handlePostVoteClick = this.handlePostVoteClick.bind(this);
   }
 
   getPostById() {
@@ -79,6 +82,15 @@ class PostPage extends Component {
         console.log('Error on fetching comments')
       })
   }
+
+  handlePostVoteClick(e) {
+    if (!this.props.authenticated) {
+      alert('You must be logged in to vote');
+      return;
+    }
+    const vote = e.target.getAttribute('data-dir');
+    handlePostVote(this, this.state.post, null, vote, false);
+  }
   
   render() {
     const renderCommentInputBox = this.props.authenticated ? 
@@ -103,12 +115,12 @@ class PostPage extends Component {
               <Grid.Column width={1} floated='left'>
                 <Grid celled='internally'>
                   <Grid.Row centered={true}>
-                    <Icon name='arrow up' size='large' color='grey'/> 
+                    <Icon onClick={this.handlePostVoteClick} name='arrow up' data-dir="up" size='large' color='grey'/>
                   </Grid.Row>
                   {/* Vote count */}
                   <Grid.Row centered={true}>{this.state.post.voteCount}</Grid.Row>
                   <Grid.Row centered={true}>
-                    <Icon name='arrow down' size='large' color='grey'/>
+                    <Icon onClick={this.handlePostVoteClick} name='arrow down' data-dir="down" size='large' color='grey'/>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -133,7 +145,7 @@ class PostPage extends Component {
                   <Grid.Row><a href={this.state.post.url}>{this.state.post.title}</a></Grid.Row>
                   <Grid.Row>{this.state.post.type === 'text' ? this.state.post.text : this.state.url}</Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted {Moment().startOf('hour').fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
+                  <Grid.Row>comment(s) submitted {moment(this.state.post.createdAt).fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
                 </Grid>
               </Grid.Column>
               <Grid.Column width={1}>
