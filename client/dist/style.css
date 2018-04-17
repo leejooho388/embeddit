@@ -179,7 +179,18 @@
 
 .bold {
   font-weight: bold;
-}#post-text {
+}
+
+.hiddenComments {
+  font-style: italic;
+}
+
+.commentReply {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#post-text {
     float: right;
     margin-top: 8px;
     margin-bottom: 8px;
