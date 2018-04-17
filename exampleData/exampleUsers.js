@@ -1,34 +1,40 @@
+const Users = require('./../db/models/Users');
+
 const exampleUsers = [
   {
     username: 'zgallagher',
-    password: 'asdfj',
-    post_karma: 0,
-    comment_karma: 0,
-    sr_ids:[]
+    password: 'asdf',
+    postKarma: 888,
+    commentKarma: 11217,
+    subredditIds:['askreddit', 'worldnews', 'videos', 'funny', 'todayilearned', 'pics', 'gaming']
   },
 
   {
     username: 'jlee',
     password: 'asdfk',
-    post_karma: 0,
-    comment_karma: 0,
-    sr_ids:[]
+    postKarma: 1111,
+    commentKarma: 12848,
+    subredditIds:['askreddit', 'worldnews', 'videos', 'funny', 'todayilearned', 'pics', 'gaming']
   },
   
   {
     username: 'dlai',
     password: 'asdfl',
-    post_karma: 0,
-    comment_karma: 0,
-    sr_ids:[]
+    postKarma: 20947,
+    commentKarma: 1757,
+    subredditIds:['askreddit', 'worldnews', 'videos', 'funny', 'todayilearned', 'pics', 'gaming']
   },
   
   {
     username: 'nsanchez',
     password: 'asdf',
-    post_karma: 0,
-    comment_karma: 0,
-    sr_ids:[]
+    postKarma: 767,
+    commentKarma: 14878,
+    subredditIds:['askreddit', 'worldnews', 'videos', 'funny', 'todayilearned', 'pics', 'gaming']
   }
   
-]
+];
+
+(function() {
+  Users.create(exampleUsers)
+})();
