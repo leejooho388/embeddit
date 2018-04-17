@@ -75,6 +75,10 @@ class Comments extends Component {
 
     const voteStyle = renderVoteHelper(this, this.state.comment, true);
 
+    let renderPoints = this.state.comment.voteCount;
+
+    renderPoints += renderPoints === 1 ? ' point' : ' points';
+
     return (
       <Grid>
         {this.state.shown ? 
@@ -93,7 +97,10 @@ class Comments extends Component {
           <Grid.Column width={15}>
             <Grid.Row>
               <Icon className='pointer' name="minus square outline" color="grey" onClick={this.toggleComment} onMouseOver={this.handleMouseOver} />
-              <span className='bold'>{this.state.comment.author.name}</span> <span>{moment(this.state.comment.createdAt).fromNow()}</span> <span className='commentReply' onClick={this.handleReplyClick}>reply</span>
+              <span><b>{this.state.comment.author.name}</b></span>
+              <span> {renderPoints} </span>
+              <span style={{'color': 'gray'}}> {moment(this.state.comment.createdAt).fromNow()} </span>
+              <span className='commentReply' onClick={this.handleReplyClick}>reply</span>
             </Grid.Row>
 
             {/* comment */}
