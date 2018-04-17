@@ -1,12 +1,19 @@
-const renderVoteHelper = (context, post) => {
+const renderVoteHelper = (context, postOrComment, isComment) => {
 
   let upColor = 'grey';
   let downColor = 'grey';
   let numColor = 'grey';
+  let userId;
 
-  if (post.voteHistoryUser && context.props.authenticated) {
-    if (context.props.user._id in post.voteHistoryUser) {
-      if (post.voteHistoryUser[context.props.user._id] > 0) {
+  if (isComment) {
+    userId = context.props.userId;
+  } else {
+    userId = context.props.user._id;
+  }
+
+  if (postOrComment.voteHistoryUser && context.props.authenticated) {
+    if (userId in postOrComment.voteHistoryUser) {
+      if (postOrComment.voteHistoryUser[userId] > 0) {
         upColor = 'orange';
         numColor = '#E37737';
       } else {

@@ -73,7 +73,7 @@ const removeVote = (context, post, index, userId, vote, onFrontPage) => {
     vote: vote
   }
 
-  // axios.delete('/api/r/:subreddit/:id/vote')
+  // axios.put('/api/r/:subreddit/:id/vote')
   axios.put(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
 
   if (onFrontPage) {

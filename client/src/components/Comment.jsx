@@ -4,6 +4,9 @@ import moment from "moment";
 import CommentInputBox from './CommentInputBox.jsx';
 import axios from 'axios';
 
+import handleCommentVote from "../../utils/commentVoteUtils";
+import renderVoteHelper from '../../utils/renderVotesUtils';
+
 class Comments extends Component {
   constructor(props) {
     super(props),
@@ -17,6 +20,7 @@ class Comments extends Component {
     this.handleReplyClick = this.handleReplyClick.bind(this);
     this.cancelReplyClick = this.cancelReplyClick.bind(this);
     this.getCommentAfterPosting = this.getCommentAfterPosting.bind(this);
+    this.handleCommentVoteClick = this.handleCommentVoteClick.bind(this);
   }
 
   toggleComment() {
@@ -32,7 +36,6 @@ class Comments extends Component {
   }
   
   cancelReplyClick() {
-    console.log('clicked');
     this.setState({
       showCommentBox: false
     })
@@ -56,7 +59,22 @@ class Comments extends Component {
       })
   }
 
+  handleCommentVoteClick(e) {
+    if (!this.props.authenticated) {
+      alert('You must be logged in to vote');
+      return;
+    }
+
+    // this.state.comment.author.authorId
+
+    const vote = e.target.getAttribute('data-dir');
+    handleCommentVote(this, this.state.comment, this.props.userId, vote);
+  }
+
   render() {
+
+    const voteStyle = renderVoteHelper(this, this.state.comment, true);
+
     return (
       <Grid>
         {this.state.shown ? 
@@ -64,10 +82,10 @@ class Comments extends Component {
           <Grid.Column width={1} floated="left">
             <Grid celled="internally">
               <Grid.Row centered={true}>
-                <Icon className='pointer' name="arrow up" size="large" color="grey" />
+                <Icon onClick={this.handleCommentVoteClick} className='pointer' name="arrow up" data-id={this.state.comment._id} data-dir="up" size="large" color={voteStyle.upColor} />
               </Grid.Row>
               <Grid.Row centered={true}>
-                <Icon className='pointer' name="arrow down" size="large" color="grey" />
+                <Icon onClick={this.handleCommentVoteClick} className='pointer' name="arrow down" data-id={this.state.comment._id} data-dir="down" size="large" color={voteStyle.downColor} />
               </Grid.Row>
             </Grid>
           </Grid.Column>
@@ -92,7 +110,7 @@ class Comments extends Component {
               <div>
                 {this.state.childComments.length ?
                   this.state.childComments.map(childComment => {
-                    return <Comments key={childComment._id} commentObj={childComment} />
+                    return <Comments key={childComment._id} commentObj={childComment} authenticated={this.props.authenticated} userId={this.props.userId} />
                   })
                   :
                   <div />

@@ -112,7 +112,7 @@ class PostPage extends Component {
 
     const renderComments = this.state.comments ?
     (this.state.comments.map( individualComment => {
-      return <Comment key={individualComment._id} commentObj={individualComment} />
+      return <Comment key={individualComment._id} commentObj={individualComment} authenticated={this.props.authenticated} userId={this.props.user._id} />
     }))
     :
     <div><h2>No Comments</h2></div>

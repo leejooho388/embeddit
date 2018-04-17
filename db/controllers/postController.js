@@ -67,15 +67,14 @@ const postController = {
   getPostById: (req, res) => {
     Post
       .findById(req.params.postId)
-      .then( data => {
-        console.log('DATA', data);
-        res.status(200).send(data);
+      .then( post => {
+        res.status(200).send(post);
       })
       .catch( err => {
         res.status(404).send(err);
       })
   }
 
-}
+};
 
 module.exports = postController;

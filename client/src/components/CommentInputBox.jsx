@@ -50,7 +50,6 @@ class CommentInputBox extends Component {
             .catch( err => {
               console.log('Error on fetching comments')
             })
-          console.log('Success on comment posting')
         })
         .catch( err => {
           console.log('Error on comment posting', err);
