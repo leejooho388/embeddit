@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Icon } from "semantic-ui-react";
 import moment from "moment";
 import CommentInputBox from './CommentInputBox.jsx';
+import axios from 'axios';
 
 class Comments extends Component {
   constructor(props) {
@@ -37,11 +38,22 @@ class Comments extends Component {
     })
   }
   getCommentAfterPosting(currComments) {
-    this.setState({childComments: currComments})
+    this.setState({
+      childComments: currComments,
+      showCommentBox: false
+    })
   }
 
   componentDidMount() {
-    
+    axios.get(`/api/comments/1/${this.state.comment._id}`)
+      .then( res => {
+        this.setState({
+          childComments: res.data
+        })
+      })
+      .catch( err => {
+        console.log('Error on fetching comments')
+      })
   }
 
   render() {
@@ -71,7 +83,7 @@ class Comments extends Component {
               {this.state.comment.text}
               <div>
                 {this.state.showCommentBox ?
-                  <CommentInputBox parentType={1} parentId={this.state.comment._id} getCommentAfterPosting={this.getCommentAfterPosting} cancel={this.cancelReplyClick} />
+                  <CommentInputBox parentType={1} parentId={this.state.comment._id} getCommentAfterPosting={this.getCommentAfterPosting} hide={this.cancelReplyClick} />
                   : 
                   <div />
                 }
