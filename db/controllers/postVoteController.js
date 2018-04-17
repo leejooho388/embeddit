@@ -16,20 +16,20 @@ const updateDbWithVote = (postId, userId, vote, isNewVote) => {
         { $set: { voteHistoryUser: newVoteHistory },
           $inc: { voteCount: vote } }).exec()
         .catch(err => {
-          console.log('Error incrementing vote count.', err);
+          console.log('Error incrementing post vote count.', err);
         });
 
       User.findOneAndUpdate({ username: post.authorName }, { $inc: { 'postKarma': vote } }).exec()
         .catch(err => {
-          console.log('Error updating user karma.', err);
+          console.log('Error updating user post karma.', err);
         });
     })
     .catch(err => {
-      console.log('Error updating vote history.', err);
+      console.log('Error updating post vote history.', err);
     });
 };
 
-const voteController = {
+const postVoteController = {
   post: (req, res) => {
     updateDbWithVote(req.body.postId, req.body.userId, req.body.vote, true);
     res.status(200).end();
@@ -39,6 +39,6 @@ const voteController = {
     updateDbWithVote(req.body.postId, req.body.userId, req.body.vote, false);
     res.status(200).end();
   }
-}
+};
 
-module.exports = voteController;
+module.exports = postVoteController;

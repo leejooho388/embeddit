@@ -5,6 +5,8 @@ const db = require('mongoose');
 const postController = {
   get: (req, res) => {
 
+    console.log('req.params', req.params)
+
     if (req.params.userId !== 'undefined') {
       User.findById(req.params.userId)
         .then(user => {
@@ -64,16 +66,15 @@ const postController = {
 
   getPostById: (req, res) => {
     Post
-      .find({_id: db.Types.ObjectId(req.params.postId)})
-      .then( data => {
-        console.log('DATA', data);
-        res.status(200).send(data);
+      .findById(req.params.postId)
+      .then( post => {
+        res.status(200).send(post);
       })
       .catch( err => {
         res.status(404).send(err);
       })
   }
 
-}
+};
 
 module.exports = postController;
