@@ -42,7 +42,10 @@ class CommentInputBox extends Component {
           }),
           axios.get(`/api/comments/${this.props.parentType}/${this.props.parentId}`)
             .then( res => {
-              this.props.getCommentsAfterPosting(res.data);
+              this.props.parentType === 0 ?
+                this.props.getCommentsAfterPosting(res.data)
+                :
+                this.props.getCommentAfterPosting(res.data)
             })
             .catch( err => {
               console.log('Error on fetching comments')
@@ -61,7 +64,14 @@ class CommentInputBox extends Component {
         <Form.Field width='7'>
           <div style={{color: 'rgb(182, 49, 52)'}}>Don't just complain, please MESSAGE THE MODS regarding rule violations</div>
           <Form.TextArea rows='4' onChange={this.handleOnChange} value={this.state.text}/>
-          <Button basic size='mini' color='grey' onClick={this.handleSubmit}>save</Button>
+          {this.props.parentType === 0 ?
+            <Button basic size='mini' color='grey' onClick={this.handleSubmit}>save</Button>
+            :
+            <div> 
+            <Button basic size='mini' color='grey' onClick={this.handleSubmit && (() => {this.props.cancel()})}>save</Button>
+            <Button basic size='mini' color='grey' onClick={() => { this.props.cancel() }}>cancel</Button>
+            </div>
+          }
         </Form.Field>
       </Form>
     )
