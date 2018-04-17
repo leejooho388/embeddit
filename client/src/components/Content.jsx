@@ -18,7 +18,7 @@ class Content extends Component {
   }
 
   getPosts(userId) {
-    axios.get(`/api/post/${userId}`)
+    axios.get(`/api/posts/${userId}`)
       .then( response => {
         this.setState({posts: response.data})
       })
@@ -64,7 +64,7 @@ class Content extends Component {
       <div>
       {this.state.posts.map( (post, i) => {
 
-        let voteStyle = renderVoteHelper(this, post);
+        const voteStyle = renderVoteHelper(this, post);
 
         return (
           <Grid key={post._id}>
