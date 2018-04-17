@@ -5,7 +5,7 @@ const db = require('mongoose');
 const postController = {
   get: (req, res) => {
 
-    if (req.params.userId !== undefined) {
+    if (req.params.userId !== 'undefined') {
       User.findById(req.params.userId)
         .then(user => {
 
