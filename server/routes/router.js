@@ -34,6 +34,7 @@ router.post('/comments', commentController.post);
 // VOTES
 router.post('/r/:subreddit/:id/vote', voteController.post);
 router.put('/r/:subreddit/:id/vote', voteController.put);
+router.get('/r/:subreddit/', postController.getSubreddit)
 
 const passport = require('passport');
 

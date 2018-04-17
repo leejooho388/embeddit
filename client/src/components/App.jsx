@@ -16,7 +16,6 @@ import Subreddits from './Subreddits.jsx';
 import Comments from './Comment.jsx';
 import CommentInputBox from './CommentInputBox.jsx';
 import CreateSubreddit from './CreateSubreddit.jsx';
-import PostPage from './PostPage.jsx';
 
 class App extends Component {
 
@@ -32,14 +31,12 @@ class App extends Component {
         <Grid columns={16}>
             <Grid.Column width={13}>
               <main>
-                {/* <PostPage /> */}
                 <Switch>
                   <Route exact path='/' component={Content} />
                   <Route exact path='/subreddits' component={Subreddits} />
                   <Route path='/post' component={Post} />
-                  <Route exact path='/r/:query' component={Content} />
+                  <Route path='/r/:query' component={Content} />)} />
                   <Route path='/subreddits/create' component={CreateSubreddit} />
-                  <Route path='/r/:sr/:postId' component={PostPage} /> 
                 </Switch>
               </main>
             </Grid.Column>

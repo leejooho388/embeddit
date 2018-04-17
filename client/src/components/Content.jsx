@@ -15,16 +15,27 @@ class Content extends Component {
   }
 
   getPosts() {
-    axios.get('/api/post')
-      .then( response => {
-        this.setState({posts: response.data})
-      })
-      .catch( err => {
-        console.error('Unable to fetch posts data.');
-      });
+    if(this.props.match.params.query){
+      axios.get(`/api/r/${this.props.match.params.query}`)
+        .then( response => {
+          console.log(response.data);
+          this.setState({posts: response.data})
+        })
+        .catch( err => {
+          console.error('Unable to fetch posts data.');
+        });
+    } else {
+      axios.get('/api/post')
+        .then( response => {
+          this.setState({posts: response.data})
+        })
+        .catch( err => {
+          console.error('Unable to fetch posts data.');
+        });
+    }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getPosts();
   }
 

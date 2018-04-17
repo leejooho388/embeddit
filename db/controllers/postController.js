@@ -15,6 +15,20 @@ const postController = {
       })
   },
 
+  getSubreddit: (req, res) => {
+    console.log('hi');
+    Post
+      .find({ subredditName: req.params.subreddit })
+      .sort({ createdAt: -1})
+      .limit(25)
+      .then( data => {
+        res.status(200).send(data);
+      })
+      .catch( err => {
+        res.status(404).send(err)
+      })
+  },
+
   newPost: (req, res) => {
     new Post(req.body).save()
       .then( response => {
