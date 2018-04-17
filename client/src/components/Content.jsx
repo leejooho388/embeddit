@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
-import Moment from 'moment';
+import moment from 'moment';
 
 class Content extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class Content extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this);
   }
 
-  getPosts() {
-    axios.get('/api/post')
+  getPosts(userId) {
+    axios.get(`/api/post/${userId}`)
       .then( response => {
         this.setState({posts: response.data})
       })
@@ -25,7 +25,11 @@ class Content extends Component {
   }
 
   componentDidMount() {
-    this.getPosts();
+    if (this.props.authenticated) {
+      this.getPosts(this.props.user._id);
+    } else {
+      this.getPosts();
+    }
   }
 
   handleVoteClick(e) {
@@ -127,7 +131,7 @@ class Content extends Component {
 
   render() {
 
-    return(
+    return (
       <div>
       {this.state.posts.map( (post, i) => {
 
@@ -196,7 +200,7 @@ class Content extends Component {
                   {/* post title */}
                   <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted {Moment().startOf('hour').fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
+                  <Grid.Row>comment(s) submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
                 </Grid>
               </Grid.Column>
             </Grid.Row>

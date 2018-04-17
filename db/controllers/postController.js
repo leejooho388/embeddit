@@ -1,18 +1,42 @@
 const Post = require('../models/Posts.js');
+const User = require('../models/Users.js');
 const db = require('mongoose');
 
 const postController = {
   get: (req, res) => {
-    Post
-      .find()
-      .sort({ createdAt: -1})
-      .limit(25)
-      .then( data => {
-        res.status(200).send(data);
-      })
-      .catch( err => {
-        res.status(404).send(err)
-      })
+
+    if (req.params.userId !== 'undefined') {
+      User.findById(req.params.userId)
+        .then(user => {
+
+          Post
+            .find()
+            .where('subredditName').in(user.subredditIds)
+            .sort({ createdAt: -1})
+            .limit(25)
+            .then( data => {
+              res.status(200).send(data);
+            })
+            .catch( err => {
+              res.status(404).send(err)
+            })
+
+        })
+        .catch(err => {
+          console.log('Error finding user in database getting posts.')
+        })
+    } else {
+      Post
+        .find()
+        .sort({ createdAt: -1})
+        .limit(25)
+        .then( data => {
+          res.status(200).send(data);
+        })
+        .catch( err => {
+          res.status(404).send(err)
+        })
+    }
   },
 
   newPost: (req, res) => {

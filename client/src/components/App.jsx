@@ -20,7 +20,7 @@ import PostPage from './PostPage.jsx';
 
 class App extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.checkJWT();
   }
 

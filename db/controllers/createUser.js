@@ -11,14 +11,13 @@ module.exports = (req, res, cb) => {
     } else {
       let salt = bcrypt.genSaltSync(saltRounds);
       bcrypt.hash(req.body.password, salt, null, (err, hash) => {
-          // Look up default subreddit id's (should be seeded to db)
-          // Add to User in future commit
 
-          // defaultSRs: askreddit, worldnews, videos, funny, todayilearned, pics
+          const defaultSRs = ['askreddit', 'worldnews', 'videos', 'funny', 'todayilearned', 'pics', 'gaming'];
 
           Users.create({
               username: req.body.username,
               password: hash,
+              subredditIds: defaultSRs
             }, (err, newUser) => {
             if (err) {
               res.status(500).send(err.message);

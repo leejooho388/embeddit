@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "dev": "webpack -d --watch",
-    "db:setup": "node exampleData/examplePosts.js"
+    "db:setup": "node exampleData/examplePosts.js & node exampleData/exampleSR.js & node exampleData/exampleUsers.js"
   },
   "repository": {
     "type": "git",
