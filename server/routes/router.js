@@ -32,9 +32,10 @@ router.get('/post/:postId', postController.getPostById);
 router.get('/comments/:parentType/:parentId', commentController.get);
 router.post('/comments', commentController.post);
 
-// POST VOTES
-router.post('/r/:subreddit/:id/vote', postVoteController.post);
-router.put('/r/:subreddit/:id/vote', postVoteController.put);
+// VOTES
+router.post('/r/:subreddit/:id/vote', voteController.post);
+router.put('/r/:subreddit/:id/vote', voteController.put);
+router.get('/r/:subreddit/', postController.getSubreddit)
 
 // COMMENT VOTES
 router.post('/comment/vote/:commentId', commentVoteController.post);
