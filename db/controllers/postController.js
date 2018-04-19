@@ -40,7 +40,7 @@ const postController = {
 
   getSubreddit: (req, res) => {
     Post
-      .find({ subredditName: req.params.subreddit })
+      .find({ subredditName: { $regex: new RegExp("^" + req.params.subreddit.toLowerCase(), "i") } })
       .sort({ createdAt: -1})
       .limit(25)
       .then( data => {

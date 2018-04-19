@@ -56,8 +56,8 @@
   margin:auto;
 }
 
-.subredditListTop{
-  margin-bottom: -30px;
+.subredditListBottom{
+  margin-top: -30px;
 }
 
 .subredditGridSubscribe{
