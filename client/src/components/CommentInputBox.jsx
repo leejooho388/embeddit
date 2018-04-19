@@ -34,7 +34,6 @@ class CommentInputBox extends Component {
       }
     }, () => {
       let newComment = Object.assign({}, this.state);
-      console.log('NEW COMMENT', newComment);
       axios.post('http://localhost:8080/api/comments', newComment)
       .then( res => {
           this.setState({
@@ -43,12 +42,14 @@ class CommentInputBox extends Component {
           }),
           axios.get(`/api/comments/${this.props.parentType}/${this.props.parentId}`)
             .then( res => {
-              this.props.getCommentsAfterPosting(res.data);
+              this.props.parentType === 0 ?
+                this.props.getCommentsAfterPosting(res.data)
+                :
+                this.props.getCommentAfterPosting(res.data)
             })
             .catch( err => {
               console.log('Error on fetching comments')
             })
-          console.log('Success on comment posting')
         })
         .catch( err => {
           console.log('Error on comment posting', err);
@@ -63,6 +64,7 @@ class CommentInputBox extends Component {
           <div style={{color: 'rgb(182, 49, 52)'}}>Don't just complain, please MESSAGE THE MODS regarding rule violations</div>
           <Form.TextArea rows='4' onChange={this.handleOnChange} value={this.state.text}/>
           <Button basic size='mini' color='grey' onClick={this.handleSubmit}>save</Button>
+          {this.props.parentType === 1 && <Button basic size='mini' color='grey' onClick={() => { this.props.hide() }}>cancel</Button>}
         </Form.Field>
       </Form>
     )

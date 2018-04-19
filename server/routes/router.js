@@ -2,7 +2,8 @@ const router = require('express').Router();
 const subredditController = require('../../db/controllers/subredditControl');
 const postController = require('../../db/controllers/postController');
 const commentController = require('../../db/controllers/commentController');
-const voteController = require('../../db/controllers/voteController');
+const postVoteController = require('../../db/controllers/postVoteController');
+const commentVoteController = require('../../db/controllers/commentVoteController');
 
 const jwt = require('jsonwebtoken');
 
@@ -22,7 +23,7 @@ router.post('/subscribe', (req, res) => {
 });
 
 // POST
-router.get('/post', postController.get);
+router.get('/posts/:userId', postController.get);
 router.post('/post', postController.newPost);
 router.get('/post/user/newest', postController.getNewestByUser);
 router.get('/post/:postId', postController.getPostById);
@@ -35,6 +36,10 @@ router.post('/comments', commentController.post);
 router.post('/r/:subreddit/:id/vote', voteController.post);
 router.put('/r/:subreddit/:id/vote', voteController.put);
 router.get('/r/:subreddit/', postController.getSubreddit)
+
+// COMMENT VOTES
+router.post('/comment/vote/:commentId', commentVoteController.post);
+router.put('/comment/vote/:commentId', commentVoteController.put);
 
 const passport = require('passport');
 

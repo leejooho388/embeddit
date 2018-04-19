@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
-import Moment from 'moment';
+import moment from 'moment';
+
+import handlePostVote from '../../utils/postVoteUtils';
+import renderVoteHelper from '../../utils/renderVotesUtils';
 
 class Content extends Component {
   constructor(props) {
@@ -14,29 +17,22 @@ class Content extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this);
   }
 
-  getPosts() {
-    if(this.props.match.params.query){
-      axios.get(`/api/r/${this.props.match.params.query}`)
-        .then( response => {
-          console.log(response.data);
-          this.setState({posts: response.data})
-        })
-        .catch( err => {
-          console.error('Unable to fetch posts data.');
-        });
-    } else {
-      axios.get('/api/post')
-        .then( response => {
-          this.setState({posts: response.data})
-        })
-        .catch( err => {
-          console.error('Unable to fetch posts data.');
-        });
-    }
+  getPosts(userId) {
+    axios.get(`/api/posts/${userId}`)
+      .then( response => {
+        this.setState({posts: response.data})
+      })
+      .catch( err => {
+        console.error('Unable to fetch posts data.');
+      });
   }
 
-  componentWillMount() {
-    this.getPosts();
+  componentDidMount() {
+    if (this.props.authenticated) {
+      this.getPosts(this.props.user._id);
+    } else {
+      this.getPosts();
+    }
   }
 
   handleVoteClick(e) {
@@ -58,113 +54,17 @@ class Content extends Component {
       }
     }
 
-    const hasVoteHistory = post_i.hasOwnProperty('voteHistoryUser');
+    handlePostVote(this, post_i, i, vote, true);
 
-    post_i.voteHistoryUser = post_i.voteHistoryUser || {};
-
-    if (hasVoteHistory && this.props.user._id in post_i.voteHistoryUser) {
-      if (post_i.voteHistoryUser[this.props.user._id] > 0) {
-        // Post was previously upvoted
-        if (vote === 'up') {
-          // if post is already upvoted and vote is up, unvote
-          this.removeVote(post_i, i, this.props.user._id, -1);
-        } else if (vote === 'down') {
-          // if post is already upvoted and vote is down, switch vote to down
-          this.voteOnPost(post_i, i,  this.props.user._id, -2);
-        }
-      } else {
-        // Post was previously downvoted
-        if (vote === 'down') {
-          // if post is already downvoted and vote is down, unvote
-          this.removeVote(post_i, i, this.props.user._id, 1);
-        } else if (vote === 'up') {
-          // if post is already downvoted and vote is up, switch vote to up
-          this.voteOnPost(post_i, i, this.props.user._id, 2);
-        }
-      }
-    } else {
-      // No previous vote history
-      if (vote === 'up') {
-        this.voteOnPost(post_i, i, this.props.user._id, 1);
-      } else {
-        this.voteOnPost(post_i, i, this.props.user._id, -1);
-      }
-    }
-
-  }
-
-  voteOnPost(post, index, userId, vote) {
-    const voteInfo = {
-      postId: post._id,
-      userId,
-      vote
-    };
-
-    // axios.post('/api/r/:subreddit/:id/vote')
-    axios.post(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
-
-    let newStatePosts = this.state.posts;
-    let changedPost = newStatePosts[index];
-    changedPost.voteHistoryUser[userId] = vote;
-    changedPost.voteCount += vote;
-    this.setState({
-      posts: newStatePosts
-    });
-  }
-
-
-  removeVote(post, index, userId, vote) {
-
-    const voteInfo = {
-      postId: post._id,
-      userId: userId,
-      vote: vote
-    }
-
-    // axios.delete('/api/r/:subreddit/:id/vote')
-    axios.put(`/api/r/${post.subredditName}/${post._id}/vote`, voteInfo);
-
-    let newStatePosts = this.state.posts;
-    let changedPost = newStatePosts[index];
-    let changedVoteHistory = changedPost.voteHistoryUser;
-    delete changedVoteHistory[userId];
-    changedPost.voteHistoryUser = changedVoteHistory;
-    changedPost.voteCount += vote;
-    newStatePosts[index] = changedPost;
-    this.setState({
-      posts: newStatePosts
-    });
   }
 
   render() {
 
-    return(
+    return (
       <div>
       {this.state.posts.map( (post, i) => {
 
-        let upColor = 'grey';
-        let downColor = 'grey';
-        let numColor = 'grey';
-
-        if (post.voteHistoryUser && this.props.authenticated) {
-          if (this.props.user._id in post.voteHistoryUser) {
-            if (post.voteHistoryUser[this.props.user._id] > 0) {
-              upColor = 'orange';
-              numColor = '#E37737';
-            } else {
-              downColor = 'violet';
-              numColor = '#5B3FC2';
-            }
-          }
-        }
-
-        const numStyle = {
-          'color': numColor,
-          'fontWeight': 'bold',
-          'fontFamily': 'wide block',
-          'fontSize': '20px',
-          'marginRight': '3px'
-        };
+        const voteStyle = renderVoteHelper(this, post);
 
         return (
           <Grid key={post._id}>
@@ -177,12 +77,12 @@ class Content extends Component {
               <Grid.Column width={1} floated='left'>
                 <Grid celled='internally'>
                   <Grid.Row centered={true}>
-                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color={upColor}/>
+                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="up" className="pointer" name='arrow up' size='large' color={voteStyle.upColor}/>
                   </Grid.Row>
                   {/* Vote count */}
-                  <Grid.Row centered={true}><p style={numStyle}>{post.voteCount}</p></Grid.Row>
+                  <Grid.Row centered={true}><p style={voteStyle.numStyle}>{post.voteCount}</p></Grid.Row>
                   <Grid.Row centered={true}>
-                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color={downColor}/>
+                    <Icon onClick={this.handleVoteClick} data-id={post._id} data-dir="down" className="pointer" name='arrow down' size='large' color={voteStyle.downColor}/>
                   </Grid.Row>
                 </Grid>
               </Grid.Column>
@@ -207,7 +107,7 @@ class Content extends Component {
                   {/* post title */}
                   <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted {Moment().startOf('hour').fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
+                  <Grid.Row>comment(s) submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
                 </Grid>
               </Grid.Column>
             </Grid.Row>

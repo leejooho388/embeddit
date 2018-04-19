@@ -15,6 +15,7 @@
 }
 
 #title {
+  color: black;
   margin-left: 40px;
 }
 
@@ -176,9 +177,16 @@
   text-align: center;
 }
 
-.bold {
+.hiddenComments {
+  font-style: italic;
+}
+
+.commentReply {
   font-weight: bold;
-}#post-text {
+  cursor: pointer;
+}
+
+#post-text {
     float: right;
     margin-top: 8px;
     margin-bottom: 8px;

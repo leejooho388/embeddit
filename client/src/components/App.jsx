@@ -19,7 +19,7 @@ import CreateSubreddit from './CreateSubreddit.jsx';
 
 class App extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.checkJWT();
   }
 

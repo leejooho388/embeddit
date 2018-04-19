@@ -3,8 +3,6 @@ const db = require('mongoose');
 
 commentController = {
   get: (req, res) => {
-    console.log('parentType', req.params.parentType)
-    console.log('parentId', req.params.parentId)
     comment
       .find({parentType: req.params.parentType, parentId: req.params.parentId})
       .then(comments => {

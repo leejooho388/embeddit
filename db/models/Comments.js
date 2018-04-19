@@ -6,6 +6,7 @@ var commentSchema = mongoose.Schema({
     parentId: { type: String, required: true },
     text: String,
     voteCount: Number,
+    voteHistoryUser: Object,
     author: Object
     // {
       // authorId: String,
