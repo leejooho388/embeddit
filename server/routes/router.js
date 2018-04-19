@@ -35,9 +35,6 @@ router.post('/comments', commentController.post);
 // POST VOTES
 router.post('/r/:subreddit/:id/vote', postVoteController.post);
 router.put('/r/:subreddit/:id/vote', postVoteController.put);
-// VOTES
-router.post('/r/:subreddit/:id/vote', voteController.post);
-router.put('/r/:subreddit/:id/vote', voteController.put);
 router.get('/r/:subreddit/', postController.getSubreddit)
 
 // COMMENT VOTES
