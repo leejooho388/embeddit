@@ -29,9 +29,6 @@ class Side extends Component {
 
     return (
       <div className ="side">
-        <form className="search" role="search">
-          <Input fluid size="small" type="text" placeholder="search" />
-        </form>
         {renderLogIn}
         {renderLinkPostBtn}
         {renderTextPostBtn}

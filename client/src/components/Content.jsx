@@ -9,7 +9,7 @@ import renderVoteHelper from '../../utils/renderVotesUtils';
 
 class Content extends Component {
   constructor(props) {
-    super(props),
+    super(props);
     this.state = {
       posts: [],
       currentQuery: '',
@@ -81,7 +81,7 @@ class Content extends Component {
       <div>
       {this.state.posts.map( (post, i) => {
 
-        const voteStyle = renderVoteHelper(this, post);
+        const voteStyle = renderVoteHelper(this, post, false, this.props.authenticated);
 
         return (
           <Grid key={post._id}>
