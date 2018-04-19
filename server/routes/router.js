@@ -40,7 +40,7 @@ router.put('/r/:subreddit/:id/vote', postVoteController.put);
 router.post('/comment/vote/:commentId', commentVoteController.post);
 router.put('/comment/vote/:commentId', commentVoteController.put);
 
-// SUBREDDITS
+// SUBREDDIT PAGE
 router.get('/r/:subreddit/', postController.getSubreddit);
 
 const passport = require('passport');

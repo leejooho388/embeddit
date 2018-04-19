@@ -39,7 +39,6 @@ export default class CreateSubreddits extends Component {
       description: this.state.description,
     })
     .then(function(response){
-      console.log(response.data);
       if(response.data !== ''){
         that.setState({
           error: false,

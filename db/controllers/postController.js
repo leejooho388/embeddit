@@ -5,12 +5,9 @@ const db = require('mongoose');
 const postController = {
   get: (req, res) => {
 
-    console.log('req.params', req.params)
-
     if (req.params.userId !== 'undefined') {
       User.findById(req.params.userId)
         .then(user => {
-
           Post
             .find()
             .where('subredditName').in(user.subredditIds)
@@ -42,9 +39,8 @@ const postController = {
   },
 
   getSubreddit: (req, res) => {
-    console.log('hi');
     Post
-      .find({ subredditName: req.params.subreddit })
+      .find({ subredditName: { $regex: new RegExp("^" + req.params.subreddit.toLowerCase(), "i") } })
       .sort({ createdAt: -1})
       .limit(25)
       .then( data => {
