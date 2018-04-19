@@ -80,14 +80,14 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
           {this.state.subreddits.map(function(subreddit){
             return (
               <Grid container key={subreddit._id}>
-                <Grid.Row className='subredditListTop'>
+                <Grid.Row  as={Link} to={`/r/${subreddit.name}`}>
                   <Grid.Column className='subredditGridSubscribe' width={3}>
                   </Grid.Column>
-                  <Grid.Column width={13}>
+                  <Grid.Column width={13} >
                     <h3>{subreddit.name}</h3>
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row className='subredditListBottom' > 
                   <Grid.Column className='subredditGridSubscribe' width={3}>
                     <Button id={subreddit.name} data={_this.isSubscribed(subreddit.name)} onClick={_this.subscribeButtonTapped}>{_this.isSubscribed(subreddit.name)}</Button>
                   </Grid.Column>

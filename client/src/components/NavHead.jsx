@@ -19,14 +19,14 @@ class NavHead extends Component {
               <Dropdown.Menu>
                 {this.state.subreddits.map((sr, i) => {
                   // key will be sr._id with live data
-                  return <Dropdown.Item text={sr} as={Link} to={`/r/${sr}`} key={i}></Dropdown.Item>
+                  return <Dropdown.Item text={sr} as={Link} to={`/r/${sr.toLowerCase()}`} key={i}></Dropdown.Item>
                 })}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item ><Link to='/'>Home</Link></Menu.Item>
                 {/* // key will be sr._id with live data */}
             {this.state.subreddits.map((sr, i) => {
-              return <Menu.Item as={Link} to={`/r/${sr}`} key={i}>{sr}</Menu.Item>
+              return <Menu.Item as={Link} to={`/r/${sr.toLowerCase()}`} key={i}>{sr}</Menu.Item>
             })}
             <Link to='/subreddits'><Menu.Item >Edit</Menu.Item></Link>
           </Container>
