@@ -73,7 +73,7 @@ class Comments extends Component {
 
   render() {
 
-    const voteStyle = renderVoteHelper(this, this.state.comment, true);
+    const voteStyle = renderVoteHelper(this, this.state.comment, true, this.props.authenticated);
 
     let renderPoints = this.state.comment.voteCount;
 

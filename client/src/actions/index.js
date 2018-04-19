@@ -32,7 +32,6 @@ exports.checkJWT = () => {
 };
 
 exports.logInUser = (user, endpoint) => {
-  console.log('here is our decoded user: ', user);
   return (dispatch) => {
     axios.post(`${API_URL}/${endpoint}`, user)
       .then(res => {

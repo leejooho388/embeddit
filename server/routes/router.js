@@ -32,14 +32,16 @@ router.get('/post/:postId', postController.getPostById);
 router.get('/comments/:parentType/:parentId', commentController.get);
 router.post('/comments', commentController.post);
 
-// VOTES
-router.post('/r/:subreddit/:id/vote', voteController.post);
-router.put('/r/:subreddit/:id/vote', voteController.put);
-router.get('/r/:subreddit/', postController.getSubreddit)
+// POST VOTES
+router.post('/r/:subreddit/:id/vote', postVoteController.post);
+router.put('/r/:subreddit/:id/vote', postVoteController.put);
 
 // COMMENT VOTES
 router.post('/comment/vote/:commentId', commentVoteController.post);
 router.put('/comment/vote/:commentId', commentVoteController.put);
+
+// SUBREDDITS
+router.get('/r/:subreddit/', postController.getSubreddit);
 
 const passport = require('passport');
 
