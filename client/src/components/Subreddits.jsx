@@ -84,7 +84,7 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
                   <Grid.Column className='subredditGridSubscribe' width={3}>
                   </Grid.Column>
                   <Grid.Column width={13}>
-                    <h3>{subreddit.name}</h3>
+                  <Link to={`/r/${subreddit.name}`}><div><h3>{subreddit.name}</h3></div></Link>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>

@@ -11,7 +11,8 @@ class Content extends Component {
   constructor(props) {
     super(props),
     this.state = {
-      posts: []
+      posts: [],
+      currentQuery: '',
     }
     this.getPosts = this.getPosts.bind(this);
     this.handleVoteClick = this.handleVoteClick.bind(this);
@@ -32,6 +33,22 @@ class Content extends Component {
       this.getPosts(this.props.user._id);
     } else {
       this.getPosts();
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.match.params.query === undefined && this.state.currentQuery !== this.props.match.params.query){
+      this.componentDidMount();
+      this.setState({currentQuery: this.props.match.params.query})
+    } else if(this.state.currentQuery !== this.props.match.params.query){
+      this.setState({currentQuery: this.props.match.params.query})
+      axios.get(`/api/r/${this.props.match.params.query}`)
+        .then( response => {
+          this.setState({posts: response.data})
+        })
+        .catch( err => {
+          console.error('Unable to fetch posts data.');
+        });
     }
   }
 

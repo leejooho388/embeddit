@@ -10,7 +10,6 @@ const postController = {
     if (req.params.userId !== 'undefined') {
       User.findById(req.params.userId)
         .then(user => {
-
           Post
             .find()
             .where('subredditName').in(user.subredditIds)
@@ -42,7 +41,6 @@ const postController = {
   },
 
   getSubreddit: (req, res) => {
-    console.log('hi');
     Post
       .find({ subredditName: req.params.subreddit })
       .sort({ createdAt: -1})
