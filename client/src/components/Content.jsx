@@ -135,7 +135,13 @@ class Content extends Component {
               <Grid.Column width={13}>
                 <Grid>
                   {/* post title */}
-                  <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
+                  <Grid.Row>
+                    {post.type === 'text' ?
+                      <Link to={`/comments/${post.subredditName}/${post._id}`}>{post.title}</Link>
+                      :
+                      <a href={post.url}>{post.title}</a>
+                    }
+                    </Grid.Row>
                   {/* post info */}
                   <Grid.Row><span className='hover-underline' onClick={() => this.handleCommentClick(post)}>comment</span> <span>&nbsp; submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</span></Grid.Row>
                   {this.state.redirect}
