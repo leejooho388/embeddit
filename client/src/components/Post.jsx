@@ -59,7 +59,7 @@ export default connect (mapStateToProps)( class Post extends Component {
         .then( res => {
           let postId = res.data[0]._id;
           let srName = res.data[0].subredditName;
-          this.setState({ redirect: (<Redirect to={`/r/${srName}/${postId}`}/>)});
+          this.setState({ redirect: (<Redirect to={`/comments/${srName}/${postId}`}/>)});
         })
         .catch( err => {
           console.log('error in fetching post', err);
