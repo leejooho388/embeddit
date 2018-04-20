@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import moment from 'moment';
+import { Redirect, Link } from 'react-router-dom';
 
 import handlePostVote from '../../utils/postVoteUtils';
 import renderVoteHelper from '../../utils/renderVotesUtils';
@@ -13,9 +14,11 @@ class Content extends Component {
     this.state = {
       posts: [],
       currentQuery: '',
+      redirect: <div />
     }
     this.getPosts = this.getPosts.bind(this);
     this.handleVoteClick = this.handleVoteClick.bind(this);
+    this.handleCommentClick = this.handleCommentClick.bind(this);
   }
 
   getPosts(userId) {
@@ -75,6 +78,16 @@ class Content extends Component {
 
   }
 
+  //redirect to PostPage
+  handleCommentClick(post) {
+    let srName = post.subredditName;
+    let postId = post._id;
+    console.log(postId);
+    this.setState({
+      redirect: <Redirect to={`/comments/${srName}/${postId}`} />
+    })
+  }
+
   render() {
 
     return (
@@ -112,7 +125,7 @@ class Content extends Component {
                     <a href={post.url}><Icon name='picture' size='big'/></a>
                       :
                       post.type === 'text' ?
-                      <a href={post.url}><Icon name='file text outline' size='big'/></a>
+                      <Link to={`/comments/${post.subredditName}/${post._id}`}><Icon name='file text outline' size='big'/></Link>
                         :
                         <a href={post.url}><Icon name='linkify' size='big'/></a> 
                         
@@ -124,7 +137,8 @@ class Content extends Component {
                   {/* post title */}
                   <Grid.Row><a href={post.url}>{post.title}</a></Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</Grid.Row>
+                  <Grid.Row><span className='hover-underline' onClick={() => this.handleCommentClick(post)}>comment</span> <span>&nbsp; submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</span></Grid.Row>
+                  {this.state.redirect}
                 </Grid>
               </Grid.Column>
             </Grid.Row>

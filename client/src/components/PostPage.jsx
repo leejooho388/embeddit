@@ -154,7 +154,7 @@ class PostPage extends Component {
                   <Grid.Row><a href={this.state.post.url}>{this.state.post.title}</a></Grid.Row>
                   <Grid.Row>{this.state.post.type === 'text' ? this.state.post.text : this.state.url}</Grid.Row>
                   {/* post info */}
-                  <Grid.Row>comment(s) submitted {moment(this.state.post.createdAt).fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
+                  <Grid.Row>submitted {moment(this.state.post.createdAt).fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
                 </Grid>
               </Grid.Column>
               <Grid.Column width={1}>

@@ -59,7 +59,7 @@ class CommentInputBox extends Component {
   
   render() {
     return(
-      <Form id='commentInputBox'>
+      <Form className='commentInputBox'>
         <Form.Field width='7'>
           <div style={{color: 'rgb(182, 49, 52)'}}>Don't just complain, please MESSAGE THE MODS regarding rule violations</div>
           <Form.TextArea rows='4' onChange={this.handleOnChange} value={this.state.text}/>
