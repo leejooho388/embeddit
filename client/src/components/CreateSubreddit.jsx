@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Message, Input, TextArea, Form, Button } from 'semantic-ui-react';
 import NavHead from './NavHead.jsx';
 import Head2 from './Head2.jsx';
+import { Redirect } from 'react-router-dom';
 
 
 export default class CreateSubreddits extends Component {
@@ -13,6 +14,7 @@ export default class CreateSubreddits extends Component {
       name: '',
       description: '',
       error: true,
+      redirect: (<div />)
     }
 
     this.setName = this.setName.bind(this);
@@ -49,6 +51,7 @@ export default class CreateSubreddits extends Component {
           description: '',
           error: true,
         });
+        that.setState({ redirect: (<Redirect to={'/subreddits'}/>)});
       }
     })
     .catch(function(err){
@@ -72,6 +75,7 @@ export default class CreateSubreddits extends Component {
             <TextArea rows='10' className='subredditTextAreaInput' value={this.state.description} onChange={this.setDescription} autoHeight placeholder='Your Description' />
         </Form.Field>
         <Button type='submit'>Submit</Button>
+        {this.state.redirect}
       </Form>
     );
   }
