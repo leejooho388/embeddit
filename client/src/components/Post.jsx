@@ -41,14 +41,15 @@ export default connect (mapStateToProps)( class Post extends Component {
       })
     },0);
   }
-
+  
   recaptchaCallback(response) {
     console.log('recaptcha response: ', response);
-    axios.post('https://www.google.com/recaptcha/api/siteverify', {
-      secret: config.SECRET_KEY,
-      response: response
+    axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.SECRET_KEY}&response=${response}`, {}, {
+      headers: {
+        'Access-Control-Allow-Origin': '*' 
+      }
     })
-    .then (res => {
+    .then(res => {
       console.log('recaptcha response: ', res);
     })
     .catch(err => {
