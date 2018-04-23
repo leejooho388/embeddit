@@ -21,13 +21,13 @@ export default connect (mapStateToProps)( class Post extends Component {
       media: '',
       title: '',
       text: '',
-      activeIndex: this.props.location.query === 'link' ? '0' : '1',
+      activeIndex: '1',
       redirect: (<div />)
     }
   }
 
   componentDidMount() {
-    this.props.history.listen( ()=> {
+    this.props.history.listen( () => {
       console.log(this.props.location.query);
       this.setState({activeIndex: this.props.location.query === 'link' ? '0' : '1'}, () => {
         this.forceUpdate();
