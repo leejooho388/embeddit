@@ -1,2 +1,2 @@
-const SITE_KEY = '6Lc8GFMUAAAAADONKjAshaf14791REDRmoiH8Zl7';
-module.exports.SITE_KEY = SITE_KEY;
+const SECRET_KEY = '6LeWEFUUAAAAAM95wsxP4SpcDE3xlxyP1EuzpV0p';
+module.exports.SECRET_KEY = SECRET_KEY;

@@ -28,12 +28,33 @@ export default connect (mapStateToProps)( class Post extends Component {
 
   componentDidMount() {
     let _panes = [];
-    let link=this.linkView()
-    let textView= this.textView();
+    let link = this.linkView();
+    let textView = this.textView();
     _panes.push(link, textView);
     this.setState({
       panes: _panes,
     })
+    setTimeout(() => {
+      window.grecaptcha.render('recaptcha-this', {
+      sitekey: '6LeWEFUUAAAAAAt9mIWYpgFM0OE1Z6Qgj-eewtA-',
+      callback: this.recaptchaCallback
+      })
+    },0);
+  }
+  
+  recaptchaCallback(response) {
+    console.log('recaptcha response: ', response);
+    axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.SECRET_KEY}&response=${response}`, {}, {
+      headers: {
+        'Access-Control-Allow-Origin': '*' 
+      }
+    })
+    .then(res => {
+      console.log('recaptcha response: ', res);
+    })
+    .catch(err => {
+      console.log('error in recaptcha: ', err);
+    });
   }
 
   handleSubmit() {
@@ -103,7 +124,7 @@ export default connect (mapStateToProps)( class Post extends Component {
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" id="recaptcha-this" data-sitekey="6LeWEFUUAAAAAAt9mIWYpgFM0OE1Z6Qgj-eewtA-"></div> <br/>
             <Button>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -127,7 +148,7 @@ export default connect (mapStateToProps)( class Post extends Component {
             <Form.Field className='postFields'>
               <Form.Input id='subredditName' label='subreddit' placeholder="subreddit to post to" onChange={this.onChange.bind(this)} value={this.state.sub}/>
             </Form.Field>
-            <div className="g-recaptcha" data-siteKey={config.SITE_KEY}></div> <br/>
+            <div className="g-recaptcha" id="recaptcha-this" data-sitekey="6LeWEFUUAAAAAAt9mIWYpgFM0OE1Z6Qgj-eewtA-"></div> <br/>
             <Button type='submit'>Submit</Button>
           </Form>
         </Tab.Pane>
@@ -137,13 +158,13 @@ export default connect (mapStateToProps)( class Post extends Component {
 
   render() {
     
-    let query = this.props.query === 'link' ? '0' : '1';
-
+    let query = this.props.location.query === 'link' ? '0' : '1';
+    
     return (
       <div id="post">
         {/* {this.props.children} */}
         <h3>submit to reddit</h3>
-        <Tab menu={{ secondary: true}} defaultActiveIndex={query} panes={this.state.panes}/>
+        <Tab menu={{ secondary: true}} activeIndex={query} panes={this.state.panes}/>
         {this.state.redirect}
       </div>
     );
