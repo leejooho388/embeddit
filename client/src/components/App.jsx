@@ -43,7 +43,7 @@ class App extends Component {
               </main>
             </Grid.Column>
           <Grid.Column width={3}>
-            <Side />
+            <Route component={Side} />
           </Grid.Column>
         </Grid>
       </div>

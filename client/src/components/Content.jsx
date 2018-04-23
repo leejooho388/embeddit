@@ -14,7 +14,6 @@ class Content extends Component {
     this.state = {
       posts: [],
       currentQuery: '',
-      redirect: <div />
     }
     this.getPosts = this.getPosts.bind(this);
     this.handleVoteClick = this.handleVoteClick.bind(this);
