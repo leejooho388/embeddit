@@ -140,6 +140,20 @@
     padding-left: 16px;
 }
 
+.comment-username {
+  font-weight: bold;
+}
+
+.comment-left-dash {
+  border-left-color: rgb(221, 221, 253);
+  border-left-style: dotted;
+  border-left-width:thin
+}
+
+.comment-left-column {
+  padding-left: 22px;
+}
+
 #postNum {
     color: darkgray;
     font-weight: bold;
