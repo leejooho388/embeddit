@@ -53,7 +53,7 @@ var subscribe = function(req, res, callback){
         subredditIds.push(req.body.subredditName);
       }
 
-      User.findOneAndUpdate({name: req.body.user}, {'subredditIds': subredditIds}, { new: true }).exec(function(err, newUser) {
+      User.findOneAndUpdate({'username': req.body.username}, {'subredditIds': subredditIds}, { new: true }).exec(function(err, newUser) {
         if(err) {
           response.send(err);
         }
