@@ -113,8 +113,9 @@ class Comments extends Component {
                   <div />
                 }
               </div>
+              <br></br>
               {/* child comments */}
-              <div>
+              <div className='comment-left-dash'>
                 {this.state.childComments.length ?
                   this.state.childComments.map(childComment => {
                     return <Comments key={childComment._id} commentObj={childComment} authenticated={this.props.authenticated} userId={this.props.userId} />
@@ -132,9 +133,9 @@ class Comments extends Component {
           </Grid.Column>
 
           <Grid.Column width={15}>
-            <Grid.Row>
+            <Grid.Row className='hiddenComments'>
             <Icon className='pointer' name="plus square outline" color="grey" onClick={this.toggleComment} />
-              <span className='bold hiddenComments'>{this.state.comment.author.name}</span> <span className='hiddenComments'>{moment(this.state.comment.createdAt).fromNow()}</span>
+              <span className='comment-username'>{this.state.comment.author.name}</span> <span>{moment(this.state.comment.createdAt).fromNow()}</span>
             </Grid.Row>
           </Grid.Column>
         </Grid.Row>
