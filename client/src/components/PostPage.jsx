@@ -13,7 +13,6 @@ class PostPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //posts will be an array
       post: {
         _id: '',
         authorName: 'dlai',
@@ -156,7 +155,6 @@ class PostPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // need to also map the newest post here
   return { authenticated: state.authReducer.authenticated, user: state.authReducer.user };
 }
 

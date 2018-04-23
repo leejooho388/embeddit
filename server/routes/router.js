@@ -66,22 +66,5 @@ router.post('/signup', (req, res) => {
   });
 });
 
-// Passport logout
-// router.get('/logout', function(req, res){
-//   req.logout();
-//   res.redirect('/');
-// });
-
 module.exports = router;
 
-
-
-
-
-// app.get('/protected', function(req, res, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//    if (err) { return next(err) }
-//    if (!user) { return res.redirect('/signin') }
-//      res.redirect('/account');
-//    })(req, res, next);
-//  });

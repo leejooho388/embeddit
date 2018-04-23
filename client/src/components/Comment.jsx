@@ -65,8 +65,6 @@ class Comments extends Component {
       return;
     }
 
-    // this.state.comment.author.authorId
-
     const vote = e.target.getAttribute('data-dir');
     handleCommentVote(this, this.state.comment, this.props.userId, vote);
   }

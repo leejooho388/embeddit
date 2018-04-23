@@ -50,8 +50,6 @@ class Side extends Component {
             that.setState({
               subreddit: response.data[0]
             });
-          } else if (response.data.length > 1) {
-            console.log('fix later');
           }
         });
       } else {

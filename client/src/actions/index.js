@@ -9,14 +9,6 @@ import {
 
 const API_URL = 'http://localhost:8080/api';
 
-// export function actionName() {
-//
-//   return {
-//     type: ACTION_TYPE,
-//     payload: data
-//   };
-// }
-
 exports.checkJWT = () => {
   return (dispatch) => {
     if (localStorage['token']) {

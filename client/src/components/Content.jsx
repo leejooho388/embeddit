@@ -166,16 +166,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(Content);
-
-/*
-post order number,
-
-upvote arrow(changes upon click),
-total vote count(changes upon click),
-downvote arrow(changes upon click),
-
-title(linked to either the post on reddit),
-submitted 'timestamp' ago by 'username' to 'sr'
-
-
-*/
