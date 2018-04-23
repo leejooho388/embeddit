@@ -28,44 +28,15 @@ class PostPage extends Component {
     this.getPostById = this.getPostById.bind(this);
     this.getCommentsAfterPosting = this.getCommentsAfterPosting.bind(this);
     this.handlePostVoteClick = this.handlePostVoteClick.bind(this);
+    this.handleSubredditClick = this.handleSubredditClick.bind(this);
   }
 
   getPostById() {
     axios.get(`/api/post/${this.props.match.params.postId}`)
       .then( res => {
-
         this.setState({
           post: res.data
         });
-
-        // currPost.type === 'text' ?
-        // this.setState({
-        //   post: {
-        //     _id: currPost._id,
-        //     authorName: currPost.authorName,
-        //     subredditName: currPost.subredditName,
-        //     title: currPost.title,
-        //     voteCount: currPost.voteCount,
-        //     type: currPost.type,
-        //     text: currPost.text,
-        //     updatedAt: currPost.updatedAt,
-        //     voteHistoryUser: currPost.voteHistoryUser
-        //   }
-        // })
-        // :
-        // this.setState({
-        //   post: {
-        //     _id: currPost._id,
-        //     authorName: currPost.authorName,
-        //     subredditName: currPost.subredditName,
-        //     title: currPost.title,
-        //     voteCount: currPost.voteCount,
-        //     type: currPost.type,
-        //     url: currPost.url,
-        //     updatedAt: currPost.updatedAt,
-        //     voteHistoryUser: currPost.voteHistoryUser
-        //   }
-        // })
       })
       .catch( err => {
         console.log('could not get current post', err);
@@ -97,6 +68,12 @@ class PostPage extends Component {
     const vote = e.target.getAttribute('data-dir');
     handlePostVote(this, this.state.post, null, vote, false);
   }
+
+  handleSubredditClick(post) {
+    let srname = post.subredditName;
+    console.log(srname);
+    this.props.history.push(`/r/${srname}`);
+  }
   
   render() {
 
@@ -118,7 +95,7 @@ class PostPage extends Component {
     <div><h2>No Comments</h2></div>
 
     return (
-      <div>
+      <div className='post-feed-box'>
         <Grid>
             <Grid.Row id='post-page-block'>
               <Grid.Column width={1} floated='left'>
@@ -154,7 +131,12 @@ class PostPage extends Component {
                   <Grid.Row><a href={this.state.post.url}>{this.state.post.title}</a></Grid.Row>
                   <Grid.Row>{this.state.post.type === 'text' ? this.state.post.text : this.state.url}</Grid.Row>
                   {/* post info */}
-                  <Grid.Row>submitted {moment(this.state.post.createdAt).fromNow()} ago by {this.state.post.authorName} to {this.state.post.subredditName}</Grid.Row>
+                  <Grid.Row className='content-feed'>
+                    <span>submitted {moment(this.state.post.createdAt).fromNow()} by&nbsp;</span>
+                    <span className='content-feed-username'>{this.state.post.authorName}</span>
+                    <span>&nbsp;to&nbsp;</span>
+                    <span className='hover-underline content-feed-srname' onClick={() => this.handleSubredditClick(this.state.post)}>r/{this.state.post.subredditName}</span>
+                  </Grid.Row>
                 </Grid>
               </Grid.Column>
               <Grid.Column width={1}>

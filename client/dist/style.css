@@ -196,3 +196,23 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.content-feed {
+  color: rgb(136, 136, 136)
+}
+
+.content-feed-comment {
+  font-weight: bold;
+}
+
+.content-feed-username {
+  color: black;
+}
+
+.content-feed-srname {
+  color: rgb(41, 102, 151);
+}
+
+.post-feed-box {
+  padding-left: 16px;
+}

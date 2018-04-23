@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import moment from 'moment';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import handlePostVote from '../../utils/postVoteUtils';
 import renderVoteHelper from '../../utils/renderVotesUtils';
