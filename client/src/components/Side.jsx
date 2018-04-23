@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from 'semantic-ui-react';
 import { Input } from 'semantic-ui-react';
+import { updateSubscription } from '../actions';
 import axios from 'axios';
 
 class Side extends Component {
@@ -14,6 +15,29 @@ class Side extends Component {
     this.state = {
       subreddit: undefined,
     }
+
+    this.subscribeButtonTapped = this.subscribeButtonTapped.bind(this);
+    this.isSubscribed = this.isSubscribed.bind(this);
+  }
+
+  subscribeButtonTapped(e) {
+    if (!this.props.user.authReducer.user) { 
+      return console.log('Please Sign in to post'); 
+    }
+    let change = e.target.getAttribute('data') === SUBSCRIBE ? 1 : -1;
+    this.props.updateSubscription({
+      username: this.props.user.authReducer.user.username,
+      change: change,
+      subredditName: e.target.id
+    }, this.props.user.authReducer.user);
+  }
+
+  isSubscribed(subName) {
+    if (!this.props.user.authReducer.user) {
+      return SUBSCRIBE;
+    } 
+    let userSubs = this.props.user.authReducer.user.subredditIds;
+    return userSubs.includes(subName) ? UNSUBSCRIBE : SUBSCRIBE;
   }
 
   getSubredditInfo(path){
@@ -65,6 +89,7 @@ class Side extends Component {
         <h3>{`/r/${this.state.subreddit.name}`}</h3>
         <p>Description: {this.state.subreddit.description}</p>
         <p className='subscriberCount'>Subscriber Count: {this.state.subreddit.subscriberCount}</p>
+        <Button id={this.state.subreddit.name} data={this.isSubscribed(this.state.subreddit.name)} onClick={this.subscribeButtonTapped}>{this.isSubscribed(this.state.subreddit.name)}</Button>
       </div>
     )
 
@@ -80,7 +105,20 @@ class Side extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { authenticated: state.authReducer.authenticated };
+  return { 
+    authenticated: state.authReducer.authenticated,
+    user: state
+   };
 }
 
-export default connect(mapStateToProps, null)(Side);
+
+const mapDispatchToProps = (dispatch) => ({
+  'updateSubscription': (subInfo, currentUser) => {
+    dispatch(updateSubscription(subInfo, currentUser));
+  }
+})
+
+const SUBSCRIBE = 'Subscribe';
+const UNSUBSCRIBE = 'Unsubscribe';
+
+export default connect(mapStateToProps, mapDispatchToProps, null)(Side);
