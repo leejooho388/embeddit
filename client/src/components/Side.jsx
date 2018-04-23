@@ -19,7 +19,7 @@ class Side extends Component {
   getSubredditInfo(path){
     const that = this;
     let splitUrl = path.split('/');
-      if(splitUrl[1] === 'r'){
+      if(splitUrl[1] === 'r' || splitUrl[1] === 'comments'){
         axios.get(`/api/subreddit/${splitUrl[2]}`)
         .then( response => {
           if(response.data.length === 1){
