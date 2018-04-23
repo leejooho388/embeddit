@@ -44,16 +44,16 @@ export default connect (mapStateToProps)( class Post extends Component {
 
   recaptchaCallback(response) {
     console.log('recaptcha response: ', response);
-    axios.post('https://www.google.com/recaptcha/api/siteverify',{
+    axios.post('https://www.google.com/recaptcha/api/siteverify', {
       secret: config.SECRET_KEY,
-      response: response,
-      success: (res) => {
-        console.log('here is res for recaptcha', res);
-      },
-      error: (err) => {
-        console.log('error in recaptcha', err);
-      }
+      response: response
     })
+    .then (res => {
+      console.log('recaptcha response: ', res);
+    })
+    .catch(err => {
+      console.log('error in recaptcha: ', err);
+    });
   }
 
   handleSubmit() {
