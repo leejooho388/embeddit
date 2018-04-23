@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Icon, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import handlePostVote from '../../utils/postVoteUtils';
 import renderVoteHelper from '../../utils/renderVotesUtils';
@@ -13,11 +13,12 @@ class Content extends Component {
     super(props);
     this.state = {
       posts: [],
-      currentQuery: '',
+      currentQuery: ''
     }
     this.getPosts = this.getPosts.bind(this);
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.handleCommentClick = this.handleCommentClick.bind(this);
+    this.handleSubredditClick = this.handleSubredditClick.bind(this);
   }
 
   getPosts(userId) {
@@ -81,10 +82,13 @@ class Content extends Component {
   handleCommentClick(post) {
     let srName = post.subredditName;
     let postId = post._id;
-    console.log(postId);
-    this.setState({
-      redirect: <Redirect to={`/comments/${srName}/${postId}`} />
-    })
+    this.props.history.push(`/comments/${srName}/${postId}`)
+  }
+
+  //redirect to Subreddit
+  handleSubredditClick(post) {
+    let srName = post.subredditName;
+    this.props.history.push(`/r/${srName}/`);
   }
 
   render() {
@@ -142,8 +146,10 @@ class Content extends Component {
                     }
                     </Grid.Row>
                   {/* post info */}
-                  <Grid.Row><span className='hover-underline' onClick={() => this.handleCommentClick(post)}>comment</span> <span>&nbsp; submitted {moment(post.createdAt).fromNow()} ago by {post.authorName} to {post.subredditName}</span></Grid.Row>
-                  {this.state.redirect}
+                  <Grid.Row className='content-feed'>
+                    <span className='hover-underline content-feed-comment' onClick={() => this.handleCommentClick(post)}>comment</span>
+                    <span>&nbsp; submitted {moment(post.createdAt).fromNow()} by&nbsp;<span className='content-feed-username'>{post.authorName}</span>&nbsp;to&nbsp;</span>
+                    <span className='hover-underline content-feed-srname' onClick={() => this.handleSubredditClick(post)}>r/{post.subredditName}</span></Grid.Row>
                 </Grid>
               </Grid.Column>
             </Grid.Row>
