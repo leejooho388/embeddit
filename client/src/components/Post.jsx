@@ -21,12 +21,19 @@ export default connect (mapStateToProps)( class Post extends Component {
       media: '',
       title: '',
       text: '',
+      activeIndex: this.props.location.query === 'link' ? '0' : '1',
       redirect: (<div />)
     }
   }
-  
 
   componentDidMount() {
+    this.props.history.listen( ()=> {
+      console.log(this.props.location.query);
+      this.setState({activeIndex: this.props.location.query === 'link' ? '0' : '1'}, () => {
+        this.forceUpdate();
+      })
+
+    })
     let _panes = [];
     let link = this.linkView();
     let textView = this.textView();
@@ -41,7 +48,7 @@ export default connect (mapStateToProps)( class Post extends Component {
       })
     },0);
   }
-  
+
   recaptchaCallback(response) {
     console.log('recaptcha response: ', response);
     axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${config.SECRET_KEY}&response=${response}`, {}, {
@@ -108,6 +115,11 @@ export default connect (mapStateToProps)( class Post extends Component {
     } 
   }
 
+  handleTabChange(e, {activeIndex}) {
+    
+    this.setState({activeIndex});
+  }
+
   linkView() {
     return (
       {
@@ -158,13 +170,12 @@ export default connect (mapStateToProps)( class Post extends Component {
 
   render() {
     
-    let query = this.props.location.query === 'link' ? '0' : '1';
+    //let query = this.props.location.query === 'link' ? '0' : '1';
     
     return (
       <div id="post">
-        {/* {this.props.children} */}
         <h3>submit to reddit</h3>
-        <Tab menu={{ secondary: true}} activeIndex={query} panes={this.state.panes}/>
+        <Tab menu={{ secondary: true}} activeIndex={this.state.activeIndex} panes={this.state.panes} onTabChange={this.handleTabChange.bind(this)}/>
         {this.state.redirect}
       </div>
     );
