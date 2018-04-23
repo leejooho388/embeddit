@@ -73,13 +73,13 @@ class Side extends Component {
     const renderLogIn = this.props.authenticated ? null : <LogIn />;
 
     const renderLinkPostBtn = this.props.authenticated ? (
-      <Link to="/post" query='link' ><Button fluid id="post-link">Submit a new link</Button></Link>
+      <Link to={{pathname: "/post", query: "link"}} ><Button fluid id="post-link">Submit a new link</Button></Link>
     ) : (
       null
     );
 
     const renderTextPostBtn = this.props.authenticated ? (
-      <Link to="/post" query='text' ><Button fluid id="post-text">Submit a text post</Button></Link>
+      <Link to={{pathname: "/post", query: "text"}} ><Button fluid id="post-text">Submit a text post</Button></Link>
     ) : (
       null
     );
