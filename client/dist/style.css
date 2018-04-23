@@ -140,6 +140,9 @@
     padding-left: 16px;
 }
 
+.commentInputBox-alert {
+  color: rgb(255, 0, 24)
+}
 .comment-username {
   font-weight: bold;
 }

@@ -27,6 +27,7 @@ class CommentInputBox extends Component {
   
   handleSubmit() {
     let user = this.props.user.authReducer.user;
+    this.state.text !== '' ?
     this.setState({
       author: {
         authorId: user._id,
@@ -38,7 +39,8 @@ class CommentInputBox extends Component {
       .then( res => {
           this.setState({
             text: '',
-            author: {}
+            author: {},
+            alert: false
           }),
           axios.get(`/api/comments/${this.props.parentType}/${this.props.parentId}`)
             .then( res => {
@@ -55,14 +57,24 @@ class CommentInputBox extends Component {
           console.log('Error on comment posting', err);
         })
     })
+    :
+    this.setState({
+      alert: true
+    })
   }
   
   render() {
+    const renderAlert = this.state.alert ?
+    <div className='commentInputBox-alert'>we need something here</div>
+    :
+    <div />
+
     return(
       <Form className='commentInputBox'>
         <Form.Field width='7'>
           <div style={{color: 'rgb(182, 49, 52)'}}>Don't just complain, please MESSAGE THE MODS regarding rule violations</div>
           <Form.TextArea rows='4' onChange={this.handleOnChange} value={this.state.text}/>
+          {renderAlert}
           <Button basic size='mini' color='grey' onClick={this.handleSubmit}>save</Button>
           {this.props.parentType === 1 && <Button basic size='mini' color='grey' onClick={() => { this.props.hide() }}>cancel</Button>}
         </Form.Field>
