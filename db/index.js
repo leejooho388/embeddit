@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/embeddit');
+mongoose.connect(process.env.MONGODB || 'mongodb://localhost/embeddit', { useNewUrlParser: true, useUnifiedTopology: true  });
 
 var db = mongoose.connection;
 
