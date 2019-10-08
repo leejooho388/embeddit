@@ -35,7 +35,7 @@ class CommentInputBox extends Component {
       }
     }, () => {
       let newComment = Object.assign({}, this.state);
-      axios.post('http://localhost:8080/api/comments', newComment)
+      axios.post('https://embeddit-jl388.herokuapp.com/api/comments', newComment)
       .then( res => {
           this.setState({
             text: '',

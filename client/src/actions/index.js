@@ -7,7 +7,7 @@ import {
   AUTH_ERROR
 } from './types';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'https://embeddit-jl388.herokuapp.com/api';
 
 exports.checkJWT = () => {
   return (dispatch) => {

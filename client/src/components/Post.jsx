@@ -75,7 +75,7 @@ export default connect (mapStateToProps)( class Post extends Component {
     for (let key in newPost) {
       (newPost[key] === '') && delete newPost[key]
     }
-    axios.post('http://localhost:8080/api/post', newPost)
+    axios.post('https://embeddit-jl388.herokuapp.com/api/post', newPost)
     .then( res => {
       _this.setState({
         subredditName: '',
@@ -83,7 +83,7 @@ export default connect (mapStateToProps)( class Post extends Component {
         title: '',
         text: '',
       });
-      axios.get('http://localhost:8080/api/post/user/newest', username)
+      axios.get('https://embeddit-jl388.herokuapp.com/api/post/user/newest', username)
         .then( res => {
           let postId = res.data[0]._id;
           let srName = res.data[0].subredditName;

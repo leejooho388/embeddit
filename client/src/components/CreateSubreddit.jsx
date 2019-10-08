@@ -36,7 +36,7 @@ export default class CreateSubreddits extends Component {
 
   postSubreddit(){
     const that = this;
-    axios.post('http://localhost:8080/api/subreddit', {
+    axios.post('https://embeddit-jl388.herokuapp.com/api/subreddit', {
       name: this.state.name,
       description: this.state.description,
     })

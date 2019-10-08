@@ -41,7 +41,7 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
 
   getSubreddits(){
     var that = this;
-    axios.get('http://localhost:8080/api/subreddit')
+    axios.get('https://embeddit-jl388.herokuapp.com/api/subreddit')
     .then(function(response){
       that.setSubreddits(response.data);
     }); 
