@@ -1,6 +1,5 @@
 const User = require('../models/Users.js');
 const Subreddit = require('../models/Subreddits.js');
-const jwt = require('jsonwebtoken');
 
 var getQuerySubreddit = function(req, res){
   Subreddit.find({'_id': req.params.query}).exec(function(err, subreddits){

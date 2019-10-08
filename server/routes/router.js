@@ -16,6 +16,7 @@ router.post('/subscribe', (req, res) => {
     const token = jwt.sign({ user: newUser}, 'your_jwt_secret', { expiresIn: '7 days' });    
     
     res.header("Access-Control-Allow-Headers", "*");
+    res.header("Set-Cookie: SameSite=None; Secure");
     res.header('auth', JSON.stringify({ token: token }));
 
     res.end();
