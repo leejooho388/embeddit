@@ -10,31 +10,42 @@ const LocalStrategy = require('passport-local').Strategy;
 const routes = require('./routes/router');
 const loginUser = require('../db/controllers/loginUser');
 
+//For concurrency
+const throng = require('throng')
+var WORKERS = process.env.WEB_CONCURRENCY || 1;
+
 const PORT = process.env.PORT || 8080;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+let start = () => {
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true}));
+  
+  // app.use(morgan('dev'));
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.use(passport.initialize());
+  
+  passport.use(new LocalStrategy(loginUser));
+  
+  app.use('/api', routes);
+  
+  app.use(function(req, res, next){
+    let temp = req.url.split('/');
+    req.url = temp[temp.length-2];
+    if(req.url.indexOf('.') === -1){
+      req.url = '/';
+    }
+    next();
+  });
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+  
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });  
+};
 
-// app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, '../client/dist')));
-app.use(passport.initialize());
 
-passport.use(new LocalStrategy(loginUser));
-
-app.use('/api', routes);
-
-app.use(function(req, res, next){
-  let temp = req.url.split('/');
-  req.url = temp[temp.length-2];
-  if(req.url.indexOf('.') === -1){
-    req.url = '/';
-  }
-  next();
-});
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
-
+throng({
+  workers: WORKERS,
+  lifetime: Infinity
+}, start)
