@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
+    "build": "webpack",
     "server-dev": "nodemon server/index.js",
     "dev": "webpack -d --watch",
     "db:setup": "node exampleData/examplePosts.js & node exampleData/exampleSR.js & node exampleData/exampleUsers.js"
