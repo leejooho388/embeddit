@@ -59,7 +59,7 @@ class Side extends Component {
       }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.getSubredditInfo(this.props.history.location.pathname);
     this.unlisten = this.props.history.listen((location) => {
       this.getSubredditInfo(location.pathname);

@@ -8,7 +8,7 @@ import axios from 'axios';
 
 class Head2 extends Component {
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     this.render();
   }
 

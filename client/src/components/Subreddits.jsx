@@ -47,7 +47,7 @@ export default connect (mapStateToProps, mapDispatchToProps)( class Subreddits e
     }); 
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.getSubreddits();
   }
 
